@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(BASEPATH . "libraries/getid3/getid3.php");
+require_once(APPPATH . "libraries/getid3/getid3.php");
 
 /**
  * MyId3
