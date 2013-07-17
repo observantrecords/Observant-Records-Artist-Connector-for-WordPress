@@ -14,15 +14,6 @@
 		<link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen and (max-width: 600px)" />
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" />
 		<link rel="stylesheet" href="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/css/chosen.min.css" type="text/css" />
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.ext.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.validate.pack.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/chosen.jquery.min.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/modernizr-1.6.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/html5.js"></script><![endif]-->
 	</head>
 
 	<body>
@@ -34,9 +25,7 @@
 
 				<nav id="nav-column-1">
 					<ul id="nav-main">
-						<li><a href="/index.php/news/">Blog</a></li>
-						<li><a href="{$config.to_observantshop}/">Shop</a></li>
-						<li><a href="/index.php/contact/">Contact</a></li>
+						<li><a href="/">Home</a></li>
 						{if $smarty.session.is_logged_in}<li><a href="/index.php/admin/logout/">Logout</a></li>{/if}
 					</ul>
 				</nav>
@@ -55,21 +44,21 @@
 			</div>
 
 			<footer class="centered">
-				<p>&copy; {'now'|date_format:"%Y"} Observant Records</p>
+				<p>&copy; {'now'|date_format:"%Y"} <a href="{$config.to_observant}/">Observant Records</a></p>
 			</footer>
 		</div>
-
+		
 {literal}
-	<script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-7828220-2");
-	pageTracker._trackPageview();
-	} catch(err) {}
-	</script>
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		try {
+		var pageTracker = _gat._getTracker("UA-7828220-2");
+		pageTracker._trackPageview();
+		} catch(err) {}
+		</script>
 {/literal}
 	</body>
 </html>

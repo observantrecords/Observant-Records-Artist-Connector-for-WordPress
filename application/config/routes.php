@@ -40,11 +40,6 @@
 
 $route['default_controller'] = "admin/index";
 $route['404_override'] = '';
-$route['news/more'] = "news";
-$route['news/more/(:num)'] = "news/news/$1";
-$route['contact'] = "observant/contact";
-$route['contact/sent'] = "observant/contact_sent";
-$route['shop'] = "observant/shop";
 $route['admin'] = "admin/index";
 $route['admin/login'] = "admin/index/login";
 $route['admin/logout'] = "admin/index/logout";
