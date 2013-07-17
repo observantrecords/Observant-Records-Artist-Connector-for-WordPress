@@ -3,8 +3,8 @@
 
 	{if !empty($rsRelease)}
 	<p>
-		<a href="/index.php/admin/release/edit/{$release_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
-		<a href="/index.php/admin/release/delete/{$release_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/delete-page-blue.gif" alt="[Delete]" title="[Delete]" /> Delete</a>
+		<a href="/index.php/admin/release/edit/{$release_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
+		<a href="/index.php/admin/release/delete/{$release_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-blue.gif" alt="[Delete]" title="[Delete]" /> Delete</a>
 	</p>
 
 	<ul class="two-column-bubble-list">
@@ -73,7 +73,7 @@
 
 		<form action="/index.php/admin/track/save_order/{$release_id}/" method="post" id="save-order-form">
 			<p>
-				<a href="/index.php/admin/track/add/{$release_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/add-page-blue.gif" alt="[Add]" title="[Add]" /> Add a track</a>
+				<a href="/index.php/admin/track/add/{$release_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" alt="[Add]" title="[Add]" /> Add a track</a>
 				<a href="/index.php/admin/release/export_id3/{$release_id}/" class="button">Export ID3 data</a>
 				<input type="button" value="Save track order" id="save-order" class="button" />
 				<input type="hidden" name="track_id" value="{$rsTrack->track_id}" />
@@ -88,8 +88,8 @@
 				{foreach item=rsTrack from=$rsDisc}
 					<li>
 						<div>
-							<a href="/index.php/admin/track/edit/{$rsTrack->track_id}"><img src="{$config.to_vigilante}/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
-							<a href="/index.php/admin/track/delete/{$rsTrack->track_id}"><img src="{$config.to_vigilante}/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
+							<a href="/index.php/admin/track/edit/{$rsTrack->track_id}"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
+							<a href="/index.php/admin/track/delete/{$rsTrack->track_id}"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
 							<span class="track-num-display">{$rsTrack->track_track_num}</span>. <a href="/index.php/admin/track/view/{$rsTrack->track_id}">{$rsTrack->song->song_title}</a>
 							<input type="hidden" name="track_id" value="{$rsTrack->track_id}" />
 							<input type="hidden" name="track_disc_num" value="{$rsTrack->track_disc_num}" />

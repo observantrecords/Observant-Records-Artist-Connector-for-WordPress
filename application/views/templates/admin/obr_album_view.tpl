@@ -3,8 +3,8 @@
 <div id="admin-column-1">
 	{if !empty($rsAlbum)}
 	<p>
-		<a href="/index.php/admin/album/edit/{$album_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
-		<a href="/index.php/admin/album/delete/{$album_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" alt="[Delete]" title="[Delete]" /> Delete</a>
+		<a href="/index.php/admin/album/edit/{$album_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
+		<a href="/index.php/admin/album/delete/{$album_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" alt="[Delete]" title="[Delete]" /> Delete</a>
 	</p>
 
 	<ul class="two-column-bubble-list">
@@ -59,7 +59,7 @@
 	<h3>Releases</h3>
 
 	<p>
-		<a href="/index.php/admin/release/add/{$album_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/add-page-blue.gif" alt="[Add a release]" title="[Add a release]" /> Add a release</a>
+		<a href="/index.php/admin/release/add/{$album_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" alt="[Add a release]" title="[Add a release]" /> Add a release</a>
 	</p>
 
 	{if !empty($rsReleases)}
@@ -78,8 +78,8 @@
 			<tr>
 				<td>
 					<div>
-						<a href="/index.php/admin/release/edit/{$rsRelease->release_id}/"><img src="{$config.to_vigilante}/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
-						<a href="/index.php/admin/release/delete/{$rsRelease->release_id}/"><img src="{$config.to_vigilante}/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
+						<a href="/index.php/admin/release/edit/{$rsRelease->release_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
+						<a href="/index.php/admin/release/delete/{$rsRelease->release_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
 					</div>
 				</td>
 				<td>

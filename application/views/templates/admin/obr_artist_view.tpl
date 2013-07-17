@@ -5,8 +5,8 @@
 	<h3>Artist Info</h3>
 
 	<p>
-		<a href="/index.php/admin/artist/edit/{$rsArtist->artist_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" /> Edit</a>
-		<a href="/index.php/admin/artist/delete/{$rsArtist->artist_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/delete-page-blue.gif" /> Delete</a>
+		<a href="/index.php/admin/artist/edit/{$rsArtist->artist_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" /> Edit</a>
+		<a href="/index.php/admin/artist/delete/{$rsArtist->artist_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-blue.gif" /> Delete</a>
 	</p>
 
 	<ul class="two-column-bubble-list">
@@ -49,7 +49,7 @@
 
 	<form action="/index.php/admin/album/save_order/" method="post" id="save-order-form">
 		<p>
-			<a href="/index.php/admin/album/add/{$artist_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/add-page-blue.gif" /> Add album</a>
+			<a href="/index.php/admin/album/add/{$artist_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" /> Add album</a>
 			<input type="button" value="Save album order" id="save-order" class="button" />
 			<input type="hidden" name="album_id" value="" />
 		</p>
@@ -60,8 +60,8 @@
 		{foreach item=rsAlbum from=$rsAlbums}
 			<li>
 				<div>
-					<a href="/index.php/admin/album/edit/{$rsAlbum->album_id}/"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /></a>
-					<a href="/index.php/admin/album/delete/{$rsAlbum->album_id}/"><img src="{$config.to_vigilante}/images/icons/delete-page-blue.gif" alt="[Delete]" title="[Delete]" /></a>
+					<a href="/index.php/admin/album/edit/{$rsAlbum->album_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /></a>
+					<a href="/index.php/admin/album/delete/{$rsAlbum->album_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-blue.gif" alt="[Delete]" title="[Delete]" /></a>
 					<span class="album-order-display">{$rsAlbum->album_order}</span>. <a href="/index.php/admin/album/view/{$rsAlbum->album_id}/">{$rsAlbum->album_title}</a>
 					<input type="hidden" name="album_id" value="{$rsAlbum->album_id}" />
 					<input type="hidden" name="album_order" value="{$rsAlbum->album_order}" />

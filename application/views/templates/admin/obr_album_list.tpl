@@ -1,7 +1,7 @@
 {include file=obr_global_header.tpl}
 
 	<p>
-		<a href="/index.php/admin/album/add/{$artist_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/add-page-blue.gif" /> Add album</a>
+		<a href="/index.php/admin/album/add/{$artist_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" /> Add album</a>
 	</p>
 
 	{if $rsAlbums}

@@ -3,8 +3,8 @@
 
 {if !empty($rsSong)}
 	<p>
-		<a href="/index.php/admin/song/edit/{$song_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
-		<a href="/index.php/admin/song/delete/{$song_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/delete-page-blue.gif" alt="[Edit]" title="[Edit]" /> Delete</a>
+		<a href="/index.php/admin/song/edit/{$song_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-blue.gif" alt="[Edit]" title="[Edit]" /> Edit</a>
+		<a href="/index.php/admin/song/delete/{$song_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-blue.gif" alt="[Edit]" title="[Edit]" /> Delete</a>
 	</p>
 
 	<ul class="two-column-bubble-list">
@@ -58,8 +58,8 @@
 	{foreach item=rsRecording from=$rsSong->recordings}
 		<li>
 			<div>
-				<a href="/index.php/admin/recording/edit/{$rsRecording->recording_id}/"><img src="{$config.to_vigilante}/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
-				<a href="/index.php/admin/recording/delete/{$rsRecording->recording_id}/"><img src="{$config.to_vigilante}/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
+				<a href="/index.php/admin/recording/edit/{$rsRecording->recording_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
+				<a href="/index.php/admin/recording/delete/{$rsRecording->recording_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
 				<a href="/index.php/admin/recording/view/{$rsRecording->recording_id}/">{if empty($rsRecording->recording_isrc_num)}(ISRC TBD){else}{$rsRecording->recording_isrc_num}{/if}</a>
 			</div>
 		</li>
@@ -76,8 +76,8 @@
 	{foreach item=rsTrack from=$rsSong->tracks}
 		<li>
 			<div>
-				<a href="/index.php/admin/track/edit/{$rsTrack->track_id}/"><img src="{$config.to_vigilante}/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
-				<a href="/index.php/admin/track/delete/{$rsTrack->track_id}/"><img src="{$config.to_vigilante}/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
+				<a href="/index.php/admin/track/edit/{$rsTrack->track_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
+				<a href="/index.php/admin/track/delete/{$rsTrack->track_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
 				<em><a href="/index.php/admin/track/view/{$rsTrack->track_id}/">{$rsTrack->release->release_alias}</a></em>
 			</div>
 		</li>

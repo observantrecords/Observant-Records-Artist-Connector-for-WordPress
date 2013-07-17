@@ -6,24 +6,23 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/css/blueprint/screen.css" type="text/css" media="screen, projection" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/css/blueprint/print.css" type="text/css" media="print" />
-		<!--[if lt IE 8]><link rel="stylesheet" href="{$config.to_vigilante}/css/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->
+		<link rel="stylesheet" href="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/css/blueprint/screen.css" type="text/css" media="screen, projection" />
+		<link rel="stylesheet" href="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/css/blueprint/print.css" type="text/css" media="print" />
+		<!--[if lt IE 8]><link rel="stylesheet" href="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/css/blueprint/ie.css" type="text/css" media="screen, projection" /><![endif]-->
 		<link rel="stylesheet" href="/css/typography.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="/css/layout.css" type="text/css" media="screen, projection" />
 		<link rel="stylesheet" href="/css/mobile.css" type="text/css" media="screen and (max-width: 600px)" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/css/jquery.autocomplete.css" type="text/css" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/js/lib/thickbox.css" type="text/css" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/js/ui/css/smoothness/jquery-ui-1.8.23.custom.css" type="text/css" />
-		<link rel="stylesheet" href="{$config.to_vigilante}/css/chosen.min.css" type="text/css" />
-		<script type="text/javascript" src="{$config.to_vigilante}/js/jquery.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/jquery.swfobject.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/jquery.swfobject.ext.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/jquery.validate.pack.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/chosen.jquery.min.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/ui/js/jquery-ui.min.js"></script>
-		<script type="text/javascript" src="{$config.to_vigilante}/js/modernizr-1.6.min.js"></script>
-		<!--[if lt IE 9]><script type="text/javascript" src="{$config.to_vigilante}/js/html5.js"></script><![endif]-->
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" />
+		<link rel="stylesheet" href="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/css/chosen.min.css" type="text/css" />
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.js"></script>
+		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.ext.js"></script>
+		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.validate.pack.js"></script>
+		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/chosen.jquery.min.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/modernizr-1.6.min.js"></script>
+		<!--[if lt IE 9]><script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/html5.js"></script><![endif]-->
 	</head>
 
 	<body>
@@ -44,9 +43,9 @@
 
 				<nav id="nav-column-2">
 					<ul id="nav-social">
-						<li><a href="http://twitter.com/ObservantRecs"><img src="{$config.to_vigilante}/images/icons/twitter.png" alt="[Twitter]" title="[Twitter]" /></a></li>
-						<li><a href="http://youtube.com/user/observantrecords"><img src="{$config.to_vigilante}/images/icons/youtube.png" alt="[YouTube]" title="[YouTube]" /></a></li>
-						<li><a href="http://soundcloud.com/observantrecords"><img src="{$config.to_vigilante}/images/icons/soundcloud.png" alt="[SoundCloud]" title="[SoundCloud]" /></a></li>
+						<li><a href="http://twitter.com/ObservantRecs"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/twitter.png" alt="[Twitter]" title="[Twitter]" /></a></li>
+						<li><a href="http://youtube.com/user/observantrecords"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/youtube.png" alt="[YouTube]" title="[YouTube]" /></a></li>
+						<li><a href="http://soundcloud.com/observantrecords"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/soundcloud.png" alt="[SoundCloud]" title="[SoundCloud]" /></a></li>
 					</ul>
 				</nav>
 			</div>

@@ -6,7 +6,7 @@
 	<p>
 		<input type="submit" value="Save" class="button" />
 {if $song_id}
-		<a href="/index.php/admin/song/save_lyrics/{$song_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/download-page-blue.gif" alt="[SAVE]" /> Save lyrics as text</a>
+		<a href="/index.php/admin/song/save_lyrics/{$song_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/download-page-blue.gif" alt="[SAVE]" /> Save lyrics as text</a>
 {/if}
 	</p>
 
@@ -63,7 +63,7 @@
 	<p>
 		<input type="submit" value="Save" class="button" />
 {if $song_id}
-		<a href="/index.php/admin/song/save_lyrics/{$song_id}/" class="button"><img src="{$config.to_vigilante}/images/icons/download-page-blue.gif" alt="[SAVE]" /> Save lyrics as text</a>
+		<a href="/index.php/admin/song/save_lyrics/{$song_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/download-page-blue.gif" alt="[SAVE]" /> Save lyrics as text</a>
 {/if}
 	</p>
 
