@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	require_once '../../vigilantmedia.com/vigilante/includes/env.php';
+	require_once dirname($_SERVER['SCRIPT_FILENAME']).'/includes/environment.php';
 	//define('ENVIRONMENT', 'development');
 /*
  *---------------------------------------------------------------
@@ -35,13 +35,11 @@ if (defined('ENVIRONMENT'))
 	{
 		case 'localhost':
 		case 'development':
-		case 'dev': //DEPRECATED
 			error_reporting(E_ALL);
 		break;
 
 		case 'testing':
 		case 'production':
-		case 'prod': //DEPRECATED
 			error_reporting(0);
 		break;
 
@@ -60,7 +58,7 @@ if (defined('ENVIRONMENT'))
  * as this file.
  *
  */
-	$system_path = '../../vigilantmedia.com/vigilante/system';
+	$system_path = 'system';
 
 /*
  *---------------------------------------------------------------

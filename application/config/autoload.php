@@ -53,10 +53,6 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array('session', 'database', 'MySmarty', 'email', 'Phpsession', 'user_agent', 'VmModel', 'VmDebug');
-// TO DELETE
-$autoload['libraries'][] = 'VigilanteCoreLib';
-$autoload['libraries'][] = 'VigilanteDbLib';
-$autoload['libraries'][] = 'VigilanteSmartyLib';
 
 /*
 | -------------------------------------------------------------------
