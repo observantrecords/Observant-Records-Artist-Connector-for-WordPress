@@ -16,9 +16,8 @@ RedirectMatch 301 ^\/entry/([^$]*)([|/]) /index.php/news/entry/$1/
 
 SetEnvIf HOST dev.admin.observantrecords.com dev
 SetEnvIf HOST test.admin.observantrecords.com test
-SetEnvIf HOST observantrecords.org dev-org
 AuthType Basic
-AuthUserFile /home/nemesisv/.htpasswd
+AuthUserFile /home/grebue5/.htpasswd
 AuthName "Observant Records development site"
 require valid-user
 
