@@ -74,8 +74,10 @@
 		<form action="/index.php/admin/track/save_order/{$release_id}/" method="post" id="save-order-form">
 			<p>
 				<a href="/index.php/admin/track/add/{$release_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" alt="[Add]" title="[Add]" /> Add a track</a>
+	{if !empty($rsRelease->tracks)}
 				<a href="/index.php/admin/release/export_id3/{$release_id}/" class="button">Export ID3 data</a>
 				<input type="button" value="Save track order" id="save-order" class="button" />
+	{/if}
 				<input type="hidden" name="track_id" value="{$rsTrack->track_id}" />
 			</p>
 		</form>
@@ -169,6 +171,34 @@
 	{else}
 		<p>This release has no tracks.</p>
 	{/if}
+	
+	<h4>Ecommerce links</h4>
+
+		<form action="/index.php/admin/ecommerce/save_order/{$release_id}/" method="post" id="save-order-form">
+			<p>
+				<a href="/index.php/admin/ecommerce/add/{$release_id}/" class="button"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/add-page-blue.gif" alt="[Add]" title="[Add]" /> Add an ecommerce link</a>
+	{if !empty($rsRelease->ecommerce)}
+				<input type="button" value="Save ecommerce link order" id="save-ecommerce-order" class="button" />
+	{/if}
+			</p>
+		</form>
+
+	{if !empty($rsRelease->ecommerce)}
+		<ol class="track-list">
+		{foreach item=rsEcommerce from=$rsRelease->ecommerce}
+			<li>
+				<div>
+					<a href="/index.php/admin/ecommerce/edit/{$rsEcommerce->ecommerce_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/edit-page-purple.gif" alt="[Edit]" title="[Edit]" /></a>
+					<a href="/index.php/admin/ecommerce/delete/{$rsEcommerce->ecommerce_id}/"><img src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/images/icons/delete-page-purple.gif" alt="[Delete]" title="[Delete]" /></a>
+					<a href="/index.php/admin/ecommerce/view/{$rsEcommerce->ecommerce_id}/">{$rsEcommerce->ecommerce_label}</a>
+				</div>
+			</li>
+		{/foreach}
+		</ol>
+	{else}
+		<p>This release has no ecommerce links.</p>
+	{/if}
+	
 
 	{else}
 		<p>This release has no information.</p>
