@@ -2,7 +2,7 @@
 
 <div id="admin-column-1">
 
-	<form action="/index.php/admin/track/{if !empty($ecommerce_id)}update/{$ecommerce_id}{else}create{/if}/" method="post" name="ecommerce-form">
+	<form action="/index.php/admin/ecommerce/{if !empty($ecommerce_id)}update/{$ecommerce_id}{else}create{/if}/" method="post" name="ecommerce-form">
 		<p>
 			<label for="ecommerce_label">Vendor Name:</label>
 			<input type="text" id="ecommerce-url" name="ecommerce_label" value="{$rsEcommerce->ecommerce_label}" size="50" />

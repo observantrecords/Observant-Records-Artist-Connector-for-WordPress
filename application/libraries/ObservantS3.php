@@ -29,26 +29,33 @@ class ObservantS3 {
 		);
 		$this->CI->load->library('MyAws');
 		
-		$this->s3 = Aws\S3\S3Client::factory($params);
+		try {
+			$this->s3 = Aws\S3\S3Client::factory($params);
+		} catch (Exception $ex) {
+			
+		}
 	}
 	
 	public function list_folders($artist_alias = 'eponymous-4') {
 		$prefix = $this->artist_root . '/' . $artist_alias;
+		$directories = array();
 		
 		$args = array(
 			'Bucket' => $this->bucket,
 			'Prefix' => $prefix,
 		);
-		$results = $this->s3->getIterator('ListObjects', $args);
-		
-		$directories = array();
-		foreach ($results as $result) {
-			$dirname = dirname($result['Key']); 
-			if (array_search($dirname, $directories) === false) {
-				$directories[] = $dirname;
+		try {
+			$results = $this->s3->getIterator('ListObjects', $args);
+			
+			foreach ($results as $result) {
+				$dirname = dirname($result['Key']); 
+				if (array_search($dirname, $directories) === false) {
+					$directories[] = $dirname;
+				}
 			}
+		} catch (Exception $ex) {
+			
 		}
-		
 		return $directories;
 	}
 }

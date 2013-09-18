@@ -82,20 +82,77 @@ class Ecommerce extends CI_Controller
 		$this->add($rsEcommerce->ecommerce_release_id);
 	}
 	
+	public function save_order($release_id) {
+		$ecomm_links = $this->input->get_post('ecommerce');
+
+		$is_success = true;
+		if (count($ecomm_links) > 0) {
+			foreach ($ecomm_links as $ecomm_link) {
+				if (false === $this->_update_ecommerce($ecomm_link['ecommerce_id'], $ecomm_link)) {
+					$is_success = false;
+					$error = 'Ecommerce list order was not saved. Check link for ' . $ecomm_link['ecommerce_label'] . ' (' . $ecomm_link['ecommerce_url'] . ').';
+					break;
+				}
+			}
+		}
+
+		echo ($is_success == true) ? 'Ecommerce list order has been saved.' : $error;
+	}
+
 	public function delete($ecommerce_id) {
 		
 	}
 	
 	public function create() {
-		
+		$redirect = $_SERVER['HTTP_REFERER'];
+		$input = build_update_data($this->Obr_Ecommerce->_table);
+		if (false !== ($ecommerce_id = $this->Obr_Ecommerce->insert($input))) {
+			$redirect = '/index.php/admin/ecommerce/view/' . $ecommerce_id . '/';
+			$this->phpsession->flashsave('msg', 'You successfully created an ecommerce link.');
+		} else {
+			$this->phpsession->flashsave('error', 'You failed to create an ecommerce link.');
+		}
+
+		header('Location: ' . $redirect);
+		die();
 	}
 	
 	public function update($ecommerce_id) {
-		
+		$redirect = $_SERVER['HTTP_REFERER'];
+		$input = build_update_data($this->Obr_Ecommerce->_table);
+		if (false !== $this->Obr_Ecommerce->update($ecommerce_id, $input)) {
+			$redirect = '/index.php/admin/ecommerce/view/' . $ecommerce_id . '/';
+			$this->phpsession->flashsave('msg', 'You successfully updated an ecommerce link.');
+		} else {
+			$this->phpsession->flashsave('error', 'You failed to create an ecommerce link.');
+		}
+
+		header('Location: ' . $redirect);
+		die();
 	}
 	
 	public function remove($ecommerce_id) {
+		$confirm = $this->input->get_post('confirm');
+		$redirect = $this->input->get_post('redirect');
+		$ecommerce_release_id = $this->input->get_post('ecommerce_release_id');
 		
+		if ($confirm == true) {
+			$this->Obr_Ecommerce->delete($ecommerce_id);
+			
+			$this->phpsession->flashsave('msg', 'Ecommerce link was deleted.');
+			$redirect = '/index.php/admin/release/view/' . $ecommerce_release_id . '/';
+		} else {
+			$this->phpsession->flashsave('msg', 'Deletion was canceled.');
+		}
+		
+		header('Location: ' . $redirect);
+	}
+	
+	private function _update_ecommerce($ecommerce_id, $input) {
+		if (false !== $this->Obr_Ecommerce->update($ecommerce_id, $input)) {
+			return true;
+		}
+		return false;
 	}
 }
 
