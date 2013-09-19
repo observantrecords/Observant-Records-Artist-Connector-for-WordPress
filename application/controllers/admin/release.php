@@ -19,6 +19,7 @@ class Release extends CI_Controller {
 		$this->load->model('Obr_Release');
 		$this->load->model('Obr_Release_Format');
 		$this->load->model('Obr_Track');
+		$this->load->model('Obr_Ecommerce');
 	}
 	
 	public function browse($release_album_id) {
@@ -42,6 +43,10 @@ class Release extends CI_Controller {
 			foreach ($rsTracks as $rsTrack) {
 				$rsRelease->tracks[$rsTrack->track_disc_num][$rsTrack->track_track_num] = $rsTrack;
 			}
+			
+			$this->Obr_Ecommerce->order_by('ecommerce_list_order');
+			$rsEcommerce = $this->Obr_Ecommerce->get_many_by('ecommerce_release_id', $release_id);
+			$rsRelease->ecommerce = $rsEcommerce;
 			
 			$this->mysmarty->assign('rsRelease', $rsRelease);
 			$this->mysmarty->assign('release_id', $release_id);
