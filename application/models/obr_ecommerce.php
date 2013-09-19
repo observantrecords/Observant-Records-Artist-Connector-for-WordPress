@@ -10,7 +10,7 @@
 class Obr_Ecommerce extends MY_Model {
 	
 	public $_table = 'ep4_ecommerce';
-	public $primary_key = 'content_id';
+	public $primary_key = 'ecommerce_id';
 	public $belongs_to = array(
 		'releases' => array(
 			'model' => 'Obr_Release',
@@ -26,6 +26,14 @@ class Obr_Ecommerce extends MY_Model {
 	
 	public function __construct() {
 		parent::__construct();
+	}
+	
+	public function retrieve_all_labels() {
+		$this->_database->select('ecommerce_label');
+		$this->_database->group_by('ecommerce_label');
+		$this->_database->order_by('ecommerce_label');
+		$rsResult = $this->get_all();
+		return $rsResult;
 	}
 }
 
