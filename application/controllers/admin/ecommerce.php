@@ -50,10 +50,11 @@ class Ecommerce extends CI_Controller
 	
 	public function add($release_id) {
 		if (!empty($_SESSION[$this->vmsession->session_flag])) {
+			$rsRelease = $this->Obr_Release->with('album')->get($release_id);
+			$this->mysmarty->assign('rsRelease', $rsRelease);
+			
 			if (empty($this->vmview->section_head)) {
-				$rsRelease = $this->Obr_Release->with('album')->get($release_id);
-				$this->vmview->format_section_head($rsRelease->album->album_title, 'Create a track');
-				$this->mysmarty->assign('rsRelease', $rsRelease);
+				$this->vmview->format_section_head($rsRelease->album->album_title, 'Create an ecommerce link');
 			}
 			
 			$rsLabels = $this->Obr_Ecommerce->retrieve_all_labels();
@@ -64,6 +65,12 @@ class Ecommerce extends CI_Controller
 			
 			$this->mysmarty->assign('labels', json_encode($labels));
 			
+			$link_count = $this->Obr_Ecommerce->count_by('ecommerce_release_id', $release_id);
+			$this->mysmarty->assign('ecommerce_list_order', $link_count + 1);
+			
+			$rsArtist = $this->Obr_Artist->get($rsRelease->album->album_artist_id);
+			$this->mysmarty->assign('rsArtist', $rsArtist);
+
 			$this->mysmarty->assign('ecommerce_release_id', $release_id);
 		}
 
@@ -100,7 +107,16 @@ class Ecommerce extends CI_Controller
 	}
 
 	public function delete($ecommerce_id) {
-		
+		if (!empty($_SESSION[$this->vmsession->session_flag])) {
+			$rsEcommerce = $this->Obr_Ecommerce->get($ecommerce_id);
+			$rsRelease = $this->Obr_Release->with('album')->get($rsEcommerce->ecommerce_release_id);
+			$this->vmview->format_section_head($rsRelease->album->album_title, $rsEcommerce->ecommerce_label);
+			$this->mysmarty->assign('rsEcommerce', $rsEcommerce);
+			$this->mysmarty->assign('ecommerce_id', $ecommerce_id);
+			$this->mysmarty->assign('ecommerce_release_id', $rsEcommerce->ecommerce_release_id);
+		}
+
+		$this->vmview->display('admin/obr_ecommerce_delete.tpl');
 	}
 	
 	public function create() {

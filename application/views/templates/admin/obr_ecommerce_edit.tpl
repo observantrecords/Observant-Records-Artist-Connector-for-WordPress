@@ -16,6 +16,10 @@
 		<p>
 			<input type="submit" value="Save" class="button" />
 			<input type="hidden" name="ecommerce_release_id" value="{$ecommerce_release_id}" />
+		{if empty($ecommerce_id)}
+			<input type="hidden" name="ecommerce_list_order" value="{$ecommerce_list_order}" />
+		{/if}
+		
 		</p>
 	</form>
 	
