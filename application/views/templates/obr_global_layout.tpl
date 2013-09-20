@@ -18,7 +18,6 @@
 		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.js"></script>
 		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.swfobject.ext.js"></script>
-		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/jquery.validate.pack.js"></script>
 		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/chosen.jquery.min.js"></script>
 		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="{$smarty.const.OBSERVANTRECORDS_CDN_BASE_URI}/web/js/modernizr-1.6.min.js"></script>
