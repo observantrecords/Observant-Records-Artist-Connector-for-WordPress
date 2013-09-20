@@ -16,7 +16,7 @@ class ObservantS3 {
 	
 	private $CI;
 	private $s3;
-	private $bucket = 'observant-records';
+	private $bucket = 'observantrecords';
 	private $artist_root = 'artists';
 	
 	public function __construct() {
