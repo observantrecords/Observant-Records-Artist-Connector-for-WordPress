@@ -29,7 +29,7 @@
 				<select id="audio_file_server" name="audio_file_server">
 					<option value="">&nbsp;</option>
 					<option value="cdn.observantrecords.com"{if $rsFile->audio_file_server=="cdn.observantrecords.com"} selected="selected"{/if}>cdn.observantrecords.com</option>
-					<option value="observantrecords.s3.amazonaws.com"{if $rsFile->audio_file_server=="observant-records.s3.amazonaws.com"} selected="selected"{/if}>observant-records.s3.amazonaws.com</option>
+					<option value="observantrecords.s3.amazonaws.com"{if $rsFile->audio_file_server=="observant-records.s3.amazonaws.com"} selected="selected"{/if}>observantrecords.s3.amazonaws.com</option>
 					<option value="www.observantrecords.com"{if $rsFile->audio_file_server=="www.observantrecords.com"} selected="selected"{/if}>www.observantrecords.com</option>
 				</select>
 			</p>
@@ -103,7 +103,7 @@
 				$('#audio_file_server').chosen();
 				$('#audio_recording_id').chosen();
 				
-				var enable_path_autocomplete = ($('#audio_file_server').val() == 'cdn.observantrecords.com' || $('#audio_file_server').val() == 'observant-records.s3.amazonaws.com') ? false : true;
+				var enable_path_autocomplete = ($('#audio_file_server').val() == 'cdn.observantrecords.com' || $('#audio_file_server').val() == 'observantrecords.s3.amazonaws.com') ? false : true;
 				$('#audio_file_path').autocomplete({
 					source: s3_directories,
 					disabled: enable_path_autocomplete
