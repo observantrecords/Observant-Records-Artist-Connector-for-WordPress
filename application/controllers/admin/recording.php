@@ -156,11 +156,12 @@ class Recording extends CI_Controller {
 	 */
 	public function create() {
 		$redirect = $_SERVER['HTTP_REFERER'];
+		$input = build_update_data($this->Obr_Recording->_table);
 		$recording_isrc_code = $this->input->get_post('recording_isrc_num');
 		
-		if (false !== ($recording_id = $this->Obr_Recording->create())) {
+		if (false !== ($recording_id = $this->Obr_Recording->insert($input))) {
 			if (!empty($recording_isrc_code)) {
-				$this->Obr_Recording_Isrc->update('isrc_code', $recording_isrc_code, array(
+				$this->Obr_Recording_Isrc->update_by('isrc_code', $recording_isrc_code, array(
 					'isrc_recording_id' => $recording_id,
 					));
 			}
