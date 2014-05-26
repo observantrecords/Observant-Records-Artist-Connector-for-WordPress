@@ -14,8 +14,8 @@ AddType video/webm .webm
 
 RedirectMatch 301 ^\/entry/([^$]*)([|/]) /index.php/news/entry/$1/
 
-SetEnvIf HOST dev.admin.observantrecords.com dev
-SetEnvIf HOST test.admin.observantrecords.com test
+SetEnvIf HOST dev.admin-ci.observantrecords.com dev
+SetEnvIf HOST test.admin-ci.observantrecords.com test
 AuthType Basic
 AuthUserFile /home/grebue5/.htpasswd
 AuthName "Observant Records development site"
