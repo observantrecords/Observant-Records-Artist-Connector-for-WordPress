@@ -49,7 +49,7 @@
 <div class="form-group">
 	{{ Form::label( 'artist_bio_more', 'Biography (more):', array( 'class' => 'col-sm-2 control-label' ) ) }}
 	<div class="col-sm-10">
-		{{ Form::textarea( 'artist_bio', $artist->artist_bio, array( 'class' => 'form-control' ) ) }}
+		{{ Form::textarea( 'artist_bio_more', $artist->artist_bio_more, array( 'class' => 'form-control' ) ) }}
 	</div>
 </div>
 

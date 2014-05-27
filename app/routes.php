@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', array( 'before' => 'auth', 'uses' => 'ArtistController@browse' ) );
+Route::get('/', array( 'as' => 'home', 'before' => 'auth', 'uses' => 'ArtistController@browse' ) );
 
 // Artist
 Route::model('artist', 'Artist');
@@ -20,8 +20,8 @@ Route::get( '/artist/view/{id}', array( 'as' => 'artist.view', 'before' => 'auth
 Route::get( '/artist/add', array( 'as' => 'artist.add', 'before' => 'auth', 'uses' => 'ArtistController@edit' ) );
 Route::get( '/artist/edit/{id}', array( 'as' => 'artist.edit', 'before' => 'auth', 'uses' => 'ArtistController@edit' ) );
 Route::get( '/artist/delete/{id}', array( 'as' => 'artist.delete', 'before' => 'auth', 'uses' => 'ArtistController@delete' ) );
-Route::post( '/artist/update/{artist?}', array( 'as' => 'artist.update', 'before' => 'auth', 'uses' => 'ArtistController@update' ) );
-Route::post( '/artist/remove/{artist}', array( 'as' => 'artist.remove', 'before' => 'auth', 'uses' => 'ArtistController@remove' ) );
+Route::post( '/artist/update/{artist?}', array( 'as' => 'artist.update', 'before' => 'auth|csrf', 'uses' => 'ArtistController@update' ) );
+Route::post( '/artist/remove/{artist}', array( 'as' => 'artist.remove', 'before' => 'auth|csrf', 'uses' => 'ArtistController@remove' ) );
 
 // Album
 Route::model('album', 'Album');
@@ -44,6 +44,6 @@ Route::post( '/album/remove/{album}', array( 'as' => 'album.remove', 'before' =>
 // Recordings
 
 // Authentication
-Route::get( '/login', 'AuthController@login' );
-Route::get( '/logout', 'AuthController@sign_out' );
-Route::post( '/signin', 'AuthController@sign_in' );
+Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );
+Route::get( '/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthController@sign_out' ) );
+Route::post( '/signin', array( 'as' => 'auth.signin', 'uses' => 'AuthController@sign_in' ) );

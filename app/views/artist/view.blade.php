@@ -1,11 +1,23 @@
 @extends('layout')
 
+@section('page_title')
+ &raquo; Artists &raquo; View
+@if (!empty($artist->artist_display_name))
+ &raquo; {{ $artist->artist_display_name }}
+@endif
+@stop
+
 @section('section_header')
-<h2>{{ $section_header }}</h2>
+<h2>Artists</h2>
 @stop
 
 @section('section_label')
-<h3>{{ $section_label }}</h3>
+<h3>
+	View
+	@if (!empty($artist->artist_display_name))
+	{{ $artist->artist_display_name }}
+	@endif
+</h3>
 @stop
 
 @section('content')

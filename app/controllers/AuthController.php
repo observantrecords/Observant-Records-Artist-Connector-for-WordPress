@@ -19,6 +19,11 @@ class AuthController extends BaseController {
 	}
 
 	public function login() {
+
+		if (Auth::check() === true) {
+			return Redirect::intended('/');
+		}
+
 		$method_variables = array();
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -31,7 +36,7 @@ class AuthController extends BaseController {
 		$user_password = Input::get('user_password');
 
 		if (Auth::attempt( array( 'user_name' => $user_name, 'password' => $user_password ), true )) {
-			return Redirect::intended('/')->with('message', 'Welcome back!');
+			return Redirect::intended('/');
 		} else {
 			return Redirect::to('/login')->with('error', "Sorry, we couldn't verify your credentials. Please try again.");
 		}

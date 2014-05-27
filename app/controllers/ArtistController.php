@@ -25,8 +25,6 @@ class ArtistController extends BaseController {
 
 		$method_variables = array(
 			'artists' => $artists,
-			'section_label' => 'Browse',
-			'page_title' => 'Artists &raquo; Browse',
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -39,16 +37,9 @@ class ArtistController extends BaseController {
 		$artist = Artist::find($artist_id);
 		$albums = $artist->albums;
 
-		$page_title = 'Artists &raquo; View';
-		if (!empty($artist->artist_display_name)) {
-			$page_title .= ' &raquo; ' . $artist->artist_display_name;
-		}
-
 		$method_variables = array(
 			'artist' => $artist,
 			'albums' => $albums,
-			'section_label' => 'View ' . $artist->artist_display_name,
-			'page_title' => $page_title,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -62,22 +53,14 @@ class ArtistController extends BaseController {
 
 		if (!empty($artist_id)) {
 			$artist = Artist::find($artist_id);
-			$section_label = 'Edit ' . $artist->artist_display_name;
-			if (!empty($artist->artist_display_name)) {
-				$page_title .= ' &raquo; Edit &raquo; ' . $artist->artist_display_name;
-			}
 		} else {
 			$artist = new Artist;
-			$section_label = 'Add an artist';
-			$page_title = ' &raquo; Add';
 		}
 
 
 		$method_variables = array(
 			'artist' => $artist,
 			'artist_id' => $artist_id,
-			'section_label' => $section_label,
-			'page_title' => $page_title,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -89,15 +72,8 @@ class ArtistController extends BaseController {
 
 		$artist = Artist::find($artist_id);
 
-		$page_title = 'Artists &raquo; Delete';
-		if (!empty($artist->artist_display_name)) {
-			$page_title .= ' &raquo; ' . $artist->artist_display_name;
-		}
-
 		$method_variables = array(
 			'artist' => $artist,
-			'section_label' => 'Delete ' . $artist->artist_display_name,
-			'page_title' => $page_title,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -105,29 +81,43 @@ class ArtistController extends BaseController {
 		return View::make('artist.delete', $data);
 	}
 
-	public function update($artist = null) {
+	public function update(Artist $artist = null) {
 
 		if (empty($artist)) {
 			$artist = new Artist;
 		}
 
-		$artist->artist_last_name = Input::get('artist_last_name');
-		$artist->artist_first_name = Input::get('artist_first_name');
-		$artist->artist_display_name = Input::get('artist_display_name');
-		$artist->artist_alias = Input::get('artist_alias');
-		$artist->artist_url = Input::get('artist_url');
-		$artist->artist_bio = Input::get('artist_bio');
-		$artist->artist_bio_more = Input::get('artist_bio_more');
-		$artist->save();
+		$input = array(
+			'artist_last_name' => Input::get('artist_last_name'),
+			'artist_first_name' => Input::get('artist_first_name'),
+			'artist_display_name' => Input::get('artist_display_name'),
+			'artist_alias' => Input::get('artist_alias'),
+			'artist_url' => Input::get('artist_url'),
+			'artist_bio' => Input::get('artist_bio'),
+			'artist_bio_more' => Input::get('artist_bio_more'),
+		);
 
-		if (!empty($artist->artist_id)) {
+		foreach ($input as $field => $value) {
+			$artist->{$field} = $value;
+		}
+		$result = $artist->save();
+
+		if ($result !== false) {
 			return Redirect::action('ArtistController@view', array('id' => $artist->artist_id))->with('message', 'Your changes have been saved.');
 		} else {
 			return Redirect::action('ArtistController@browse')->with('error', 'Your changes were not saved.');
 		}
 	}
 
-	public function remove($artist_id) {
+	public function remove(Artist $artist) {
+		$confirm = (boolean) Input::get('confirm');
+		$artist_display_name = $artist->artist_display_name;
 
+		if ($confirm === true) {
+			$artist->delete();
+			return Redirect::action('ArtistController@browse')->with('message', $artist_display_name . ' was deleted.');
+		} else {
+			return Redirect::action('ArtistController@view', array('id' => $artist->artist_id))->with('error', $artist_display_name . ' was not deleted.');
+		}
 	}
 }

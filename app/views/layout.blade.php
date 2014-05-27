@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head lang="en-us">
-	<title>Observant Records
-		@if (!empty($page_title))
-		&raquo; {{ $page_title }}
-		@endif
+	<title>
+		Observant Records
+		@yield('page_title')
 	</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -49,11 +48,11 @@
 
 		<div class="collapse navbar-collapse" id="main-nav">
 			<ul class="nav navbar-nav">
-				<li><a href="/">Home</a></li>
+				<li><a href="{{ route('home') }}">Home</a></li>
 			@if ( Auth::check() )
-				<li><a href="/logout/">Logout</a></li>
+				<li><a href="{{ route('auth.logout') }}">Logout</a></li>
 			@else
-				<li><a href="/login/">Login</a></li>
+				<li><a href="{{ route('auth.login') }}">Login</a></li>
 			@endif
 			</ul>
 		</div>
