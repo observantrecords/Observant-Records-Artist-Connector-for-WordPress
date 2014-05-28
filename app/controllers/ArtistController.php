@@ -15,7 +15,6 @@ class ArtistController extends BaseController {
 
 		$this->layout_variables = array(
 			'config_url_base' => $config_url_base,
-			'section_header' => 'Artists',
 		);
 	}
 
@@ -47,16 +46,22 @@ class ArtistController extends BaseController {
 		return View::make('artist.view', $data);
 	}
 
+	public function add() {
+
+		$artist = new Artist;
+
+		$method_variables = array(
+			'artist' => $artist,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('artist.add', $data);
+	}
+
 	public function edit($artist_id = null) {
 
-		$page_title = 'Artists';
-
-		if (!empty($artist_id)) {
-			$artist = Artist::find($artist_id);
-		} else {
-			$artist = new Artist;
-		}
-
+		$artist = Artist::find($artist_id);
 
 		$method_variables = array(
 			'artist' => $artist,
@@ -87,25 +92,21 @@ class ArtistController extends BaseController {
 			$artist = new Artist;
 		}
 
-		$input = array(
-			'artist_last_name' => Input::get('artist_last_name'),
-			'artist_first_name' => Input::get('artist_first_name'),
-			'artist_display_name' => Input::get('artist_display_name'),
-			'artist_alias' => Input::get('artist_alias'),
-			'artist_url' => Input::get('artist_url'),
-			'artist_bio' => Input::get('artist_bio'),
-			'artist_bio_more' => Input::get('artist_bio_more'),
-		);
+		$fields = $artist->getFillable();
 
-		foreach ($input as $field => $value) {
-			$artist->{$field} = $value;
+		foreach ($fields as $field) {
+			$value = Input::get($field);
+			if (!empty($value)) {
+				$artist->{$field} = $value;
+			}
 		}
+
 		$result = $artist->save();
 
 		if ($result !== false) {
-			return Redirect::action('ArtistController@view', array('id' => $artist->artist_id))->with('message', 'Your changes have been saved.');
+			return Redirect::route('artist.view', array('id' => $artist->artist_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::action('ArtistController@browse')->with('error', 'Your changes were not saved.');
+			return Redirect::route('artist.browse')->with('error', 'Your changes were not saved.');
 		}
 	}
 
@@ -115,9 +116,9 @@ class ArtistController extends BaseController {
 
 		if ($confirm === true) {
 			$artist->delete();
-			return Redirect::action('ArtistController@browse')->with('message', $artist_display_name . ' was deleted.');
+			return Redirect::route('artist.browse')->with('message', $artist_display_name . ' was deleted.');
 		} else {
-			return Redirect::action('ArtistController@view', array('id' => $artist->artist_id))->with('error', $artist_display_name . ' was not deleted.');
+			return Redirect::route('artist.view', array('id' => $artist->artist_id))->with('error', $artist_display_name . ' was not deleted.');
 		}
 	}
 }

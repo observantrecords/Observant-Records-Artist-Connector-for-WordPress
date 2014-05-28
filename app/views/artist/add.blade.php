@@ -1,13 +1,17 @@
 @extends('artist._form')
 
+@section('page_title')
+ &raquo; Artists &raquo; Add a new artist
+@stop
+
 @section('section_header')
-<h2>{{ $section_header }}</h2>
+<h2>Artists</h2>
 @stop
 
 @section('section_label')
-<h3>{{ $section_label }}</h3>
+<h3>Add a new artist</h3>
 @stop
 
 @section('content')
-	@parent
+@parent
 @stop

@@ -13,9 +13,16 @@ class AlbumController extends BaseController {
 	public function __construct() {
 		global $config_url_base;
 
+		$format_list = array();
+		$formats = AlbumFormat::orderBy('format_alias')->get();
+		foreach ($formats as $format) {
+			$format_list[$format->format_id] = $format->format_alias;
+		}
+
 		$this->layout_variables = array(
 			'config_url_base' => $config_url_base,
-			'section_header' => 'Albums',
+			'formats' => $format_list,
+			'locales' => array('en', 'jp'),
 		);
 	}
 
@@ -27,84 +34,79 @@ class AlbumController extends BaseController {
 		$method_variables = array(
 			'artist' => $artist,
 			'albums' => $albums,
-			'section_label' => 'Browse',
-			'page_title' => 'Albums &raquo; Browse',
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.browse', $data);
+		return View::make('album.browse', $data);
 	}
 
 	public function view($album_id) {
 
 		$album = Album::find($album_id);
 		$artist = $album->artist;
-
-		$page_title = 'Artists &raquo; View';
-		if (!empty($artist->artist_display_name)) {
-			$page_title .= ' &raquo; ' . $artist->artist_display_name;
-		}
+		$primary_release = $album->primary_release;
+		$releases = $album->releases;
 
 		$method_variables = array(
 			'artist' => $artist,
 			'album' => $album,
-			'section_label' => 'View ' . $artist->artist_display_name,
-			'page_title' => $page_title,
+			'primary_release' => $primary_release,
+			'releases' => $releases,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.view', $data);
+		return View::make('album.view', $data);
+	}
+
+	public function add($artist_id = null) {
+
+		$album = new Album;
+		$album->album_artist_id = $artist_id;
+		$album->album_release_date = date('Y-m-d');
+		$album->album_ctype_locale = 'en';
+		$album->artist = Artist::find($artist_id);
+
+		$method_variables = array(
+			'album' => $album,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('album.add', $data);
 	}
 
 	public function edit($album_id = null) {
 
-		$page_title = 'Albums';
+		$album = Album::find($album_id);
 
-		if (!empty($album_id)) {
-			$album = Album::find($album_id);
-			$section_label = 'Edit ' . $album->album_title;
-			if (!empty($album->artist_display_name)) {
-				$page_title .= ' &raquo; Edit &raquo; ' . $album->album_title;
-			}
-		} else {
-			$album = new Album;
-			$section_label = 'Add an album';
-			$page_title = ' &raquo; Add';
+		$release_list = array();
+		foreach ($album->releases as $release) {
+			$release_list[$release->release_id] = $release->release_catalog_num;
 		}
 
-
 		$method_variables = array(
-			'artist' => $album,
-			'artist_id' => $album_id,
-			'section_label' => $section_label,
-			'page_title' => $page_title,
+			'album' => $album,
+			'releases' => $release_list,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.edit', $data);
+		return View::make('album.edit', $data);
 	}
 
 	public function delete($album_id) {
 
 		$album = Album::find($album_id);
 
-		$page_title = 'Artists &raquo; Delete';
-		if (!empty($album->artist_display_name)) {
-			$page_title .= ' &raquo; ' . $album->artist_display_name;
-		}
-
 		$method_variables = array(
 			'album' => $album,
-			'section_label' => 'Delete ' . $album->artist_display_name,
-			'page_title' => $page_title,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.delete', $data);
+		return View::make('album.delete', $data);
 	}
 
 	public function update($album = null) {
@@ -113,14 +115,34 @@ class AlbumController extends BaseController {
 			$album = new Album;
 		}
 
-		if (!empty($album->album_id)) {
-			return Redirect::action('ArtistController@view', array('id' => $album->album_id))->with('message', 'Your changes have been saved.');
+		$fields = $album->getFillable();
+
+		foreach ($fields as $field) {
+			$value = Input::get($field);
+			if (!empty($value)) {
+				$album->{$field} = $value;
+			}
+		}
+
+		$result = $album->save();
+
+		if ($result !== false) {
+			return Redirect::route('album.view', array('id' => $album->album_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::action('ArtistController@browse')->with('error', 'Your changes were not saved.');
+			return Redirect::route('album.browse')->with('error', 'Your changes were not saved.');
 		}
 	}
 
-	public function remove($artist_id) {
+	public function remove(Album $album) {
 
+		$confirm = (boolean) Input::get('confirm');
+		$album_title = $album->album_title;
+
+		if ($confirm === true) {
+			$album->delete();
+			return Redirect::route('album.browse')->with('message', $album_title . ' was deleted.');
+		} else {
+			return Redirect::route('album.view', array('id' => $album->album_id))->with('error', $album_title . ' was not deleted.');
+		}
 	}
 }

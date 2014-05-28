@@ -1,23 +1,15 @@
 @extends('layout')
 
 @section('page_title')
- &raquo; Artists &raquo; View
-@if (!empty($artist->artist_display_name))
  &raquo; {{ $artist->artist_display_name }}
-@endif
 @stop
 
 @section('section_header')
-<h2>Artists</h2>
+<h2>{{ $artist->artist_display_name }}</h2>
 @stop
 
 @section('section_label')
-<h3>
-	View
-	@if (!empty($artist->artist_display_name))
-	{{ $artist->artist_display_name }}
-	@endif
-</h3>
+<h3>Profile</h3>
 @stop
 
 @section('content')
@@ -63,9 +55,14 @@
 	@endif
 </ul>
 
-@if (count($albums) > 0)
 <h3>Albums</h3>
 
+<p>
+	<a href="{{ route( 'album.add', array( 'id' => $artist->artist_id ) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add album</a>
+</p>
+
+
+@if (count($albums) > 0)
 <ol class="track-list">
 	@foreach ($albums as $album)
 	<li>
@@ -79,6 +76,17 @@
 	</li>
 	@endforeach
 </ol>
+@else
+<p>
+	This artist has no albums. Please <a href="{{ route( 'album.add', array( 'id' => $artist->artist_id ) ) }}">add one</a>.
+</p>
 @endif
+
+<h3>Catalogs</h3>
+
+<ul>
+	<li><a href="{{ route( 'song.browse', array( 'id' => $artist->artist_id ) ) }}">Songs</a></li>
+	<li><a href="{{ route( 'recording.browse', array( 'id' => $artist->artist_id ) ) }}">Recordings</a></li>
+</ul>
 
 @stop

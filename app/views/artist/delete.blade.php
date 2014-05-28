@@ -1,23 +1,16 @@
 @extends('layout')
 
 @section('page_title')
- &raquo; Artists &raquo; Delete
-@if (!empty($artist->artist_display_name))
  &raquo; {{ $artist->artist_display_name }}
-@endif
+ &raquo; Delete
 @stop
 
 @section('section_header')
-<h2>Artists</h2>
+<h2>{{ $artist->artist_display_name }}</h2>
 @stop
 
 @section('section_label')
-<h3>
-	Delete
-	@if (!empty($artist->artist_display_name))
-	{{ $artist->artist_display_name }}
-	@endif
-</h3>
+<h3>Delete</h3>
 @stop
 
 @section('content')

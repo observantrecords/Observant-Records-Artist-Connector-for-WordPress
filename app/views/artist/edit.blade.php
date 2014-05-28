@@ -1,26 +1,16 @@
 @extends('artist._form')
 
 @section('page_title')
- &raquo; Artists
-@if (!empty($artist->artist_display_name))
- &raquo; Edit &raquo; {{ $artist->artist_display_name }}
-@else
- &raquo; Add a new artist
-@endif
+ &raquo; {{ $artist->artist_display_name }}
+ &raquo; Edit Profile
 @stop
 
 @section('section_header')
-<h2>Artists</h2>
+<h2>{{ $artist->artist_display_name }}</h2>
 @stop
 
 @section('section_label')
-<h3>
-	@if (!empty($artist->artist_display_name))
-	Edit {{ $artist->artist_display_name }}
-	@else
-	Add a new artist
-	@endif
-</h3>
+<h3>Edit Profile</h3>
 @stop
 
 @section('content')
