@@ -40,8 +40,8 @@ Route::get( '/release/view/{id}', array( 'as' => 'release.view', 'before' => 'au
 Route::get( '/release/add/{id}', array( 'as' => 'release.add', 'before' => 'auth', 'uses' => 'ReleaseController@add' ) );
 Route::get( '/release/edit/{id}', array( 'as' => 'release.edit', 'before' => 'auth', 'uses' => 'ReleaseController@edit' ) );
 Route::get( '/release/delete/{id}', array( 'as' => 'release.delete', 'before' => 'auth', 'uses' => 'ReleaseController@delete' ) );
-Route::post( '/release/update/{album?}', array( 'as' => 'release.update', 'before' => 'auth', 'uses' => 'ReleaseController@update' ) );
-Route::post( '/release/remove/{album}', array( 'as' => 'release.remove', 'before' => 'auth', 'uses' => 'ReleaseController@remove' ) );
+Route::post( '/release/update/{release?}', array( 'as' => 'release.update', 'before' => 'auth', 'uses' => 'ReleaseController@update' ) );
+Route::post( '/release/remove/{release}', array( 'as' => 'release.remove', 'before' => 'auth', 'uses' => 'ReleaseController@remove' ) );
 
 // Tracks
 Route::model('track', 'Track');
@@ -50,8 +50,18 @@ Route::get( '/track/view/{id}', array( 'as' => 'track.view', 'before' => 'auth',
 Route::get( '/track/add/{id}', array( 'as' => 'track.add', 'before' => 'auth', 'uses' => 'TrackController@add' ) );
 Route::get( '/track/edit/{id}', array( 'as' => 'track.edit', 'before' => 'auth', 'uses' => 'TrackController@edit' ) );
 Route::get( '/track/delete/{id}', array( 'as' => 'track.delete', 'before' => 'auth', 'uses' => 'TrackController@delete' ) );
-Route::post( '/track/update/{album?}', array( 'as' => 'track.update', 'before' => 'auth', 'uses' => 'TrackController@update' ) );
-Route::post( '/track/remove/{album}', array( 'as' => 'track.remove', 'before' => 'auth', 'uses' => 'TrackController@remove' ) );
+Route::post( '/track/update/{track?}', array( 'as' => 'track.update', 'before' => 'auth', 'uses' => 'TrackController@update' ) );
+Route::post( '/track/remove/{track}', array( 'as' => 'track.remove', 'before' => 'auth', 'uses' => 'TrackController@remove' ) );
+
+// Audio
+Route::model('audio', 'Audio');
+Route::get('/audio/browse/{id}', array( 'as' => 'audio.browse', 'before' => 'auth', 'uses' => 'AudioController@browse' ) );
+Route::get( '/audio/view/{id}', array( 'as' => 'audio.view', 'before' => 'auth', 'uses' => 'AudioController@view' ) );
+Route::get( '/audio/add/{id}', array( 'as' => 'audio.add', 'before' => 'auth', 'uses' => 'AudioController@add' ) );
+Route::get( '/audio/edit/{id}', array( 'as' => 'audio.edit', 'before' => 'auth', 'uses' => 'AudioController@edit' ) );
+Route::get( '/audio/delete/{id}', array( 'as' => 'audio.delete', 'before' => 'auth', 'uses' => 'AudioController@delete' ) );
+Route::post( '/audio/update/{audio?}', array( 'as' => 'audio.update', 'before' => 'auth', 'uses' => 'AudioController@update' ) );
+Route::post( '/audio/remove/{audio}', array( 'as' => 'audio.remove', 'before' => 'auth', 'uses' => 'AudioController@remove' ) );
 
 // Ecommerce
 Route::model('ecommerce', 'Ecommerce');
@@ -60,8 +70,8 @@ Route::get( '/ecommerce/view/{id}', array( 'as' => 'ecommerce.view', 'before' =>
 Route::get( '/ecommerce/add/{id}', array( 'as' => 'ecommerce.add', 'before' => 'auth', 'uses' => 'EcommerceController@add' ) );
 Route::get( '/ecommerce/edit/{id}', array( 'as' => 'ecommerce.edit', 'before' => 'auth', 'uses' => 'EcommerceController@edit' ) );
 Route::get( '/ecommerce/delete/{id}', array( 'as' => 'ecommerce.delete', 'before' => 'auth', 'uses' => 'EcommerceController@delete' ) );
-Route::post( '/ecommerce/update/{album?}', array( 'as' => 'ecommerce.update', 'before' => 'auth', 'uses' => 'EcommerceController@update' ) );
-Route::post( '/ecommerce/remove/{album}', array( 'as' => 'ecommerce.remove', 'before' => 'auth', 'uses' => 'EcommerceController@remove' ) );
+Route::post( '/ecommerce/update/{ecommerce?}', array( 'as' => 'ecommerce.update', 'before' => 'auth', 'uses' => 'EcommerceController@update' ) );
+Route::post( '/ecommerce/remove/{ecommerce}', array( 'as' => 'ecommerce.remove', 'before' => 'auth', 'uses' => 'EcommerceController@remove' ) );
 
 // Songs
 Route::model('song', 'Song');
@@ -70,8 +80,8 @@ Route::get( '/song/view/{id}', array( 'as' => 'song.view', 'before' => 'auth', '
 Route::get( '/song/add/{id}', array( 'as' => 'song.add', 'before' => 'auth', 'uses' => 'SongController@add' ) );
 Route::get( '/song/edit/{id}', array( 'as' => 'song.edit', 'before' => 'auth', 'uses' => 'SongController@edit' ) );
 Route::get( '/song/delete/{id}', array( 'as' => 'song.delete', 'before' => 'auth', 'uses' => 'SongController@delete' ) );
-Route::post( '/song/update/{album?}', array( 'as' => 'song.update', 'before' => 'auth', 'uses' => 'SongController@update' ) );
-Route::post( '/song/remove/{album}', array( 'as' => 'song.remove', 'before' => 'auth', 'uses' => 'SongController@remove' ) );
+Route::post( '/song/update/{song?}', array( 'as' => 'song.update', 'before' => 'auth', 'uses' => 'SongController@update' ) );
+Route::post( '/song/remove/{song}', array( 'as' => 'song.remove', 'before' => 'auth', 'uses' => 'SongController@remove' ) );
 
 // Recordings
 Route::model('recording', 'Recording');
@@ -80,8 +90,8 @@ Route::get( '/recording/view/{id}', array( 'as' => 'recording.view', 'before' =>
 Route::get( '/recording/add/{id}', array( 'as' => 'recording.add', 'before' => 'auth', 'uses' => 'RecordingController@add' ) );
 Route::get( '/recording/edit/{id}', array( 'as' => 'recording.edit', 'before' => 'auth', 'uses' => 'RecordingController@edit' ) );
 Route::get( '/recording/delete/{id}', array( 'as' => 'recording.delete', 'before' => 'auth', 'uses' => 'RecordingController@delete' ) );
-Route::post( '/recording/update/{album?}', array( 'as' => 'recording.update', 'before' => 'auth', 'uses' => 'RecordingController@update' ) );
-Route::post( '/recording/remove/{album}', array( 'as' => 'recording.remove', 'before' => 'auth', 'uses' => 'RecordingController@remove' ) );
+Route::post( '/recording/update/{recording?}', array( 'as' => 'recording.update', 'before' => 'auth', 'uses' => 'RecordingController@update' ) );
+Route::post( '/recording/remove/{recording}', array( 'as' => 'recording.remove', 'before' => 'auth', 'uses' => 'RecordingController@remove' ) );
 
 // Authentication
 Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );

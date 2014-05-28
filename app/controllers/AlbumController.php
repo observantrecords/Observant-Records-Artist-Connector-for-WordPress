@@ -137,10 +137,11 @@ class AlbumController extends BaseController {
 
 		$confirm = (boolean) Input::get('confirm');
 		$album_title = $album->album_title;
+		$artist_id = $album->album_artist_id;
 
 		if ($confirm === true) {
 			$album->delete();
-			return Redirect::route('album.browse')->with('message', $album_title . ' was deleted.');
+			return Redirect::route('artist.view', array('id' => $artist_id  ))->with('message', $album_title . ' was deleted.');
 		} else {
 			return Redirect::route('album.view', array('id' => $album->album_id))->with('error', $album_title . ' was not deleted.');
 		}
