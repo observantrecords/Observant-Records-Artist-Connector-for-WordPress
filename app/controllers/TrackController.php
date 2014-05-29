@@ -6,7 +6,7 @@
  * Time: 2:58 PM
  */
 
-class TrackController {
+class TrackController extends BaseController {
 
 	private $layout_variables = array();
 
@@ -18,90 +18,151 @@ class TrackController {
 		);
 	}
 
-	public function browse($___id) {
+	public function browse($release_id) {
+
+		$tracks = Track::orderBy('track_disc_num, track_track_num')->get();
 
 		$method_variables = array(
+			'tracks' => $tracks,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('___.browse', $data);
+		return View::make('track.browse', $data);
 	}
 
-	public function view($___id) {
+	public function view($track_id) {
+
+		$track = Track::find($track_id);
 
 		$method_variables = array(
+			'track' => $track,
+			'track_id' => $track_id,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('___.view', $data);
+		return View::make('track.view', $data);
 	}
 
-	public function add($___id = null) {
+	public function add($release_id) {
 
-		$method_variables = array(
-		);
+		$release = Release::find($release_id);
 
-		$data = array_merge($method_variables, $this->layout_variables);
+		$track = new Track;
+		$track->release = $release;
+		$track->track_album_id = $release->release_album_id;
 
-		return View::make('___.add', $data);
-	}
-
-	public function edit($___id = null) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.edit', $data);
-	}
-
-	public function delete($___id) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.delete', $data);
-	}
-
-	public function update(Model $___ = null) {
-
-		if (empty($___)) {
+		$last_disc_num = Track::where('track_release_id', '=', $release_id)->max('track_disc_num');
+		if (empty($last_disc_num)) {
+			$last_disc_num = 1;
 		}
 
-		$fields = $___->getFillable();
+		$track->track_disc_num = $last_disc_num;
+
+		$last_track_num = Track::where('track_release_id', '=', $release_id)->max('track_track_num');
+		if (empty($last_track_num)) {
+			$last_track_num = 1;
+		}
+
+		$track->track_track_num = $last_track_num;
+
+		$method_variables = array(
+			'track' => $track,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('track.add', $data);
+	}
+
+	public function edit($track_id) {
+
+		$track = Track::find($track_id);
+
+		$method_variables = array(
+			'track' => $track,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('track.edit', $data);
+	}
+
+	public function delete($track_id) {
+
+		$track = Track::find($track_id);
+
+		$method_variables = array(
+			'track' => $track,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('track.delete', $data);
+	}
+
+	public function save_order($release_id) {
+		$tracks = Input::get('tracks');
+
+		$is_success = true;
+		if (count($tracks) > 0) {
+			foreach ($tracks as $track) {
+				if (false === $this->_update_track($track['track_id'], $track)) {
+					$is_success = false;
+					$error = 'Track order was not saved. Check disc ' . $track['track_disc_num'] . ', track ' . $track['track_track_num'] . '.';
+					break;
+				}
+			}
+		}
+
+		echo ($is_success == true) ? 'Track order has been saved.' : $error;
+	}
+
+	private function _update_track($track_id, $input) {
+		$track = Track::find($track_id);
+
+		$track->track_disc_num = $input['track_disc_num'];
+		$track->track_track_num = $input['track_track_num'];
+
+		return $track->save();
+	}
+
+	public function update(Track $track = null) {
+
+		if (empty($track)) {
+			$track = new Track;
+		}
+
+		$fields = $track->getFillable();
 
 		foreach ($fields as $field) {
 			$value = Input::get($field);
 			if (!empty($value)) {
-				$___->{$field} = $value;
+				$track->{$field} = $value;
 			}
 		}
 
-		$result = $___->save();
+		$result = $track->save();
 
 		if ($result !== false) {
-			return Redirect::route('___.view', array('id' => $___->id))->with('message', 'Your changes were saved.');
+			return Redirect::route('track.view', array('id' => $track->track_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::route('___.browse')->with('error', 'Your changes were not saved.');
+			return Redirect::route('release.view', array('id' => $track->track_release_id))->with('error', 'Your changes were not saved.');
 		}
 	}
 
-	public function remove(Model $___) {
+	public function remove(Track $track) {
 
 		$confirm = (boolean) Input::get('confirm');
-		$album_title = $___->album_title;
-		$artist_id = $___->album_artist_id;
+		$track_song_title = $track->song->song_title;
+		$release_id = $track->track_release_id;
 
 		if ($confirm === true) {
-			$___->delete();
-			return Redirect::route('___.view', array('id' => $___id  ))->with('message', 'The record was deleted.');
+			$track->delete();
+			return Redirect::route('release.view', array('id' => $release_id  ))->with('message', 'The record was deleted.');
 		} else {
-			return Redirect::route('___.view', array('id' => $___->id))->with('error', 'The record was not deleted.');
+			return Redirect::route('track.view', array('id' => $track->track_id))->with('error', 'The record was not deleted.');
 		}
 	}
 }

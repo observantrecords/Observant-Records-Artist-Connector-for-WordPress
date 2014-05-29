@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: gbueno
+ * User: gregbueno
  * Date: 5/28/14
- * Time: 2:59 PM
+ * Time: 4:43 PM
  */
 
-class Recording {
+class Audio extends Eloquent {
 
 	protected $table;
 	protected $primaryKey;
@@ -14,4 +14,4 @@ class Recording {
 	protected $fillable;
 	protected $guarded;
 
-} 
+}

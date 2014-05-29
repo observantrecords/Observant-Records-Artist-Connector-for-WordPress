@@ -1,7 +1,14 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: gbueno
- * Date: 5/28/14
- * Time: 3:04 PM
- */ 
+@extends('___._form')
+
+@section('page_title')
+@stop
+
+@section('section_header')
+@stop
+
+@section('section_label')
+@stop
+
+@section('content')
+@parent
+@stop

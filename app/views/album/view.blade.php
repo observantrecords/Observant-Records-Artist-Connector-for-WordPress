@@ -6,11 +6,16 @@
 @stop
 
 @section('section_header')
-<h2>{{ $album->artist->artist_display_name }}</h2>
+<hgroup>
+	<h2>
+		{{ $album->artist->artist_display_name }}
+		<small>{{ $album->album_title }}</small>
+	</h2>
+</hgroup>
 @stop
 
 @section('section_label')
-<h3>{{ $album->album_title }}</h3>
+<h3>Album info</h3>
 @stop
 
 @section('content')

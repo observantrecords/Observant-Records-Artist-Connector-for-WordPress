@@ -10,5 +10,6 @@ class ReleaseFormat extends Eloquent {
 
 	protected $table = 'ep4_albums_releases_formats';
 	protected $primaryKey = 'format_id';
+	protected $softDelete = true;
 
 }

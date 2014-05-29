@@ -6,7 +6,7 @@
  * Time: 3:11 PM
  */
 
-class Ecommerce {
+class EcommerceController extends BaseController {
 
 	private $layout_variables = array();
 

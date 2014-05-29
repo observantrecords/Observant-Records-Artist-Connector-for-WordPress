@@ -10,6 +10,22 @@ class Track extends Eloquent {
 
 	protected $table = 'ep4_tracks';
 	protected $primaryKey = 'track_id';
+	protected $softDelete = true;
+	protected $fillable = array(
+		'track_song_id',
+		'track_release_id',
+		'track_recording_id',
+		'track_disc_num',
+		'track_track_num',
+		'track_alias',
+		'track_is_visible',
+		'track_audio_is_linked',
+		'track_audio_is_downloadable',
+	);
+	protected $guarded = array(
+		'track_id',
+		'track_deleted',
+	);
 
 	public function release() {
 		return $this->belongsTo('Release', 'release_id', 'track_release_id');
@@ -19,5 +35,16 @@ class Track extends Eloquent {
 		return $this->hasOne('Song', 'song_id', 'track_song_id');
 	}
 
+	public function findReleaseTracks($release_id) {
+		$tracks_formatted = array();
+		$tracks = Track::where('track_release_id', '=', $release_id)->orderBy('track_disc_num')->orderBy('track_track_num')->get();
 
-} 
+		if (!empty($tracks)) {
+			foreach ($tracks as $track) {
+				$tracks_formatted[$track->track_disc_num][] = $track;
+			}
+		}
+
+		return $tracks_formatted;
+	}
+}

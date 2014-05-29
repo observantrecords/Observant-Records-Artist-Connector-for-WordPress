@@ -40,6 +40,7 @@ Route::get( '/release/view/{id}', array( 'as' => 'release.view', 'before' => 'au
 Route::get( '/release/add/{id}', array( 'as' => 'release.add', 'before' => 'auth', 'uses' => 'ReleaseController@add' ) );
 Route::get( '/release/edit/{id}', array( 'as' => 'release.edit', 'before' => 'auth', 'uses' => 'ReleaseController@edit' ) );
 Route::get( '/release/delete/{id}', array( 'as' => 'release.delete', 'before' => 'auth', 'uses' => 'ReleaseController@delete' ) );
+Route::get( '/release/export-id3/{id}', array( 'as' => 'release.export-id3', 'before' => 'auth', 'uses' => 'ReleaseController@export_id3' ) );
 Route::post( '/release/update/{release?}', array( 'as' => 'release.update', 'before' => 'auth', 'uses' => 'ReleaseController@update' ) );
 Route::post( '/release/remove/{release}', array( 'as' => 'release.remove', 'before' => 'auth', 'uses' => 'ReleaseController@remove' ) );
 
@@ -52,6 +53,7 @@ Route::get( '/track/edit/{id}', array( 'as' => 'track.edit', 'before' => 'auth',
 Route::get( '/track/delete/{id}', array( 'as' => 'track.delete', 'before' => 'auth', 'uses' => 'TrackController@delete' ) );
 Route::post( '/track/update/{track?}', array( 'as' => 'track.update', 'before' => 'auth', 'uses' => 'TrackController@update' ) );
 Route::post( '/track/remove/{track}', array( 'as' => 'track.remove', 'before' => 'auth', 'uses' => 'TrackController@remove' ) );
+Route::post( '/track/save-order/{id}', array( 'as' => 'track.save-order', 'before' => 'auth', 'uses' => 'TrackController@save_order' ) );
 
 // Audio
 Route::model('audio', 'Audio');

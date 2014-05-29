@@ -6,7 +6,7 @@
  * Time: 2:59 PM
  */
 
-class SongController {
+class SongController extends BaseController {
 
 	private $layout_variables = array();
 
