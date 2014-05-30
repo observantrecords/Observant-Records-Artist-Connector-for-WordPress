@@ -21,6 +21,7 @@ class Track extends Eloquent {
 		'track_is_visible',
 		'track_audio_is_linked',
 		'track_audio_is_downloadable',
+		'track_uplaya_score',
 	);
 	protected $guarded = array(
 		'track_id',

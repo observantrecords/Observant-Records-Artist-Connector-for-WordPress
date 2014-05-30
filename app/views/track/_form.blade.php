@@ -12,7 +12,7 @@
 	<div class="form-group">
 		{{ Form::label( 'track_disc_num', 'Disc no.:', array( 'class' => 'col-sm-2' ) ) }}
 		<div class="col-sm-10">
-			{{ Form::text( 'track_track_num', $track->track_disc_num, array( 'class' => 'form-control' ) ) }}
+			{{ Form::text( 'track_disc_num', $track->track_disc_num, array( 'class' => 'form-control' ) ) }}
 		</div>
 	</div>
 
@@ -89,22 +89,6 @@
 		{{ Form::label( 'track_uplaya_score', 'uPlaya score:', array( 'class' => 'col-sm-2' ) ) }}
 		<div class="col-sm-10">
 			{{ Form::text( 'track_uplaya_score', $track->track_uplaya_score, array( 'class' => 'form-control' ) ) }}
-		</div>
-	</div>
-
-	<div class="form-group">
-		{{ Form::label( 'track_audio_is_downloadable', 'Downloadable:', array( 'class' => 'col-sm-2' ) ) }}
-		<div class="col-sm-10">
-			<div class="radio">
-				<label>
-					{{ Form::radio( 'track_audio_is_downloadable', true, (boolean) $track->track_audio_is_downloadable ) }} Yes
-				</label>
-			</div>
-			<div class="radio">
-				<label>
-					{{ Form::radio( 'track_audio_is_downloadable', false, (boolean) $track->track_audio_is_downloadable ) }} No
-				</label>
-			</div>
 		</div>
 	</div>
 

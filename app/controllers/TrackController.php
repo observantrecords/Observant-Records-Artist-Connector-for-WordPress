@@ -6,6 +6,8 @@
  * Time: 2:58 PM
  */
 
+use Illuminate\Database\Connection;
+
 class TrackController extends BaseController {
 
 	private $layout_variables = array();
@@ -86,9 +88,9 @@ class TrackController extends BaseController {
 
 		$track = Track::find($track_id);
 
-		$songs = $this->build_song_options();
+		$songs = $this->build_song_options($track);
 
-		$recordings = $this->build_recording_options();
+		$recordings = $this->build_recording_options($track);
 
 		$method_variables = array(
 			'track' => $track,
@@ -101,13 +103,13 @@ class TrackController extends BaseController {
 		return View::make('track.edit', $data);
 	}
 
-	private function build_song_options() {
+	private function build_song_options($track) {
 		$songs = Song::where('song_primary_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('song_title')->lists('song_title', 'song_id');
 		$songs = array(0 => '&nbsp;') + $songs;
 		return $songs;
 	}
 
-	private function build_recording_options() {
+	private function build_recording_options($track) {
 		$recording_songs = Recording::with('song')->where('recording_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('recording_isrc_num')->get();
 		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
 		foreach ($recordings as $r => $recording) {
@@ -168,9 +170,13 @@ class TrackController extends BaseController {
 		foreach ($fields as $field) {
 			$value = Input::get($field);
 			if (!empty($value)) {
-				$track->{$field} = $value;
+				$track->{$field} =  $value;
 			}
 		}
+
+		$track->track_is_visible = (int) Input::get('track_is_visible');
+		$track->track_audio_is_linked = (int) Input::get('track_audio_is_linked');
+		$track->track_audio_is_downloadable = (int) Input::get('track_audio_is_downloadable');
 
 		$result = $track->save();
 
