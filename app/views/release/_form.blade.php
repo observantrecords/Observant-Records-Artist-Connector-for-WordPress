@@ -93,6 +93,21 @@
 
 <script type="text/javascript">
 	(function ($) {
+		$(function () {
+			$('#release_album_id').chosen();
+			$('#release_format_id').chosen();
+
+			// Date pickers.
+			$('#release_release_date').datepicker({
+				dateFormat: 'yy-mm-dd'
+			});
+
+			$('#release_album_id').change(function () {
+				var alias = $('#release_album_id>option:selected').text().trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]+/g, '').replace(/(^-|-$)/, '');
+				if (alias != '') {alias += '-digital';}
+				$('#release_alias').val(alias);
+			});
+		});
 	})(jQuery);
 </script>
 

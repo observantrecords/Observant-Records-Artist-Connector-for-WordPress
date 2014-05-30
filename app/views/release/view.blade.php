@@ -195,3 +195,14 @@
 
 
 @stop
+
+@section('sidebar')
+<p>
+	<img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $release->album->artist->artist_alias }}/albums/{{ $release->album->album_alias }}/{{ strtolower($release->release_catalog_num) }}/images/cover_front_medium.jpg" width="230" />
+</p>
+
+<ul>
+	<li><a href="{{ route('album.view', array( 'id' => $release->release_album_id )) }}/">Back to <em>{{ $release->album->album_title }}</em></a></li>
+</ul>
+
+@stop

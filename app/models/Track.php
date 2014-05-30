@@ -28,11 +28,15 @@ class Track extends Eloquent {
 	);
 
 	public function release() {
-		return $this->belongsTo('Release', 'release_id', 'track_release_id');
+		return $this->belongsTo('Release', 'track_release_id', 'release_id');
 	}
 
 	public function song() {
 		return $this->hasOne('Song', 'song_id', 'track_song_id');
+	}
+
+	public function recording() {
+		return $this->hasOne('Recording', 'recording_id', 'track_recording_id');
 	}
 
 	public function findReleaseTracks($release_id) {

@@ -80,15 +80,11 @@ class AlbumController extends BaseController {
 	public function edit($album_id = null) {
 
 		$album = Album::find($album_id);
-
-		$release_list = array();
-		foreach ($album->releases as $release) {
-			$release_list[$release->release_id] = $release->release_catalog_num;
-		}
+		$releases = $album->releases->lists('release_catalog_num', 'release_id');
 
 		$method_variables = array(
 			'album' => $album,
-			'releases' => $release_list,
+			'releases' => $releases,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);

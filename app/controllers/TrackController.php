@@ -65,10 +65,16 @@ class TrackController extends BaseController {
 			$last_track_num = 1;
 		}
 
-		$track->track_track_num = $last_track_num;
+		$track->track_track_num = $last_track_num + 1;
+
+		$songs = $this->build_song_options();
+
+		$recordings = $this->build_recording_options();
 
 		$method_variables = array(
 			'track' => $track,
+			'songs' => $songs,
+			'recordings' => $recordings,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -80,13 +86,36 @@ class TrackController extends BaseController {
 
 		$track = Track::find($track_id);
 
+		$songs = $this->build_song_options();
+
+		$recordings = $this->build_recording_options();
+
 		$method_variables = array(
 			'track' => $track,
+			'songs' => $songs,
+			'recordings' => $recordings,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
 		return View::make('track.edit', $data);
+	}
+
+	private function build_song_options() {
+		$songs = Song::where('song_primary_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('song_title')->lists('song_title', 'song_id');
+		$songs = array(0 => '&nbsp;') + $songs;
+		return $songs;
+	}
+
+	private function build_recording_options() {
+		$recording_songs = Recording::with('song')->where('recording_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('recording_isrc_num')->get();
+		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
+		foreach ($recordings as $r => $recording) {
+			$recordings[$r] = empty($recording) ? 'ISRC no. not set' : $recording;
+			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
+		}
+		$recordings = array(0 => '&nbsp;') + $recordings;
+		return $recordings;
 	}
 
 	public function delete($track_id) {
@@ -160,9 +189,9 @@ class TrackController extends BaseController {
 
 		if ($confirm === true) {
 			$track->delete();
-			return Redirect::route('release.view', array('id' => $release_id  ))->with('message', 'The record was deleted.');
+			return Redirect::route('release.view', array('id' => $release_id  ))->with('message', $track_song_title . ' was deleted.');
 		} else {
-			return Redirect::route('track.view', array('id' => $track->track_id))->with('error', 'The record was not deleted.');
+			return Redirect::route('track.view', array('id' => $track->track_id))->with('error', $track_song_title . ' was not deleted.');
 		}
 	}
 }
