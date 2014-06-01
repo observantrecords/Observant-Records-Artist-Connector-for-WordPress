@@ -3,7 +3,7 @@
 @section('page_title')
  &raquo; {{ $release->album->artist->artist_display_name }}
  &raquo; {{ $release->album->album_title }}
- @if (!empty($release->release_catalog_num)) &raquo; {{ $release->release_catalog_num }} @endif
+ &raquo; {{ $release->release_catalog_num }}
  &raquo; Edit
 @stop
 
@@ -26,5 +26,18 @@
 @stop
 
 @section('content')
+{{ Form::model( $release, array( 'route' => array('release.update', $release->release_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
 @parent
+{{ Form::close() }}
+@stop
+
+@section('sidebar')
+<p>
+	<img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $release->album->artist->artist_alias }}/albums/{{ $release->album->album_alias }}/{{ strtolower($release->release_catalog_num) }}/images/cover_front_medium.jpg" width="230" />
+</p>
+
+<ul>
+	<li><a href="{{ route('release.show', array( 'id' => $release->release_id )) }}/">Back to <em>{{ $release->album->album_title }}</em> @if (!empty($release->release_catalog_num)) ({{ $release->release_catalog_num }}) @else (TBD) @endif </a></li>
+</ul>
+
 @stop

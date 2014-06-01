@@ -2,8 +2,6 @@
 
 @section('content')
 
-{{ Form::model( $release, array( 'route' => array( 'release.update', $release->release_id ), 'class' => 'form-horizontal', 'role' => 'form' ) ) }}
-
 <div class="form-group">
 	{{ Form::label( 'release_album_id', 'Album:', array( 'class' => 'col-sm-2 control-label' ) ) }}
 	<div class="col-sm-10">
@@ -40,7 +38,7 @@
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'release_upc_num', 'Release date:', array( 'class' => 'col-sm-2 control-label' ) ) }}
+	{{ Form::label( 'release_upc_num', 'UPC:', array( 'class' => 'col-sm-2 control-label' ) ) }}
 	<div class="col-sm-10">
 		{{ Form::text( 'release_upc_num', $release->release_upc_num, array( 'class' => 'form-control' ) ) }}
 	</div>
@@ -85,11 +83,9 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::submit('Save') }}
+		{{ Form::submit('Save', array( 'class' => 'button' )) }}
 	</div>
 </div>
-
-{{ Form::close() }}
 
 <script type="text/javascript">
 	(function ($) {

@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gbueno
- * Date: 5/28/14
- * Time: 2:58 PM
- */
 
-class ReleaseController extends BaseController {
+class ReleaseController extends \BaseController {
 
 	private $layout_variables = array();
 
@@ -18,41 +12,53 @@ class ReleaseController extends BaseController {
 		);
 	}
 
-	public function browse($___id) {
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$album_id = Input::get('album');
+		if (!empty($album_id)) {
+			$releases = Release::where('release_album_id', $album_id)->orderBy('release_catalog_num')->get();
+		} else {
+			$releases = Release::orderBy('release_catalog_num')->get();
+		}
+		$releases->load('album');
 
 		$method_variables = array(
+			'releases' => $releases,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('___.browse', $data);
+		return View::make('release.index', $data);
 	}
 
-	public function view($release_id) {
 
-		$release = Release::find($release_id);
-		$track_model = new Track();
-		$release->release_track_list = $track_model->findReleaseTracks($release_id);
-
-		$method_variables = array(
-			'release_id' => $release_id,
-			'release' => $release,
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('release.view', $data);
-	}
-
-	public function add($album_id = null) {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
 
 		$release = new Release;
-		$release->release_album_id = $album_id;
 		$release->release_release_date = date('Y-m-d');
-		$release->album = Album::find($album_id);
 
-		$albums = Album::orderBy('album_title')->get();
-		$formats = ReleaseFormat::all();
+		$album_id = Input::get('album');
+
+		if (!empty($album_id)) {
+			$release->release_album_id = $album_id;
+			$release->album = Album::find($album_id);
+			$albums = Album::where('album_artist_id', $release->album->album_artist_id)->orderBy('album_title')->lists('album_title', 'album_id');
+		} else {
+			$albums = Album::orderBy('album_title')->lists('album_title', 'album_id');
+		}
+
+		$formats = ReleaseFormat::all()->lists('format_alias', 'format_id');
 
 		$method_variables = array(
 			'release' => $release,
@@ -62,19 +68,69 @@ class ReleaseController extends BaseController {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('release.add', $data);
+		return View::make('release.create', $data);
 	}
 
-	public function edit($release_id) {
 
-		$release = Release::find($release_id);
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$release = new Release;
 
-		$albums = Album::where('album_artist_id', $release->album->album_artist_id)->orderBy('album_title')->lists('album_title', 'album_id');
+		$fields = $release->getFillable();
+
+		foreach ($fields as $field) {
+			$release->{$field} = Input::get($field);
+		}
+
+		$result = $release->save();
+
+		if ($result !== false) {
+			return Redirect::route('release.show', array('id' => $release->release_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('album.show', array('id' => $release->release_album_id) )->with('error', 'Your changes were not saved.');
+		}
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$track_model = new Track();
+		$id->release_track_list = $track_model->findReleaseTracks($id->release_id);
+
+		$method_variables = array(
+			'release' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('release.show', $data);
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$albums = Album::where('album_artist_id', $id->album->album_artist_id)->orderBy('album_title')->lists('album_title', 'album_id');
 		$formats = ReleaseFormat::lists('format_alias', 'format_id');
 
 		$method_variables = array(
-			'release_id' => $release_id,
-			'release' => $release,
+			'release' => $id,
 			'albums' => $albums,
 			'formats' => $formats,
 		);
@@ -84,13 +140,35 @@ class ReleaseController extends BaseController {
 		return View::make('release.edit', $data);
 	}
 
-	public function delete($release_id) {
 
-		$release = Release::find($release_id);
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$fields = $id->getFillable();
+
+		foreach ($fields as $field) {
+			$id->{$field} = Input::get($field);
+		}
+
+		$result = $id->save();
+
+		if ($result !== false) {
+			return Redirect::route('release.show', array('id' => $id->release_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('album.show', array('id' => $id->release_album_id))->with('error', 'Your changes were not saved.');
+		}
+	}
+
+
+	public function delete($id) {
 
 		$method_variables = array(
-			'release_id' => $release_id,
-			'release' => $release,
+			'release' => $id,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -98,42 +176,54 @@ class ReleaseController extends BaseController {
 		return View::make('release.delete', $data);
 	}
 
-	public function update(Release $release = null) {
 
-		if (empty($release)) {
-			$release = new Release;
-		}
-
-		$fields = $release->getFillable();
-
-		foreach ($fields as $field) {
-			$value = Input::get($field);
-			if (!empty($value)) {
-				$release->{$field} = $value;
-			}
-		}
-
-		$result = $release->save();
-
-		if ($result !== false) {
-			return Redirect::route('release.view', array('id' => $release->release_id))->with('message', 'Your changes were saved.');
-		} else {
-			return Redirect::route('album.browse')->with('error', 'Your changes were not saved.');
-		}
-	}
-
-	public function remove(Release $release) {
-
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
 		$confirm = (boolean) Input::get('confirm');
-		$release_catalog_num = $release->release_catalog_num;
-		$album_id = $release->album_id;
+		$release_catalog_num = $id->release_catalog_num;
+		$album_id = $id->release_album_id;
 
 		if ($confirm === true) {
-			$release->delete();
-			return Redirect::route('album.view', array('id' => $album_id  ))->with('message', 'The record was deleted.');
+			$id->delete();
+			return Redirect::route('album.show', array('id' => $album_id  ))->with('message', 'The record was deleted.');
 		} else {
-			return Redirect::route('release.view', array('id' => $release->release_id))->with('error', 'The record was not deleted.');
+			return Redirect::route('release.show', array('id' => $id->release_id))->with('error', 'The record was not deleted.');
 		}
 	}
 
-} 
+	public function export_id3($id) {
+
+		$file_lines = array();
+		foreach ($id->tracks as $track) {
+			$tag = array(
+				$track->release->album->artist->artist_display_name,
+				$track->release->album->artist->artist_display_name,
+				$track->release->album->album_title,
+				date('Y', strtotime($track->release->release_release_date)),
+				'Other',
+				'℗ ' . date('Y', strtotime($track->release->release_release_date)) . ' Observant Records',
+				$track->recording->recording_isrc_num,
+				sprintf('%02d', $track->track_track_num),
+				$track->song->song_title,
+			);
+			$tag_line = implode('|', $tag);
+			$file_lines[] = $tag_line;
+		}
+		$file = implode("\r\n", $file_lines);
+
+		$file_with_bom = chr(239) . chr(187) . chr(191) . $file;
+
+		$file_name = $id->album->artist->artist_display_name . ' - ' . $id->album->album_title . '.m3u.txt';
+		header('Cache-Control: private');
+		header('Content-Disposition: attachment; filename="' . $file_name . '"');
+		header("Content-Type: text/plain; charset=utf-8");
+		echo $file_with_bom;
+		die();
+	}
+}

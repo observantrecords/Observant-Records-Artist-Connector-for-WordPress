@@ -34,23 +34,42 @@
 	Are you sure you want to do this?
 </p>
 
-{{ Form::open( array( 'route' => array( 'track.remove', $track->track_id ) ) ) }}
+{{ Form::model( $track, array( 'route' => array( 'track.destroy', $track->track_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'delete' ) ) }}
 
-<div class="radio">
-	<label>
-		{{ Form::radio('confirm', '1') }} Yes, I want to delete {{ $track->song->song_title }}.
-	</label>
-</div>
-<div class="radio">
-	<label>
-		{{ Form::radio('confirm', '0') }} No, I don't want to delete {{ $track->song->song_title }}.
-	</label>
+<div class="form-group">
+	<div class="col-sm-12">
+		<div class="radio">
+			<label>
+				{{ Form::radio('confirm', '1') }} Yes, I want to delete {{ $track->song->song_title }}.
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				{{ Form::radio('confirm', '0') }} No, I don't want to delete {{ $track->song->song_title }}.
+			</label>
+		</div>
+	</div>
 </div>
 
-<p>
-	{{ Form::submit('Confirm') }}
-</p>
+<div class="form-group">
+	<div class="col-sm-12">
+		{{ Form::submit('Confirm', array( 'class' => 'button' )) }}
+	</div>
+</div>
 
 {{ Form::close() }}
 
+@stop
+
+@section('sidebar')
+@if (!empty($track->release))
+<p>
+	<img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $track->release->album->artist->artist_alias }}/albums/{{ $track->release->album->album_alias }}/{{ strtolower($track->release->release_catalog_num) }}/images/cover_front_medium.jpg" width="230" />
+</p>
+
+<ul>
+	<li><a href="{{ route('track.show', array( 'id' => $track->track_id )) }}/">Back to <em>{{ $track->song->song_title }}</em></a></li>
+	<li><a href="{{ route('release.show', array( 'id' => $track->release->release_id )) }}/">Back to <em>{{ $track->release->album->album_title }}</em> @if (!empty($track->release->release_catalog_num)) ({{ $track->release->release_catalog_num }}) @else (TBD) @endif</a></li>
+</ul>
+@endif
 @stop

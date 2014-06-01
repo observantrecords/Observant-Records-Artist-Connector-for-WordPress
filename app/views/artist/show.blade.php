@@ -58,18 +58,18 @@
 <h3>Albums</h3>
 
 <p>
-	<a href="{{ route( 'album.add', array( 'id' => $artist->artist_id ) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add album</a>
+	<a href="{{ route( 'album.create', array( 'artist' => $artist->artist_id ) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add album</a>
 </p>
 
 
-@if (count($albums) > 0)
+@if (count($artist->albums) > 0)
 <ol class="track-list">
-	@foreach ($albums as $album)
+	@foreach ($artist->albums as $album)
 	<li>
 		<div>
 			<a href="{{ route( 'album.edit', array( 'id' => $album->album_id ) ) }}"><span class="glyphicon glyphicon-pencil"></span></a>
 			<a href="{{ route( 'album.delete', array( 'id' => $album->album_id ) ) }}"><span class="glyphicon glyphicon-remove"></span></a>
-			<span class="album-order-display">{{ $album->album_order }}</span>. <a href="{{ route( 'album.view', array( 'id' => $album->album_id ) ) }}">{{ $album->album_title }}</a>
+			<span class="album-order-display">{{ $album->album_order }}</span>. <a href="{{ route( 'album.show', array( 'id' => $album->album_id ) ) }}">{{ $album->album_title }}</a>
 			{{ Form::hidden('album_id', $album->album_id) }}
 			{{ Form::hidden('album_order', $album->album_order) }}
 		</div>
@@ -85,8 +85,8 @@
 <h3>Catalogs</h3>
 
 <ul>
-	<li><a href="{{ route( 'song.browse', array( 'id' => $artist->artist_id ) ) }}">Songs</a></li>
-	<li><a href="{{ route( 'recording.browse', array( 'id' => $artist->artist_id ) ) }}">Recordings</a></li>
+	<li><a href="{{ route( 'song.index', array( 'artist' => $artist->artist_id ) ) }}">Songs</a></li>
+	<li><a href="{{ route( 'recording.index', array( 'artist' => $artist->artist_id ) ) }}">Recordings</a></li>
 </ul>
 
 @stop

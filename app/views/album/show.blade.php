@@ -80,10 +80,10 @@
 <h3>Releases</h3>
 
 <p>
-	<a href="{{ route('release.add', array( 'id' => $album->album_id )) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
+	<a href="{{ route('release.create', array( 'album' => $album->album_id )) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
 </p>
 
-@if (!empty($album->releases))
+@if (count($album->releases) > 0)
 <table class="table">
 	<thead>
 	<tr>
@@ -104,7 +104,7 @@
 			</div>
 		</td>
 		<td>
-			<a href="{{ route( 'release.view', array( 'id' => $release->release_id ) ) }}"><img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $artist->artist_alias }}/albums/{{ $album->album_alias }}/{{ strtolower($release->release_catalog_num) }}/images/cover_front_small.jpg" width="50" height="50" /></a>
+			<a href="{{ route( 'release.show', array( 'id' => $release->release_id ) ) }}"><img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $release->album->artist->artist_alias }}/albums/{{ $release->album->album_alias }}/{{ strtolower($release->release_catalog_num) }}/images/cover_front_small.jpg" width="50" height="50" /></a>
 		</td>
 		<td>
 			@if (!empty($release->release_catalog_num))
@@ -123,6 +123,10 @@
 	</tr>
 	@endforeach
 </table>
+@else
+<p>
+	This album has no releases. Please add one.
+</p>
 @endif
 
 

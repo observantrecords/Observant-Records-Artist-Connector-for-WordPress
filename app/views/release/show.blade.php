@@ -90,16 +90,16 @@
 	@endif
 	<li>
 		<div>
-			<label>Visibile?</label> <input type="checkbox" disabled="disabled" value="1" @if (($release->release_is_visible==true)) checked @endif />
+			<label>Visible?</label> <input type="checkbox" disabled="disabled" value="1" @if (($release->release_is_visible==true)) checked @endif />
 		</div>
 	</li>
 </ul>
 
 <h3>Tracks</h3>
 
-{{ Form::open( array( 'route' => array( 'track.save-order', $release->release_id ), 'id' => 'save-order-form' ) ) }}
+{{ Form::open( array( 'route' => array( 'track.save-order' ), 'id' => 'save-order-form' ) ) }}
 <p>
-	<a href="{{ route( 'track.add', array('id' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a track</a>
+	<a href="{{ route( 'track.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a track</a>
 	@if (!empty($release->release_track_list))
 	<a href="{{ route( 'release.export-id3' , array('id' => $release->release_id)  ) }}" class="button">Export ID3 data</a>
 	{{ Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'button') ) }}
@@ -117,7 +117,7 @@
 				<div>
 					<a href="{{ route( 'track.edit', array( 'id' => $track->track_id ) ) }}" title="[Edit]"><span class="glyphicon glyphicon-pencil"></span></a>
 					<a href="{{ route( 'track.delete', array( 'id' => $track->track_id ) ) }}" title="[Delete]"><span class="glyphicon glyphicon-remove"></span></a>
-					<span class="track-num-display">{{ $track->track_track_num }}</span>. <a href="{{ route( 'track.view', array( 'id' => $track->track_id ) ) }}">{{ $track->song->song_title }}</a>
+					<span class="track-num-display">{{ $track->track_track_num }}</span>. <a href="{{ route( 'track.show', array( 'id' => $track->track_id ) ) }}">{{ $track->song->song_title }}</a>
 					<input type="hidden" name="track_id" value="{{ $track->track_id }}" />
 					<input type="hidden" name="track_disc_num" value="{{ $track->track_disc_num }}" />
 				</div>
@@ -174,13 +174,15 @@
 			track_info = {
 				'track_id': track_id,
 				'track_track_num': track_num,
-				'track_disc_num': track_disc
+				'track_disc_num': track_disc,
 			}
 			tracks.push(track_info);
 		});
+		var _token = $('input[name=_token]').val();
 		var url = $('#save-order-form').attr('action');
 		var data = {
-			'tracks': tracks
+			'tracks': tracks,
+			'_token': _token
 		};
 		$.post(url, data, function (result) {
 			$('#save-order-dialog').dialog('open');
@@ -202,7 +204,7 @@
 </p>
 
 <ul>
-	<li><a href="{{ route('album.view', array( 'id' => $release->release_album_id )) }}/">Back to <em>{{ $release->album->album_title }}</em></a></li>
+	<li><a href="{{ route('album.show', array( 'id' => $release->release_album_id )) }}/">Back to <em>{{ $release->album->album_title }}</em></a></li>
 </ul>
 
 @stop

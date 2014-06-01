@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gbueno
- * Date: 5/28/14
- * Time: 2:58 PM
- */
 
-use Illuminate\Database\Connection;
-
-class TrackController extends BaseController {
+class TrackController extends \BaseController {
 
 	private $layout_variables = array();
 
@@ -20,9 +12,21 @@ class TrackController extends BaseController {
 		);
 	}
 
-	public function browse($release_id) {
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$release_id = Input::get('release');
 
-		$tracks = Track::orderBy('track_disc_num, track_track_num')->get();
+		if (!empty($release_id)) {
+			$tracks = Track::where('track_release_id', $release_id)->orderBy('track_disc_num')->orderBy('track_track_num')->get();
+		} else {
+			$tracks = Track::orderBy('track_release_id')->orderBy('track_disc_num')->orderBy('track_track_num')->get();
+		}
+		$tracks->load('release', 'song');
 
 		$method_variables = array(
 			'tracks' => $tracks,
@@ -30,72 +34,124 @@ class TrackController extends BaseController {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('track.browse', $data);
+		return View::make('track.index', $data);
 	}
 
-	public function view($track_id) {
 
-		$track = Track::find($track_id);
-
-		$method_variables = array(
-			'track' => $track,
-			'track_id' => $track_id,
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('track.view', $data);
-	}
-
-	public function add($release_id) {
-
-		$release = Release::find($release_id);
-
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
 		$track = new Track;
-		$track->release = $release;
-		$track->track_album_id = $release->release_album_id;
 
-		$last_disc_num = Track::where('track_release_id', '=', $release_id)->max('track_disc_num');
-		if (empty($last_disc_num)) {
-			$last_disc_num = 1;
+		$release_id = Input::get('release');
+
+		if (!empty($release_id)) {
+			$release = Release::find($release_id);
+			$track->release = $release;
+			$track->track_release_id = $release->release_id;
+			$track->track_album_id = $release->release_album_id;
+			$last_disc_num = Track::where('track_release_id', $release_id)->max('track_disc_num');
+			if (empty($last_disc_num)) {
+				$last_disc_num = 1;
+			}
+
+			$track->track_disc_num = $last_disc_num;
+
+			$last_track_num = Track::where('track_release_id', '=', $release_id)->max('track_track_num');
+			if (empty($last_track_num)) {
+				$last_track_num = 1;
+			}
+
+			$track->track_track_num = $last_track_num + 1;
+
 		}
 
-		$track->track_disc_num = $last_disc_num;
-
-		$last_track_num = Track::where('track_release_id', '=', $release_id)->max('track_track_num');
-		if (empty($last_track_num)) {
-			$last_track_num = 1;
-		}
-
-		$track->track_track_num = $last_track_num + 1;
-
-		$songs = $this->build_song_options();
-
-		$recordings = $this->build_recording_options();
-
-		$method_variables = array(
-			'track' => $track,
-			'songs' => $songs,
-			'recordings' => $recordings,
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('track.add', $data);
-	}
-
-	public function edit($track_id) {
-
-		$track = Track::find($track_id);
 
 		$songs = $this->build_song_options($track);
 
 		$recordings = $this->build_recording_options($track);
 
+		$releases = $this->build_release_options($track);
+
 		$method_variables = array(
 			'track' => $track,
 			'songs' => $songs,
 			'recordings' => $recordings,
+			'releases' => $releases,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('track.create', $data);
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$track = new Track;
+
+		$fields = $track->getFillable();
+
+		foreach ($fields as $field) {
+			$track->{$field} = Input::get($field);
+		}
+
+		$result = $track->save();
+
+		if ($result !== false) {
+			return Redirect::route('track.show', array('id' => $track->track_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('release.show', array('id' => $track->track_release_id))->with('error', 'Your changes were not saved.');
+		}
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$method_variables = array(
+			'track' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('track.show', $data);
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$songs = $this->build_song_options($id);
+
+		$recordings = $this->build_recording_options($id);
+
+		$releases = $this->build_release_options($id);
+
+		$method_variables = array(
+			'track' => $id,
+			'songs' => $songs,
+			'recordings' => $recordings,
+			'releases' => $releases,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -103,29 +159,35 @@ class TrackController extends BaseController {
 		return View::make('track.edit', $data);
 	}
 
-	private function build_song_options($track) {
-		$songs = Song::where('song_primary_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('song_title')->lists('song_title', 'song_id');
-		$songs = array(0 => '&nbsp;') + $songs;
-		return $songs;
-	}
 
-	private function build_recording_options($track) {
-		$recording_songs = Recording::with('song')->where('recording_artist_id', '=', $track->release->album->artist->artist_id)->orderBy('recording_isrc_num')->get();
-		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
-		foreach ($recordings as $r => $recording) {
-			$recordings[$r] = empty($recording) ? 'ISRC no. not set' : $recording;
-			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$fields = $id->getFillable();
+
+		foreach ($fields as $field) {
+			$id->{$field} = Input::get($field);
 		}
-		$recordings = array(0 => '&nbsp;') + $recordings;
-		return $recordings;
+
+		$result = $id->save();
+
+		if ($result !== false) {
+			return Redirect::route('track.show', array('id' => $id->track_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('release.show', array('id' => $id->track_release_id))->with('error', 'Your changes were not saved.');
+		}
 	}
 
-	public function delete($track_id) {
 
-		$track = Track::find($track_id);
+	public function delete($id) {
 
 		$method_variables = array(
-			'track' => $track,
+			'track' => $id,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -133,7 +195,27 @@ class TrackController extends BaseController {
 		return View::make('track.delete', $data);
 	}
 
-	public function save_order($release_id) {
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		$confirm = (boolean) Input::get('confirm');
+		$track_song_title = $id->song->song_title;
+		$release_id = $id->track_release_id;
+
+		if ($confirm === true) {
+			$id->delete();
+			return Redirect::route('release.show', array('id' => $id->track_release_id  ))->with('message', $track_song_title . ' was deleted.');
+		} else {
+			return Redirect::route('track.show', array('id' => $id->track_id))->with('error', $track_song_title . ' was not deleted.');
+		}
+	}
+
+	public function save_order() {
 		$tracks = Input::get('tracks');
 
 		$is_success = true;
@@ -159,45 +241,52 @@ class TrackController extends BaseController {
 		return $track->save();
 	}
 
-	public function update(Track $track = null) {
+	private function build_song_options($track) {
 
-		if (empty($track)) {
-			$track = new Track;
-		}
-
-		$fields = $track->getFillable();
-
-		foreach ($fields as $field) {
-			$value = Input::get($field);
-			if (!empty($value)) {
-				$track->{$field} =  $value;
-			}
-		}
-
-		$track->track_is_visible = (int) Input::get('track_is_visible');
-		$track->track_audio_is_linked = (int) Input::get('track_audio_is_linked');
-		$track->track_audio_is_downloadable = (int) Input::get('track_audio_is_downloadable');
-
-		$result = $track->save();
-
-		if ($result !== false) {
-			return Redirect::route('track.view', array('id' => $track->track_id))->with('message', 'Your changes were saved.');
+		if (!empty($track->release)) {
+			$songs = Song::where('song_primary_artist_id', $track->release->album->artist->artist_id)->orderBy('song_title')->lists('song_title', 'song_id');
 		} else {
-			return Redirect::route('release.view', array('id' => $track->track_release_id))->with('error', 'Your changes were not saved.');
+			$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
 		}
+
+		$songs = array(0 => '&nbsp;') + $songs;
+		return $songs;
 	}
 
-	public function remove(Track $track) {
+	private function build_recording_options($track) {
 
-		$confirm = (boolean) Input::get('confirm');
-		$track_song_title = $track->song->song_title;
-		$release_id = $track->track_release_id;
-
-		if ($confirm === true) {
-			$track->delete();
-			return Redirect::route('release.view', array('id' => $release_id  ))->with('message', $track_song_title . ' was deleted.');
+		if (!empty($track->release)) {
+			$recording_songs = Recording::with('song')->where('recording_artist_id', $track->release->album->artist->artist_id)->orderBy('recording_isrc_num')->get();
 		} else {
-			return Redirect::route('track.view', array('id' => $track->track_id))->with('error', $track_song_title . ' was not deleted.');
+			$recording_songs = Recording::with('song')->orderBy('recording_isrc_num')->get();
 		}
+
+		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
+		foreach ($recordings as $r => $recording) {
+			$recordings[$r] = empty($recording) ? 'ISRC no. not set' : $recording;
+			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
+		}
+
+		$recordings = array(0 => '&nbsp;') + $recordings;
+		return $recordings;
 	}
+
+	private function build_release_options($track) {
+
+		if (!empty($track->release)) {
+			$release_titles = Release::with('album')->where('release_album_id', $track->release->release_album_id)->orderBy('release_catalog_num')->get();
+		} else {
+			$release_titles = Release::with('album')->orderBy('release_catalog_num')->get();
+		}
+
+		$releases = $release_titles->lists('release_catalog_num', 'release_id');
+		foreach ($releases as $r => $release) {
+			$releases[$r] = empty($release) ? 'Catalog no. not set' : $release;
+			$releases[$r] .= ' (' . $release_titles->find($r)->album->album_title . ')';
+		}
+
+		$releases = array(0 => '&nbsp;') + $releases;
+		return $releases;
+	}
+
 }

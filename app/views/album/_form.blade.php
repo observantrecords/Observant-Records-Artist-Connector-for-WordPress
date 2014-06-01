@@ -2,7 +2,16 @@
 
 @section('content')
 
-{{ Form::model( $album, array( 'route' => array( 'album.update', $album->album_id ), 'class' => 'form-horizontal', 'role' => 'form' ) ) }}
+@if (!empty($artists))
+<div class="form-group">
+	{{ Form::label( 'album_artist_id', 'Artist:', array( 'class' => 'col-sm-2 control-label' ) ) }}
+	<div class="col-sm-10">
+		{{ Form::select( 'album_artist_id', $artists, $album->album_artist_id, array( 'class' => 'form-control' ) ) }}
+	</div>
+</div>
+@else
+{{ Form::hidden( 'album_artist_id' , $album->album_artist_id) }}
+@endif
 
 <div class="form-group">
 	{{ Form::label( 'album_title', 'Title:', array( 'class' => 'col-sm-2 control-label' ) ) }}
@@ -80,17 +89,15 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::hidden( 'album_artist_id' , $album->album_artist_id) }}
-		{{ Form::submit( 'Save' ) }}
+		{{ Form::submit( 'Save', array( 'class' => 'button' ) ) }}
 	</div>
 </div>
-
-{{ Form::close() }}
 
 <script type="text/javascript">
 	(function ($) {
 		$('#album_primary_release_id').chosen();
 		$('#album_format_id').chosen();
+		$('#album_artist_id').chosen();
 
 		// Date pickers.
 		$('#album_release_date').datepicker({

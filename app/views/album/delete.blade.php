@@ -29,22 +29,29 @@
 	Are you sure you want to do this?
 </p>
 
-{{ Form::open( array( 'route' => array( 'album.remove', $album->album_id ) ) ) }}
+{{ Form::model( $album, array( 'route' => array( 'album.destroy', $album->album_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'delete' ) ) }}
 
-<div class="radio">
-	<label>
-		{{ Form::radio('confirm', '1') }} Yes, I want to delete {{ $album->album_title }}.
-	</label>
-</div>
-<div class="radio">
-	<label>
-		{{ Form::radio('confirm', '0') }} No, I don't want to delete {{ $album->album_title }}.
-	</label>
+<div class="form-group">
+	<div class="col-sm-12">
+		<div class="radio">
+			<label>
+				{{ Form::radio('confirm', '1') }} Yes, I want to delete {{ $album->album_title }}.
+			</label>
+		</div>
+		<div class="radio">
+			<label>
+				{{ Form::radio('confirm', '0') }} No, I don't want to delete {{ $album->album_title }}.
+			</label>
+		</div>
+	</div>
 </div>
 
-<p>
-	{{ Form::submit('Confirm') }}
-</p>
+<div class="form-group">
+	<div class="col-sm-12">
+		{{ Form::submit('Confirm', array( 'class' => 'button' )) }}
+	</div>
+</div>
+
 
 {{ Form::close() }}
 

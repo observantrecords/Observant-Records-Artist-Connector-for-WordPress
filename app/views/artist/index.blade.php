@@ -15,7 +15,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route('artist.add') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an artist</a>
+	<a href="{{ route('artist.create') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an artist</a>
 </p>
 
 @if (!empty($artists))
@@ -26,7 +26,7 @@
 		<div>
 			<a href="{{ route('artist.edit', array('id' => $artist->artist_id) ) }}"><span class="glyphicon glyphicon-pencil"></span></a>
 			<a href="{{ route('artist.delete', array('id' => $artist->artist_id) ) }}"><span class="glyphicon glyphicon-remove"></span></a>
-			<a href="{{ route('artist.view', array('id' => $artist->artist_id) ) }}" title="[View {{ $artist->artist_display_name }}]">{{ $artist->artist_display_name }}</a>
+			<a href="{{ route('artist.show', array('id' => $artist->artist_id) ) }}" title="[View {{ $artist->artist_display_name }}]">{{ $artist->artist_display_name }}</a>
 		</div>
 	</li>
 	@endforeach

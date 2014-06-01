@@ -72,7 +72,7 @@
 		<div>
 			<label>Recording</label>
 			@if (!empty($track->track_recording_id))
-			<a href=" {{ route('recording.view', array( 'id' => $track->track_recording_id ) ) }}/">
+			<a href=" {{ route('recording.show', array( 'id' => $track->track_recording_id ) ) }}/">
 				@if (empty($track->recording->recording_isrc_num))
 				(No ISRC number set) {{ $track->song->song_title }}
 				@else
@@ -100,7 +100,7 @@
 </p>
 
 <ul>
-	<li><a href="{{ route('release.view', array( 'id' => $track->track_release_id )) }}/">Back to <em>{{ $track->release->album->album_title }}</em> @if (!empty($track->release->release_catalog_num)) ({{ $track->release->release_catalog_num }}) @endif</a></li>
+	<li><a href="{{ route('release.show', array( 'id' => $track->track_release_id )) }}/">Back to <em>{{ $track->release->album->album_title }}</em> @if (!empty($track->release->release_catalog_num)) ({{ $track->release->release_catalog_num }}) @endif</a></li>
 </ul>
 
 @stop

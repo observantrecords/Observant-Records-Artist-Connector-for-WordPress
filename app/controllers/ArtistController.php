@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gregbueno
- * Date: 5/26/14
- * Time: 3:56 PM
- */
 
-class ArtistController extends BaseController {
+class ArtistController extends \BaseController {
 
 	private $layout_variables = array();
 
@@ -18,8 +12,13 @@ class ArtistController extends BaseController {
 		);
 	}
 
-	public function browse() {
-
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
 		$artists = Artist::orderBy('artist_last_name')->get();
 
 		$method_variables = array(
@@ -28,26 +27,17 @@ class ArtistController extends BaseController {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.browse', $data);
+		return View::make('artist.index', $data);
 	}
 
-	public function view($artist_id) {
 
-		$artist = Artist::find($artist_id);
-		$albums = $artist->albums;
-
-		$method_variables = array(
-			'artist' => $artist,
-			'albums' => $albums,
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('artist.view', $data);
-	}
-
-	public function add() {
-
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
 		$artist = new Artist;
 
 		$method_variables = array(
@@ -56,16 +46,63 @@ class ArtistController extends BaseController {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('artist.add', $data);
+		return View::make('artist.create', $data);
 	}
 
-	public function edit($artist_id = null) {
 
-		$artist = Artist::find($artist_id);
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$artist = new Artist;
 
+		$fields = $artist->getFillable();
+
+		foreach ($fields as $field) {
+			$artist->{$field} = Input::get($field);
+		}
+
+		$result = $artist->save();
+
+		if ($result !== false) {
+			return Redirect::route('artist.show', array('id' => $artist->artist_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('artist.index')->with('error', 'Your changes were not saved.');
+		}
+	}
+
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
 		$method_variables = array(
-			'artist' => $artist,
-			'artist_id' => $artist_id,
+			'artist' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('artist.show', $data);
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$method_variables = array(
+			'artist' => $id,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -73,12 +110,41 @@ class ArtistController extends BaseController {
 		return View::make('artist.edit', $data);
 	}
 
-	public function delete($artist_id) {
 
-		$artist = Artist::find($artist_id);
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+
+		$fields = $id->getFillable();
+
+		foreach ($fields as $field) {
+			$id->{$field} = Input::get($field);
+		}
+
+		$result = $id->save();
+
+		if ($result !== false) {
+			return Redirect::route('artist.show', array('id' => $id->artist_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('artist.index')->with('error', 'Your changes were not saved.');
+		}
+	}
+
+	/**
+	 * Show the form for deleting the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function delete($id) {
 
 		$method_variables = array(
-			'artist' => $artist,
+			'artist' => $id,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
@@ -86,39 +152,25 @@ class ArtistController extends BaseController {
 		return View::make('artist.delete', $data);
 	}
 
-	public function update(Artist $artist = null) {
 
-		if (empty($artist)) {
-			$artist = new Artist;
-		}
-
-		$fields = $artist->getFillable();
-
-		foreach ($fields as $field) {
-			$value = Input::get($field);
-			if (!empty($value)) {
-				$artist->{$field} = $value;
-			}
-		}
-
-		$result = $artist->save();
-
-		if ($result !== false) {
-			return Redirect::route('artist.view', array('id' => $artist->artist_id))->with('message', 'Your changes were saved.');
-		} else {
-			return Redirect::route('artist.browse')->with('error', 'Your changes were not saved.');
-		}
-	}
-
-	public function remove(Artist $artist) {
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
 		$confirm = (boolean) Input::get('confirm');
-		$artist_display_name = $artist->artist_display_name;
+		$artist_display_name = $id->artist_display_name;
 
 		if ($confirm === true) {
-			$artist->delete();
-			return Redirect::route('artist.browse')->with('message', $artist_display_name . ' was deleted.');
+			$id->delete();
+			return Redirect::route('artist.index')->with('message', $artist_display_name . ' was deleted.');
 		} else {
-			return Redirect::route('artist.view', array('id' => $artist->artist_id))->with('error', $artist_display_name . ' was not deleted.');
+			return Redirect::route('artist.show', array('id' => $id->artist_id))->with('error', $artist_display_name . ' was not deleted.');
 		}
 	}
+
+
 }

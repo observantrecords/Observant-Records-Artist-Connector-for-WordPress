@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gbueno
- * Date: 5/28/14
- * Time: 2:59 PM
- */
 
-class SongController extends BaseController {
+class SongController extends \BaseController {
 
 	private $layout_variables = array();
 
@@ -18,90 +12,183 @@ class SongController extends BaseController {
 		);
 	}
 
-	public function browse($___id) {
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$artist_id = Input::get('artist');
 
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.browse', $data);
-	}
-
-	public function view($___id) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.view', $data);
-	}
-
-	public function add($___id = null) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.add', $data);
-	}
-
-	public function edit($___id = null) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.edit', $data);
-	}
-
-	public function delete($___id) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.delete', $data);
-	}
-
-	public function update(Model $___ = null) {
-
-		if (empty($___)) {
+		if (!empty($artist_id)) {
+			$songs = Song::where('song_primary_artist_id', $artist_id)->orderBy('song_title')->get();
+			$artist = Artist::find($artist_id);
+		} else {
+			$songs = Song::orderBy('song_title')->get();
+			$artist = new Artist;
 		}
 
-		$fields = $___->getFillable();
+		$method_variables = array(
+			'songs' => $songs,
+			'artist' => $artist,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('song.index', $data);
+	}
+
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		$song = new Song;
+
+		$artist_id = Input::get('artist');
+
+		if (!empty($artist_id)) {
+			$song->song_primary_artist_id = $artist_id;
+			$song->artist = Artist::find($artist_id);
+		}
+
+		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
+		$artists = array(0 => '&nbsp;') + $artists;
+
+		$method_variables = array(
+			'song' => $song,
+			'artists' => $artists,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('song.create', $data);
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$song = new Song;
+
+		$fields = $song->getFillable();
 
 		foreach ($fields as $field) {
-			$value = Input::get($field);
-			if (!empty($value)) {
-				$___->{$field} = $value;
-			}
+			$song->{$field} = Input::get($field);
 		}
 
-		$result = $___->save();
+		$result = $song->save();
 
 		if ($result !== false) {
-			return Redirect::route('___.view', array('id' => $___->id))->with('message', 'Your changes were saved.');
+			return Redirect::route('song.show', array('id' => $song->song_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::route('___.browse')->with('error', 'Your changes were not saved.');
+			return Redirect::route('song.index', array('artist' => $song->song_primary_artist_id) )->with('error', 'Your changes were not saved.');
 		}
 	}
 
-	public function remove(Model $___) {
 
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$method_variables = array(
+			'song' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('song.show', $data);
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
+		$artists = array(0 => '&nbsp;') + $artists;
+
+		$method_variables = array(
+			'song' => $id,
+			'artists' => $artists,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('song.edit', $data);
+	}
+
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$fields = $id->getFillable();
+
+		foreach ($fields as $field) {
+			$id->{$field} = Input::get($field);
+		}
+
+		$result = $id->save();
+
+		if ($result !== false) {
+			return Redirect::route('song.show', array('id' => $id->song_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('song.index', array('artist' => $id->song_primary_artist_id) )->with('error', 'Your changes were not saved.');
+		}
+	}
+
+	public function delete($id) {
+
+		$method_variables = array(
+			'song' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('song.delete', $data);
+	}
+
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
 		$confirm = (boolean) Input::get('confirm');
-		$album_title = $___->album_title;
-		$artist_id = $___->album_artist_id;
+		$song_title = $id->song_title;
+		$artist_id = $id->song_primary_artist_id;
 
 		if ($confirm === true) {
-			$___->delete();
-			return Redirect::route('___.view', array('id' => $___id  ))->with('message', 'The record was deleted.');
+			$id->delete();
+			return Redirect::route('song.index', array('artist' => $artist_id  ))->with('message', $song_title . ' was deleted.');
 		} else {
-			return Redirect::route('___.view', array('id' => $___->id))->with('error', 'The record was not deleted.');
+			return Redirect::route('song.show', array('id' => $id->song_id))->with('error', $song_title . ' was not deleted.');
 		}
 	}
+
+
 }

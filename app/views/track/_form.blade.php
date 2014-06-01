@@ -2,12 +2,14 @@
 
 @section('content')
 
-{{ Form::model( $track, array( 'route' => array( 'track.update', $track->track_id ), 'class' => 'form-horizontal', 'role' => 'form' ) ) }}
-
 <div class="form-group">
 
-	{{ Form::hidden( 'track_release_id', $track->release->release_id ) }}
-	{{ Form::hidden( 'track_album_id', $track->release->album->album_id ) }}
+	<div class="form-group">
+		{{ Form::label( 'track_release_id', 'Release:', array( 'class' => 'col-sm-2' ) ) }}
+		<div class="col-sm-10">
+			{{ Form::select( 'track_release_id', $releases, $track->track_release_id, array( 'class' => 'form-control' ) ) }}
+		</div>
+	</div>
 
 	<div class="form-group">
 		{{ Form::label( 'track_disc_num', 'Disc no.:', array( 'class' => 'col-sm-2' ) ) }}
@@ -99,17 +101,18 @@
 		</div>
 	</div>
 
-	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::submit('Save') }}
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			{{ Form::submit('Save', array( 'class' => 'button' )) }}
+		</div>
 	</div>
 </div>
-
-{{ Form::close() }}
 
 <script type="text/javascript">
 	(function ($) {
 		$('#track_song_id').chosen();
 		$('#track_recording_id').chosen();
+		$('#track_release_id').chosen();
 
 		// Date pickers.
 //		$('#release_release_date').datepicker({

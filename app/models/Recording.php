@@ -33,4 +33,8 @@ class Recording extends Eloquent {
 		return $this->hasOne('RecordingISRC', 'recording_isrc_num', 'isrc_num');
 	}
 
+	public function audio() {
+		return $this->hasMany('Audio', 'audio_recording_id', 'recording_id');
+	}
+
 } 

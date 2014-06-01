@@ -2,8 +2,6 @@
 
 @section('content')
 
-{{ Form::model( $artist, array( 'action' => array( 'ArtistController@update', $artist->artist_id ), 'class' => 'form-horizontal', 'role' => 'form' ) ) }}
-
 <div class="form-group">
 	{{ Form::label( 'artist_last_name', 'Last name:', array( 'class' => 'col-sm-2 control-label' ) ) }}
 	<div class="col-sm-10">
@@ -55,10 +53,8 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::submit( 'Save' ) }}
+		{{ Form::submit( 'Save', array( 'class' => 'button' ) ) }}
 	</div>
 </div>
-
-{{ Form::close() }}
 
 @stop

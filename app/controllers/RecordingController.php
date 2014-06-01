@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gbueno
- * Date: 5/28/14
- * Time: 2:59 PM
- */
 
-class RecordingController extends BaseController {
+class RecordingController extends \BaseController {
 
 	private $layout_variables = array();
 
@@ -18,90 +12,201 @@ class RecordingController extends BaseController {
 		);
 	}
 
-	public function browse($___id) {
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$artist_id = Input::get('artist');
+
+		if (!empty($artist_id)) {
+			$artist = Artist::find($artist_id);
+			$recordings = Recording::where('recording_artist_id', $artist_id)->orderBy('recording_isrc_num')->get();
+		} else {
+			$artist = new Artist;
+			$recordings = Recording::orderBy('recording_isrc_num')->get();
+		}
+		$recordings->load('song');
+
+		$recording_list = $recordings->lists('recording_isrc_num', 'recording_id');
+		foreach ($recording_list as $r => $recording) {
+			$recording_list[$r] = $recording . ' ('. $recordings->find($r)->song->song_title . ')';
+		}
+		$recording_list = array(0 => '&nbsp;') + $recording_list;
 
 		$method_variables = array(
+			'recordings' => $recording_list,
+			'artist' => $artist,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return View::make('___.browse', $data);
+		return View::make('recording.index', $data);
 	}
 
-	public function view($___id) {
 
-		$method_variables = array(
-		);
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		$recording = new Recording;
 
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.view', $data);
-	}
-
-	public function add($___id = null) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.add', $data);
-	}
-
-	public function edit($___id = null) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.edit', $data);
-	}
-
-	public function delete($___id) {
-
-		$method_variables = array(
-		);
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('___.delete', $data);
-	}
-
-	public function update(Model $___ = null) {
-
-		if (empty($___)) {
+		$artist_id = Input::get('artist');
+		if (!empty($artist_id)) {
+			$recording->recording_artist_id = $artist_id;
+			$recording->artist = Artist::find($artist_id);
 		}
 
-		$fields = $___->getFillable();
+		$artists = Artist::orderBy('artist_last_name')->lists('artist_display_name', 'artist_id');
+		$artists = array(0 => '&nbsp;') + $artists;
+
+		$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
+		$songs = array(0 => '&nbsp;') + $songs;
+
+		$method_variables = array(
+			'recording' => $recording,
+			'artists' => $artists,
+			'songs' => $songs,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('recording.create', $data);
+	}
+
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$recording = new Recording;
+
+		$fields = $recording->getFillable();
 
 		foreach ($fields as $field) {
-			$value = Input::get($field);
-			if (!empty($value)) {
-				$___->{$field} = $value;
-			}
+			$recording->{$field} = Input::get($field);
 		}
 
-		$result = $___->save();
+		$result = $recording->save();
 
 		if ($result !== false) {
-			return Redirect::route('___.view', array('id' => $___->id))->with('message', 'Your changes were saved.');
+			return Redirect::route('recording.show', array('id' => $recording->recording_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::route('___.browse')->with('error', 'Your changes were not saved.');
+			return Redirect::route('recording.index', array('artist' => $recording->recording_artist_id))->with('error', 'Your changes were not saved.');
 		}
 	}
 
-	public function remove(Model $___) {
 
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$method_variables = array(
+			'recording' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('recording.show', $data);
+	}
+
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$artists = Artist::orderBy('artist_last_name')->lists('artist_display_name', 'artist_id');
+		$artists = array(0 => '&nbsp;') + $artists;
+
+		$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
+		$songs = array(0 => '&nbsp;') + $songs;
+
+		$method_variables = array(
+			'recording' => $id,
+			'artists' => $artists,
+			'songs' => $songs,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('recording.edit', $data);
+	}
+
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$fields = $id->getFillable();
+
+		foreach ($fields as $field) {
+			$id->{$field} = Input::get($field);
+		}
+
+		$result = $id->save();
+
+		if ($result !== false) {
+			return Redirect::route('recording.show', array('id' => $id->recording_id))->with('message', 'Your changes were saved.');
+		} else {
+			return Redirect::route('recording.index', array('artist' => $id->recording_artist_id))->with('error', 'Your changes were not saved.');
+		}
+	}
+
+
+	public function delete($id) {
+
+		$method_variables = array(
+			'recording' => $id,
+		);
+
+		$data = array_merge($method_variables, $this->layout_variables);
+
+		return View::make('recording.delete', $data);
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
 		$confirm = (boolean) Input::get('confirm');
-		$album_title = $___->album_title;
-		$artist_id = $___->album_artist_id;
+		$recording_isrc_num = $id->recording_isrc_num;
 
 		if ($confirm === true) {
-			$___->delete();
-			return Redirect::route('___.view', array('id' => $___id  ))->with('message', 'The record was deleted.');
+			$id->delete();
+			return Redirect::route('recording.index', array('artist' => $id->recording_artist_id) )->with('message', $recording_isrc_num . ' was deleted.');
 		} else {
-			return Redirect::route('___.view', array('id' => $___->id))->with('error', 'The record was not deleted.');
+			return Redirect::route('recording.show', array('id' => $id->recording_id  ))->with('error', $recording_isrc_num . ' was not deleted.');
 		}
 	}
+
+	public function generate_isrc() {
+		$isrc = RecordingISRC::generate_code();
+		$recording_isrc_code = (object) array('isrc_code' => $this->Obr_Recording_Isrc->generate_code());
+		echo json_encode($recording_isrc_code);
+	}
+
 }
