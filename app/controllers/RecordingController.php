@@ -163,6 +163,13 @@ class RecordingController extends \BaseController {
 			$id->{$field} = Input::get($field);
 		}
 
+		$recording_isrc_num = Input::get('recording_isrc_num');
+		if (!empty($recording_isrc_num)) {
+			$isrc = RecordingISRC::where('isrc_code', $recording_isrc_num)->first();
+			$isrc->isrc_recording_id = $id->recording_id;
+			$isrc->save();
+		}
+
 		$result = $id->save();
 
 		if ($result !== false) {
@@ -204,8 +211,8 @@ class RecordingController extends \BaseController {
 	}
 
 	public function generate_isrc() {
-		$isrc = RecordingISRC::generate_code();
-		$recording_isrc_code = (object) array('isrc_code' => $this->Obr_Recording_Isrc->generate_code());
+		$isrc = new RecordingISRC;
+		$recording_isrc_code = (object) array('isrc_code' => $isrc->generate_code());
 		echo json_encode($recording_isrc_code);
 	}
 

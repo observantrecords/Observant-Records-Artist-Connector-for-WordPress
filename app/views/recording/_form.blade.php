@@ -22,9 +22,8 @@
 		<div class="col-sm-10">
 			@if (!empty($recording->recording_isrc_num))
 			{{ $recording->recording_isrc_num }}
-			{{ Form::hidden( 'recording_isrc_num', $recording->recording_isrc_num ) }}
 			@else
-			{{ Form::text( '_display_recording_isrc_num', null, array('disabled' => 'disabled') ) }}
+			{{ Form::text( '_display_recording_isrc_num', null, array('disabled' => 'disabled', 'id' => '_display_recording_isrc_num') ) }}
 			{{ Form::hidden( 'recording_isrc_num', null, array( 'id' => 'recording_isrc_num' ) ) }}
 			{{ Form::hidden( 'recording_isrc_code', null, array( 'id' => 'recording_isrc_code' ) ) }}
 			{{ Form::button( 'Generate', array('id' => 'generate_custom_isrc', 'class' => 'button') ) }}
@@ -46,11 +45,8 @@
 				var data = {
 					'_token': _token
 				}
-				$.ajax({
-					url: '/recording/generate_isrc/',
-					data: data,
-					cache: false
-				}).done(function (response) {
+				var url = '/recording/generate-isrc';
+				$.post(url, data, function (response) {
 					var result = $.parseJSON(response);
 					$('#recording_isrc_code').val(result.isrc_code);
 					$('#recording_isrc_num').val(result.isrc_code);

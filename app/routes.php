@@ -56,7 +56,7 @@ Route::get( '/song/{song}/lyrics', array( 'as' => 'song.lyrics', 'before' => 'au
 Route::model('recording', 'Recording');
 Route::resource('recording', 'RecordingController');
 Route::get( '/recording/{recording}/delete', array( 'as' => 'recording.delete', 'before' => 'auth', 'uses' => 'RecordingController@delete' ) );
-Route::post( '/recording/generate_isrc', array( 'as' => 'recording.isrc', 'before' => 'auth|csrf', 'uses' => 'RecordingController@generate_isrc' ) );
+Route::post( '/recording/generate-isrc', array( 'as' => 'recording.isrc', 'before' => 'auth', 'uses' => 'RecordingController@generate_isrc' ) );
 
 // Authentication
 Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );

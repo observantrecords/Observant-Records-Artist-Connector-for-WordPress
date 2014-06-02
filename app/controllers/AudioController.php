@@ -76,7 +76,8 @@ class AudioController extends \BaseController {
 		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
 		foreach ($recordings as $r => $recording) {
 			$recordings[$r] = empty($recording) ? 'ISRC no. not set' : $recording;
-			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
+			$song_title = !empty($recording_songs->find($r)->song->song_title) ? $recording_songs->find($r)->song->song_title : 'TBD';
+			$recordings[$r] .= ' (' . $song_title . ')';
 		}
 
 		$recordings = array(0 => '&nbsp;') + $recordings;
