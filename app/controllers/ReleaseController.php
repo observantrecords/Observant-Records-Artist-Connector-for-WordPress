@@ -107,6 +107,7 @@ class ReleaseController extends \BaseController {
 	{
 		$track_model = new Track();
 		$id->release_track_list = $track_model->findReleaseTracks($id->release_id);
+		$id->ecommerce->sortBy('ecommerce_list_order');
 
 		$method_variables = array(
 			'release' => $id,

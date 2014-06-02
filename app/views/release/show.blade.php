@@ -100,7 +100,7 @@
 {{ Form::open( array( 'route' => array( 'track.save-order' ), 'id' => 'save-order-form' ) ) }}
 <p>
 	<a href="{{ route( 'track.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a track</a>
-	@if (!empty($release->release_track_list))
+	@if (count($release->release_track_list) > 0)
 	<a href="{{ route( 'release.export-id3' , array('id' => $release->release_id)  ) }}" class="button">Export ID3 data</a>
 	{{ Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'button') ) }}
 	@endif
@@ -108,6 +108,7 @@
 </p>
 {{ Form::close() }}
 
+@if (count($release->release_track_list) > 0)
 <ol class="disc-list">
 	@foreach ($release->release_track_list as $disc_num => $tracks)
 	<li> <h4>Disc: <span class="disc-num-display">{{ $disc_num }}</span>:</h4>
@@ -174,11 +175,11 @@
 			track_info = {
 				'track_id': track_id,
 				'track_track_num': track_num,
-				'track_disc_num': track_disc,
+				'track_disc_num': track_disc
 			}
 			tracks.push(track_info);
 		});
-		var _token = $('input[name=_token]').val();
+		var _token = $('#save-order-form').find('input[name=_token]').val();
 		var url = $('#save-order-form').attr('action');
 		var data = {
 			'tracks': tracks,
@@ -195,6 +196,91 @@
 	});
 </script>
 
+@else
+<p>
+	This release has no tracks.
+</p>
+@endif
+
+
+<h4>Ecommerce links</h4>
+
+{{ Form::open( array( 'route' => array( 'ecommerce.save-order' ), 'id' => 'save-ecommerce-form' ) ) }}
+<p>
+	<a href="{{ route( 'ecommerce.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an ecommerce link</a>
+	@if (count($release->ecommerce) > 0)
+	{{ Form::button( 'Save ecommerce link order', array('id' => 'save-ecommerce-order', 'class' => 'button') ) }}
+	@endif
+</p>
+{{ Form::close() }}
+
+@if (count($release->ecommerce) > 0)
+<ul class="ecommerce-list">
+	@foreach ($release->ecommerce as $ecommerce)
+	<li>
+		<div>
+			<a href="{{ route( 'ecommerce.edit', array('id' => $ecommerce->ecommerce_id) ) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="{{ route( 'ecommerce.delete', array('id' => $ecommerce->ecommerce_id) ) }}"><span class="glyphicon glyphicon-remove"></span></a>
+			<span class="ecommerce-list-order">{{ $ecommerce->ecommerce_list_order }}</span>. <a href="{{ route( 'ecommerce.show', array('id' => $ecommerce->ecommerce_id) ) }}">{{ $ecommerce->ecommerce_label }}</a>
+			<input type="hidden" name="ecommerce_id" value="{{ $ecommerce->ecommerce_id }}" />
+		</div>
+	</li>
+	@endforeach
+</ul>
+
+<div id="save-list-order-dialog">
+	<p class="msg"></p>
+</div>
+
+<script type="text/javascript">
+	$('.ecommerce-list').sortable({
+		update: function (event, ui) {
+			var new_list_order = 1;
+			$(this).children().each(function () {
+				$(this).find('.ecommerce-list-order').html(new_list_order);
+				new_list_order++;
+			});
+		}
+	});
+	$('#save-list-order-dialog').dialog({
+		autoOpen: false,
+		modal: true,
+		buttons: {
+			"OK": function () {
+				$(this).dialog('close');
+			}
+		}
+	});
+	$('#save-ecommerce-order').click(function () {
+		var ecomm_links = [], ecomm_list_order, ecomm_id, ecomm_info;
+		$('.ecommerce-list').children().each(function () {
+			ecomm_list_order = $(this).find('.ecommerce-list-order').html();
+			ecomm_id = $(this).find('input[name=ecommerce_id]').val();
+			ecomm_info = {
+				'ecommerce_id': ecomm_id,
+				'ecommerce_list_order': ecomm_list_order,
+			}
+			ecomm_links.push(ecomm_info);
+		});
+		var _token =  $('#save-ecommerce-form').find('input[name=_token]').val();
+		var url = $('#save-ecommerce-form').attr('action');
+		var data = {
+			'ecommerce': ecomm_links,
+			'_token': _token
+		};
+		$.post(url, data, function (result) {
+			$('#save-list-order-dialog').dialog('open');
+			$('#save-list-order-dialog').find('.msg').html(result);
+		}).error(function (result) {
+			var error_msg = 'Your request could not be completed. The following error was given: ' + result.statusText;
+			$('#save-list-order-dialog').dialog('open');
+			$('#save-list-order-dialog').find('.msg').html(error_msg);
+		});
+	});
+</script>
+@else
+<p>This release has no ecommerce links.</p>
+@endif
 
 @stop
 

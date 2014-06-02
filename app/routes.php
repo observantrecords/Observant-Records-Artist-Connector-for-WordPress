@@ -44,6 +44,7 @@ Route::get( '/audio/{audio}/delete/', array( 'as' => 'audio.delete', 'before' =>
 Route::model('ecommerce', 'Ecommerce');
 Route::resource('ecommerce', 'EcommerceController');
 Route::get( '/ecommerce/{ecommerce}/delete', array( 'as' => 'ecommerce.delete', 'before' => 'auth', 'uses' => 'EcommerceController@delete' ) );
+Route::post( '/ecommerce/save-order', array( 'as' => 'ecommerce.save-order', 'before' => 'auth|csrf', 'uses' => 'EcommerceController@save_order' ) );
 
 // Songs
 Route::model('song', 'Song');

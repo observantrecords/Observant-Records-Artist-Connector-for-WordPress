@@ -194,7 +194,7 @@ class AudioController extends \BaseController {
 		$result = $id->save();
 
 		if ($result !== false) {
-			return Redirect::route('artist.show', array('id' => $id->audio_id))->with('message', 'Your changes were saved.');
+			return Redirect::route('audio.show', array('id' => $id->audio_id))->with('message', 'Your changes were saved.');
 		} else {
 			return Redirect::route('recording.show', array('id' => $id->audio_recording_id))->with('error', 'Your changes were not saved.');
 		}

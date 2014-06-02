@@ -1,16 +1,33 @@
 @extends('audio._form')
 
 @section('page_title')
+@if (!empty($audio->recording->artist->artist_display_name))
+&raquo; {{ $audio->recording->artist->artist_display_name }}
+@endif
+&raquo; {{ $audio->audio_file_name }}
+&raquo; Delete
 @stop
 
 @section('section_header')
+<h2>
+	@if (!empty($audio->recording->artist->artist_display_name))
+	{{ $audio->recording->artist->artist_display_name }}
+	<small>{{ $audio->recording->song->song_title }}</small>
+	@else
+	{{ $audio->recording->song->song_title }}
+	@endif
+</h2>
 @stop
 
 @section('section_label')
+<h3>
+	Edit
+	<small>{{ $audio->audio_file_name }}</small>
+</h3>
 @stop
 
 @section('content')
-{{ Form::model( $audio, array( 'route' => 'audio.update', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{{ Form::model( $audio, array( 'route' => array('audio.update', $audio->audio_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
 @parent
 {{ Form::close()}}
 @stop
@@ -25,4 +42,8 @@
 	</audio>
 </p>
 @endif
+
+<ul>
+	<li><a href="{{ route( 'audio.show', array( 'id' => $audio->audio_id ) ) }}">Back to {{ $audio->audio_file_name }}</a></li>
+</ul>
 @stop

@@ -1,12 +1,29 @@
 @extends('layout')
 
 @section('page_title')
+@if (!empty($audio->recording->artist->artist_display_name))
+&raquo; {{ $audio->recording->artist->artist_display_name }}
+@endif
+&raquo; {{ $audio->audio_file_name }}
+&raquo; Delete
 @stop
 
 @section('section_header')
+<h2>
+	@if (!empty($audio->recording->artist->artist_display_name))
+	{{ $audio->recording->artist->artist_display_name }}
+	<small>{{ $audio->recording->song->song_title }}</small>
+	@else
+	{{ $audio->recording->song->song_title }}
+	@endif
+</h2>
 @stop
 
 @section('section_label')
+<h3>
+	Delete
+	<small>{{ $audio->audio_file_name }}</small>
+</h3>
 @stop
 
 @section('content')

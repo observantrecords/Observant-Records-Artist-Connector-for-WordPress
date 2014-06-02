@@ -40,6 +40,10 @@ class Track extends Eloquent {
 		return $this->hasOne('Recording', 'recording_id', 'track_recording_id');
 	}
 
+	public function ecommerce() {
+		return $this->hasMany('Ecommerce', 'ecommerce_track_id', 'track_id');
+	}
+
 	public function findReleaseTracks($release_id) {
 		$tracks_formatted = array();
 		$tracks = Track::where('track_release_id', $release_id)->orderBy('track_disc_num')->orderBy('track_track_num')->get();

@@ -6,14 +6,14 @@
  * Time: 2:59 PM
  */
 
-class Ecommerce {
+class Ecommerce extends Eloquent {
 
-	protected $table;
-	protected $primaryKey;
+	protected $table = 'ep4_ecommerce';
+	protected $primaryKey = 'ecommerce_id';
 	protected $softDelete = true;
 	protected $fillable = array(
 		'ecommerce_release_id',
-		'ecomemrce_track_id',
+		'ecommerce_track_id',
 		'ecommerce_label',
 		'ecommerce_url',
 		'ecommerce_list_order',
