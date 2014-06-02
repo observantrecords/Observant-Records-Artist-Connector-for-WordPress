@@ -26,7 +26,7 @@ class Audio extends Eloquent {
 	);
 
 	public function recording() {
-		return $this->belongsTo('Recording', 'recording_id', 'audio_recording_id');
+		return $this->belongsTo('Recording', 'audio_recording_id', 'recording_id');
 	}
 
 }

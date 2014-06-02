@@ -38,7 +38,7 @@ Route::post( '/track/save-order', array( 'as' => 'track.save-order', 'before' =>
 // Audio
 Route::model('audio', 'Audio');
 Route::resource('audio', 'AudioController');
-Route::get( '/audio/delete/{id}', array( 'as' => 'audio.delete', 'before' => 'auth', 'uses' => 'AudioController@delete' ) );
+Route::get( '/audio/{audio}/delete/', array( 'as' => 'audio.delete', 'before' => 'auth', 'uses' => 'AudioController@delete' ) );
 
 // Ecommerce
 Route::model('ecommerce', 'Ecommerce');
