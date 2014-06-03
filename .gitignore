@@ -13,3 +13,4 @@ Thumbs.db
 /public-ci/application/views/templates_c/
 /public-ci/application/views/templates_mobile_c/
 /public-ci/application/libraries/smarty3/
+/public-ci/application/third_party/vendor/
