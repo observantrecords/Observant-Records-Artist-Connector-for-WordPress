@@ -208,6 +208,10 @@ class TrackController extends \BaseController {
 		$release_id = $id->track_release_id;
 
 		if ($confirm === true) {
+			// Remove ecommerce.
+			$id->ecommerce()->delete();
+
+			// Remove track.
 			$id->delete();
 			return Redirect::route('release.show', array('id' => $id->track_release_id  ))->with('message', $track_song_title . ' was deleted.');
 		} else {
@@ -243,7 +247,7 @@ class TrackController extends \BaseController {
 
 	private function build_song_options($track) {
 
-		if (!empty($track->release)) {
+		if (!empty($track->release->album->artist->artist_id)) {
 			$songs = Song::where('song_primary_artist_id', $track->release->album->artist->artist_id)->orderBy('song_title')->lists('song_title', 'song_id');
 		} else {
 			$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
@@ -255,7 +259,7 @@ class TrackController extends \BaseController {
 
 	private function build_recording_options($track) {
 
-		if (!empty($track->release)) {
+		if (!empty($track->release->album->artist->artist_id)) {
 			$recording_songs = Recording::with('song')->where('recording_artist_id', $track->release->album->artist->artist_id)->orderBy('recording_isrc_num')->get();
 		} else {
 			$recording_songs = Recording::with('song')->orderBy('recording_isrc_num')->get();
@@ -264,7 +268,8 @@ class TrackController extends \BaseController {
 		$recordings = $recording_songs->lists('recording_isrc_num', 'recording_id');
 		foreach ($recordings as $r => $recording) {
 			$recordings[$r] = empty($recording) ? 'ISRC no. not set' : $recording;
-			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
+			$song_title = !empty($recording_songs->find($r)->song->song_title) ? $recording_songs->find($r)->song->song_title : 'TBD';
+			$recordings[$r] .= ' (' . $song_title . ')';
 		}
 
 		$recordings = array(0 => '&nbsp;') + $recordings;
@@ -273,7 +278,7 @@ class TrackController extends \BaseController {
 
 	private function build_release_options($track) {
 
-		if (!empty($track->release)) {
+		if (!empty($track->release->release_album_id)) {
 			$release_titles = Release::with('album')->where('release_album_id', $track->release->release_album_id)->orderBy('release_catalog_num')->get();
 		} else {
 			$release_titles = Release::with('album')->orderBy('release_catalog_num')->get();

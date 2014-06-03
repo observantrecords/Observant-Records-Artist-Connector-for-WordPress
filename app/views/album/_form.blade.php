@@ -76,12 +76,12 @@
 	<div class="col-sm-10">
 		<div class="radio">
 			<label>
-				{{ Form::radio( 'album_is_visible', true, (boolean) $album->album_is_visible ) }} Show
+				{{ Form::radio( 'album_is_visible', 1, ($album->album_is_visible == 1) ) }} Show
 			</label>
 		</div>
 		<div class="radio">
 			<label>
-				{{ Form::radio( 'album_is_visible', false, (boolean) $album->album_is_visible ) }} Hide
+				{{ Form::radio( 'album_is_visible', 0, ($album->album_is_visible == 0) ) }} Hide
 			</label>
 		</div>
 	</div>

@@ -191,6 +191,21 @@ class ReleaseController extends \BaseController {
 		$album_id = $id->release_album_id;
 
 		if ($confirm === true) {
+			/*
+			 * Tracks are currently not supported, but this bit of logic will be available if/when they are.
+			$ecommerce_tracks = Track::with('ecommerce')->where('track_release_id', $id->release_id)->get();
+			foreach ($ecommerce_tracks as $ecommerce_track) {
+				$ecommerce_track->ecommerce()->delete();
+			}
+			 */
+
+			// Remove ecommerce.
+			$id->ecommerce()->delete();
+
+			// Remove tracks.
+			$id->tracks()->delete();
+
+			// Remove releases.
 			$id->delete();
 			return Redirect::route('album.show', array('id' => $album_id  ))->with('message', 'The record was deleted.');
 		} else {

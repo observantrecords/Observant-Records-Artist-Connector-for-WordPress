@@ -30,7 +30,7 @@ class Recording extends Eloquent {
 	}
 
 	public function isrc() {
-		return $this->hasOne('RecordingISRC', 'recording_isrc_num', 'isrc_num');
+		return $this->hasOne('RecordingISRC', 'isrc_code', 'recording_isrc_num');
 	}
 
 	public function audio() {

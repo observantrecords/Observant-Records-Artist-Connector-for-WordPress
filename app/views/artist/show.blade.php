@@ -78,7 +78,7 @@
 </ol>
 @else
 <p>
-	This artist has no albums. Please <a href="{{ route( 'album.add', array( 'id' => $artist->artist_id ) ) }}">add one</a>.
+	This artist has no albums. Please <a href="{{ route( 'album.create', array( 'id' => $artist->artist_id ) ) }}">add one</a>.
 </p>
 @endif
 

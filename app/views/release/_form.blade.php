@@ -70,12 +70,12 @@
 	<div class="col-sm-10">
 		<div class="radio">
 			<label>
-				{{ Form::radio( 'release_is_visible', true, (boolean) $release->release_is_visible ) }} Show
+				{{ Form::radio( 'release_is_visible', 1, ($release->release_is_visible == 1) ) }} Show
 			</label>
 		</div>
 		<div class="radio">
 			<label>
-				{{ Form::radio( 'release_is_visible', false, (boolean) $release->release_is_visible ) }} Hide
+				{{ Form::radio( 'release_is_visible', 0, ($release->release_is_visible == 0) ) }} Hide
 			</label>
 		</div>
 	</div>

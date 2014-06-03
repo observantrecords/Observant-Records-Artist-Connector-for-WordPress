@@ -44,12 +44,12 @@
 		<div class="col-sm-10">
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_is_visible', true, (boolean) $track->track_is_visible ) }} Show
+					{{ Form::radio( 'track_is_visible', 1, ($track->track_is_visible == 1) ) }} Show
 				</label>
 			</div>
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_is_visible', false, (boolean) $track->track_is_visible ) }} Hide
+					{{ Form::radio( 'track_is_visible', 0, ($track->track_is_visible == 0) ) }} Hide
 				</label>
 			</div>
 		</div>
@@ -60,12 +60,12 @@
 		<div class="col-sm-10">
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_audio_is_linked', true, (boolean) $track->track_audio_is_linked ) }} Yes
+					{{ Form::radio( 'track_audio_is_linked', 1, ($track->track_audio_is_linked == 1) ) }} Yes
 				</label>
 			</div>
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_audio_is_linked', false, (boolean) $track->track_audio_is_linked ) }} No
+					{{ Form::radio( 'track_audio_is_linked', 0, ($track->track_audio_is_linked == 0) ) }} No
 				</label>
 			</div>
 		</div>
@@ -76,12 +76,12 @@
 		<div class="col-sm-10">
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_audio_is_downloadable', true, (boolean) $track->track_audio_is_downloadable ) }} Yes
+					{{ Form::radio( 'track_audio_is_downloadable', 1, ($track->track_audio_is_downloadable == 1) ) }} Yes
 				</label>
 			</div>
 			<div class="radio">
 				<label>
-					{{ Form::radio( 'track_audio_is_downloadable', false, (boolean) $track->track_audio_is_downloadable ) }} No
+					{{ Form::radio( 'track_audio_is_downloadable', 0, ($track->track_audio_is_downloadable == 0) ) }} No
 				</label>
 			</div>
 		</div>

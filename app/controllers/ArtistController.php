@@ -165,7 +165,51 @@ class ArtistController extends \BaseController {
 		$artist_display_name = $id->artist_display_name;
 
 		if ($confirm === true) {
+			// Gather albums, releases, tracks, audio, and ecommerce.
+			if (count($id->albums) > 0) {
+				foreach ($id->albums as $album) {
+					if (count($album->releases) > 0) {
+						foreach ($album->releases as $release) {
+							if (count($release->tracks) > 0) {
+								foreach ($release->tracks as $track) {
+									// Remove audio.
+									if (count($track->recording->audio) > 0) {
+										foreach ($track->recording->audio as $audio) {
+											$audio->delete();
+										}
+									}
+
+									// Remove recording.
+									$track->recording()->delete();
+
+									// Remove ecommerce and content by tracks.
+									$track->ecommerce()->delete();
+								}
+
+								// Remove tracks.
+								$release->tracks()->delete();
+
+								// Remove ecommerce.
+								$release->ecommerce()->delete();
+							}
+						}
+					}
+
+					// Remove releases.
+					$album->releases()->delete();
+				}
+			}
+
+			// Remove albums.
+			$id->albums()->delete();
+
+			// Remove artist.
+			$artist_id = $id->artist_id;
 			$id->delete();
+
+			// Remove primary artist ID from songs, but do not remove songs.
+			$songs = Song::where('song_primary_artist_id', $artist_id)->update(array( 'song_primary_artist_id' => 0 ));
+
 			return Redirect::route('artist.index')->with('message', $artist_display_name . ' was deleted.');
 		} else {
 			return Redirect::route('artist.show', array('id' => $id->artist_id))->with('error', $artist_display_name . ' was not deleted.');

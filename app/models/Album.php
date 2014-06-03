@@ -20,7 +20,8 @@ class Album extends Eloquent {
 		'album_alias',
 		'album_image',
 		'album_music_description',
-		'album_release_date'
+		'album_release_date',
+		'album_is_visible',
 	);
 	protected $guarded = array(
 		'artist_id',

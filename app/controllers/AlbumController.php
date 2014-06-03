@@ -189,6 +189,27 @@ class AlbumController extends \BaseController {
 		$artist_id = $id->album_artist_id;
 
 		if ($confirm === true) {
+			if (count($id->releases) > 0) {
+				foreach ($id->releases as $release) {
+					/*
+					 * This bit of logic is not yet supported.
+					foreach ($release->tracks as $track) {
+						$track->ecommerce()->delete();
+					}
+					 */
+
+					// Remove ecommerce.
+					$release->ecommerce()->delete();
+
+					// Remove tracks.
+					$release->tracks()->delete();
+				}
+
+				// Remove releases.
+				$id->releases()->delete();
+			}
+
+			// Remove album.
 			$id->delete();
 			return Redirect::route('artist.show', array('id' => $artist_id  ))->with('message', $album_title . ' was deleted.');
 		} else {

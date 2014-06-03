@@ -32,7 +32,8 @@ class RecordingController extends \BaseController {
 
 		$recording_list = $recordings->lists('recording_isrc_num', 'recording_id');
 		foreach ($recording_list as $r => $recording) {
-			$recording_list[$r] = $recording . ' ('. $recordings->find($r)->song->song_title . ')';
+			$song_title = (!empty($recordings->find($r)->song->song_title)) ? $recordings->find($r)->song->song_title : 'TBD';
+			$recording_list[$r] = $recording . ' ('. $song_title . ')';
 		}
 		$recording_list = array(0 => '&nbsp;') + $recording_list;
 
@@ -203,6 +204,13 @@ class RecordingController extends \BaseController {
 		$recording_isrc_num = $id->recording_isrc_num;
 
 		if ($confirm === true) {
+			// Remove audio.
+			$id->audio()->delete();
+
+			// Remove ISRC.
+			$id->isrc()->delete();
+
+			// Remove recording.
 			$id->delete();
 			return Redirect::route('recording.index', array('artist' => $id->recording_artist_id) )->with('message', $recording_isrc_num . ' was deleted.');
 		} else {

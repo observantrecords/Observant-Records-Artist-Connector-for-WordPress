@@ -56,8 +56,7 @@ class SongController extends \BaseController {
 			$song->artist = Artist::find($artist_id);
 		}
 
-		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
-		$artists = array(0 => '&nbsp;') + $artists;
+		$artists = $this->build_artist_options();
 
 		$method_variables = array(
 			'song' => $song,
@@ -121,8 +120,7 @@ class SongController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
-		$artists = array(0 => '&nbsp;') + $artists;
+		$artists = $this->build_artist_options();
 
 		$method_variables = array(
 			'song' => $id,
@@ -183,12 +181,26 @@ class SongController extends \BaseController {
 		$artist_id = $id->song_primary_artist_id;
 
 		if ($confirm === true) {
+			// Remove recordings.
+			$id->recordings()->delete();
+
+			// Remove tracks.
+			$id->tracks()->delete();
+
+			// Remove song.
 			$id->delete();
 			return Redirect::route('song.index', array('artist' => $artist_id  ))->with('message', $song_title . ' was deleted.');
 		} else {
 			return Redirect::route('song.show', array('id' => $id->song_id))->with('error', $song_title . ' was not deleted.');
 		}
+
 	}
 
+	private function build_artist_options() {
+		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
+		$artists = array(0 => '&nbsp;') + $artists;
+
+		return $artists;
+	}
 
 }
