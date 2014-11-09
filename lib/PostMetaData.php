@@ -28,6 +28,7 @@ class PostMetaData {
 
 	public static function addMetaBoxes() {
 		add_meta_box( 'meta_ob_album_id', 'Observant Records Metadata', array( __CLASS__, 'renderAlbumMetaBox' ), 'album', 'normal', 'high' );
+		add_meta_box( 'meta_ob_release_credits', 'Credits', array( __CLASS__, 'renderCreditsBox' ), 'album', 'normal', 'high' );
 		add_meta_box( 'meta_ob_track_id', 'Observant Records Metadata', array( __CLASS__, 'renderTrackMetaBox' ), 'track', 'normal', 'high' );
 		add_meta_box( 'meta_ob_track_lyrics', 'Lyrics', array( __CLASS__, 'renderTrackLyricsBox' ), 'track', 'normal', 'high' );
 	}
@@ -54,9 +55,18 @@ class PostMetaData {
 		) );
 	}
 
+	public static function renderCreditsBox( $post ) {
+		$ob_release_credits = get_post_meta( $post->ID, '_ob_release_credits', true );
+
+		wp_editor( $ob_release_credits, 'ob_release_credits', array(
+			'media_buttons' => false,
+		) );
+	}
+
 	public static function savePostMeta( $post_id ) {
 		$ob_album_alias = $_POST['ob_album_alias'];
 		$ob_release_alias = $_POST['ob_release_alias'];
+		$ob_release_credits = $_POST['ob_release_credits'];
 		$ob_track_alias = $_POST['ob_track_alias'];
 		$ob_track_lyrics = $_POST['ob_track_lyrics'];
 
@@ -64,6 +74,7 @@ class PostMetaData {
 		( isset( $_POST['ob_release_alias'] ) && empty( $ob_release_alias ) ) ? delete_post_meta( $post_id, '_ob_release_alias' ) : update_post_meta( $post_id, '_ob_release_alias', $ob_release_alias );
 		( isset( $_POST['ob_track_alias'] ) && empty( $ob_track_alias ) ) ? delete_post_meta( $post_id, '_ob_track_alias' ) : update_post_meta( $post_id, '_ob_track_alias', $ob_track_alias );
 		( isset( $_POST['ob_track_lyrics'] ) && empty( $ob_track_lyrics ) ) ? delete_post_meta( $post_id, '_ob_track_lyrics' ) : update_post_meta( $post_id, '_ob_track_lyrics', $ob_track_lyrics );
+		( isset( $_POST['ob_release_credits'] ) && empty( $ob_release_credits ) ) ? delete_post_meta( $post_id, '_ob_release_credits' ) : update_post_meta( $post_id, '_ob_release_credits', $ob_release_credits );
 	}
 
 } 

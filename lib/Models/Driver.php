@@ -8,7 +8,6 @@
 
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models;
 
-
 class Driver {
 
 	private $ob_db;
@@ -22,8 +21,6 @@ class Driver {
 	}
 
 	public function init() {
-		global $wpdb;
-
 		// Establish a connection to configured database.
 		// Use the WP database if none is configured.
 		$ob_db_host = get_option('observantrecords_db_host', DB_HOST);
@@ -46,12 +43,12 @@ class Driver {
 			$ob_db_password = DB_PASSWORD;
 		}
 
-		if (false === $this->ob_db = new wpdb($ob_db_user, $ob_db_password, $ob_db_name, $ob_db_host)) {
-			$this->ob_db = $wpdb;
+		if ( false === ( $this->ob_db = new \wpdb($ob_db_user, $ob_db_password, $ob_db_name, $ob_db_host ) ) ) {
+			$this->ob_db = $GLOBALS['wpdb'];
 		}
 
 		// Exit if we don't have at least the artist table.
-		$ob_artist_table = $this->ob_db->get_var("show tables like 'mw_artists';");
+		$ob_artist_table = $this->ob_db->get_var("show tables like 'ep4_artists';");
 		if ($ob_artist_table != 'ep4_artists') {
 			$this->ob_db = null;
 			$this->status_message = 'Observant Records Artist table was not found.';
