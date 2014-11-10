@@ -11,7 +11,7 @@ namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models;
 
 class Song extends Base {
 
-	public $_table = 'ep4_song';
+	public $_table = 'ep4_songs';
 	public $_primary_key = 'song_id';
 
 	public function __construct() {

@@ -44,7 +44,7 @@ class Settings {
 	}
 
 	public static function adminMenu() {
-		add_options_page('Observant Records Artist Connector Settings', 'Observant Records Artist Connector', 'manage_options', WP_PLUGIN_DOMAIN, array( __CLASS__, 'renderConnectorSettingsPage'));
+		add_options_page('Observant Records Artist Connector Settings', 'Artist Connector', 'manage_options', WP_PLUGIN_DOMAIN, array( __CLASS__, 'renderConnectorSettingsPage'));
 	}
 
 	public function renderDatabaseDescription() {
