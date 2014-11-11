@@ -33,3 +33,5 @@ register_activation_hook(__FILE__, array('ObservantRecords\WordPress\Plugins\Art
 register_deactivation_hook(__FILE__, array('ObservantRecords\WordPress\Plugins\ArtistConnector\Setup', 'deactivate'));
 
 Setup::init();
+Settings::init();
+PostMetaData::init();
