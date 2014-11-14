@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Observant Records Artist Connector
- * Plugin URI: http://observantrecords.com/
+ * Plugin URI: https://bitbucket.org/observantrecords/observant-records-artist-connector-for-wordpress
  * Description: This custom plugin connects to the Observant Records Artist database.
- * Version: 1.0
+ * Version: 1.0.1
  * Author: Greg Bueno
  * Author URI: http://vigilantmedia.com
  * License: MIT

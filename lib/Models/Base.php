@@ -10,6 +10,7 @@ namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models;
 
 
 class Base {
+	private $is_driver_ready;
 
 	protected $ob_db;
 
@@ -19,6 +20,7 @@ class Base {
 	public function __construct() {
 		$driver = new Driver();
 		$this->ob_db = $driver->getDriver();
+		$this->is_driver_ready = $driver->getStatus();
 	}
 
 	public function get($id, $args = null) {
@@ -115,6 +117,10 @@ class Base {
 		}
 
 		$this->{ $alias } = new $model();
+	}
+
+	public function getDriverStatus() {
+		return $this->is_driver_ready;
 	}
 
 }
