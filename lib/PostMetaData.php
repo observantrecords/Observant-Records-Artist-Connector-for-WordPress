@@ -16,14 +16,8 @@ class PostMetaData {
 	}
 
 	public static function init() {
-		add_action( 'init', array( __CLASS__, 'init_css' ) );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'addMetaBoxes' ) );
 		add_action( 'save_post', array( __CLASS__, 'savePostMeta' ) );
-	}
-
-	public function init_css() {
-		wp_enqueue_style( 'observant-records-custom-post-layout-css', plugin_dir_url( __FILE__ ) . '../css/layout.css' );
-		wp_enqueue_style( 'observant-records-custom-post-typography-css', plugin_dir_url( __FILE__ ) . '../css/typography.css' );
 	}
 
 	public static function addMetaBoxes() {
