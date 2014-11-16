@@ -259,7 +259,7 @@ class AudioController extends \BaseController {
 
 			foreach ($results as $result) {
 				if (array_search($result['Key'], $directories) === false) {
-					$directories[] = $result['Key'];
+					$directories[] = dirname($result['Key']);
 				}
 			}
 			return $directories;
