@@ -16,7 +16,7 @@ class Settings {
 	}
 
 	public static function init() {
-		add_action( 'init', array( __CLASS__, 'init_css' ) );
+		add_action( 'admin_init', array( __CLASS__, 'init_css' ) );
 		add_action( 'admin_init', array( __CLASS__, 'adminInit' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'adminMenu' ) );
 	}
