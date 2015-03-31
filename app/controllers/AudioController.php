@@ -164,7 +164,7 @@ class AudioController extends \BaseController {
 			'audio' => $id,
 			'audio_files' => $audio_files,
 			'recordings' => $recordings,
-			's3_directories' => $s3_directories,
+			's3_directories' => json_encode($s3_directories),
 			'original_audio_id' => null,
 		);
 
