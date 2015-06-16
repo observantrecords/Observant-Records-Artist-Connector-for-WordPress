@@ -26,7 +26,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route( 'track.edit', array( 'id' => $track->track_id ) ) }}" class="btn btn-default">Edit</a>
+	<a href="{{ route( 'track.edit', array( 'id' => $track->track_id ) ) }}" class="btn btn-primary">Edit</a>
 	<a href="{{ route( 'track.delete', array( 'id' => $track->track_id ) ) }}" class="btn btn-default">Delete</a>
 </p>
 

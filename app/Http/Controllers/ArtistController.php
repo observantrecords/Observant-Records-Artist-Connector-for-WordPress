@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Artist;
-use App\Models\Album;
 use App\Models\Song;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
@@ -133,15 +130,15 @@ class ArtistController extends Controller {
 		$fields = $id->getFillable();
 
 		foreach ($fields as $field) {
-			$id->{$field} = Request::get($field);
+			$id->{$field} = Input::get($field);
 		}
 
 		$result = $id->save();
 
 		if ($result !== false) {
-			return redirect()->route('artist.show', array('id' => $id->artist_id))->with('message', 'Your changes were saved.');
+			return Redirect::route('artist.show', array('id' => $id->artist_id))->with('message', 'Your changes were saved.');
 		} else {
-			return redirect()->route('artist.index')->with('error', 'Your changes were not saved.');
+			return Redirect::route('artist.index')->with('error', 'Your changes were not saved.');
 		}
 	}
 

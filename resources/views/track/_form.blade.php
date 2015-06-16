@@ -2,8 +2,6 @@
 
 @section('content')
 
-<div class="form-group">
-
 	<div class="form-group">
 		{!! Form::label( 'track_release_id', 'Release:', array( 'class' => 'col-sm-2' ) ) !!}
 		<div class="col-sm-10">
@@ -103,10 +101,20 @@
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			{!! Form::submit('Save', array( 'class' => 'btn btn-default' )) !!}
+            <ul class="list-inline">
+                <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+                <li>
+                    @if (!empty( $track->track_id))
+                        <a href="{{ route( 'track.show', array( 'id' => $track->track_id ) ) }}" class="btn btn-default">Cancel</a>
+                    @elseif (!empty($track->track_release_id))
+                        <a href="{{ route( 'release.show', array( 'id' => $track->track_release_id ) ) }}" class="btn btn-default">Cancel</a>
+                    @else
+                        <a href="{{ route( 'track.index' ) }}" class="btn btn-default">Cancel</a>
+                    @endif
+                </li>
+            </ul>
 		</div>
 	</div>
-</div>
 
 <script type="text/javascript">
 	(function ($) {

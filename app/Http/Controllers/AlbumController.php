@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use App\Models\Album;
 use App\Models\AlbumFormat;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
@@ -16,8 +14,6 @@ class AlbumController extends Controller {
 	private $layout_variables = array();
 
 	public function __construct() {
-		global $config_url_base;
-
 		$format_list = array();
 		$formats = AlbumFormat::orderBy('format_alias')->get();
 		foreach ($formats as $format) {
@@ -25,14 +21,10 @@ class AlbumController extends Controller {
 		}
 
 		$this->layout_variables = array(
-			'config_url_base' => $config_url_base,
+			'config_url_base' => config('global.url_base'),
 			'formats' => $format_list,
 			'locales' => array('en', 'jp'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**

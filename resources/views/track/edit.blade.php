@@ -36,9 +36,9 @@
 	<img src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/artists/{{ $track->release->album->artist->artist_alias }}/albums/{{ $track->release->album->album_alias }}/{{ strtolower($track->release->release_catalog_num) }}/images/cover_front_medium.jpg" width="230" />
 </p>
 
-<ul>
-	<li><a href="{{ route('track.show', array( 'id' => $track->track_id )) }}/">Back to <em>{{ $track->song->song_title }}</em></a></li>
-	<li><a href="{{ route('release.show', array( 'id' => $track->release->release_id )) }}/">Back to <em>{{ $track->release->album->album_title }}</em> @if (!empty($track->release->release_catalog_num)) ({{ $track->release->release_catalog_num }}) @else (TBD) @endif</a></li>
+<ul class="list-unstyled">
+	<li>&laquo; <a href="{{ route('track.show', array( 'id' => $track->track_id )) }}/">Back to <em>{{ $track->song->song_title }}</em></a></li>
+	<li>&laquo; <a href="{{ route('release.show', array( 'id' => $track->release->release_id )) }}/">Back to <em>{{ $track->release->album->album_title }}</em> @if (!empty($track->release->release_catalog_num)) ({{ $track->release->release_catalog_num }}) @else (TBD) @endif</a></li>
 </ul>
 @endif
 @stop
