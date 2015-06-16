@@ -20,7 +20,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $song, array( 'route' => array('song.update', $song->song_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{!! Form::model( $song, array( 'route' => array('song.update', $song->song_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

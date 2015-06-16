@@ -97,21 +97,21 @@
 
 <h3>Tracks</h3>
 
-{{ Form::open( array( 'route' => array( 'track.save-order' ), 'id' => 'save-order-form' ) ) }}
+{!! Form::open( array( 'route' => array( 'track.save-order' ), 'id' => 'save-order-form' ) ) !!}
 <ul class="list-inline">
 	<li><a href="{{ route( 'track.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a track</a></li>
 	@if (count($release->release_track_list) > 0)
 	<li><a href="{{ route( 'release.export-id3' , array('id' => $release->release_id)  ) }}" class="button">Export ID3 data</a></li>
 	<li>
-		{{ Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'button') ) }}
-		{{ Form::hidden( 'track_id' ) }}
+		{!! Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'button') ) !!}
+		{!! Form::hidden( 'track_id' ) !!}
 	</li>
 	@endif
 </ul>
 <p>
 
 </p>
-{{ Form::close() }}
+{!! Form::close() !!}
 
 @if (count($release->release_track_list) > 0)
 <ol class="disc-list">
@@ -214,14 +214,14 @@
 
 <h4>Ecommerce links</h4>
 
-{{ Form::open( array( 'route' => array( 'ecommerce.save-order' ), 'id' => 'save-ecommerce-form' ) ) }}
+{!! Form::open( array( 'route' => array( 'ecommerce.save-order' ), 'id' => 'save-ecommerce-form' ) ) !!}
 <ul class="list-inline">
 	<li><a href="{{ route( 'ecommerce.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an ecommerce link</a></li>
 	@if (count($release->ecommerce) > 0)
-	<li>{{ Form::button( 'Save ecommerce link order', array('id' => 'save-ecommerce-order', 'class' => 'button') ) }}</li>
+	<li>{!! Form::button( 'Save ecommerce link order', array('id' => 'save-ecommerce-order', 'class' => 'button') ) !!}</li>
 	@endif
 </ul>
-{{ Form::close() }}
+{!! Form::close() !!}
 
 @if (count($release->ecommerce) > 0)
 <ul class="ecommerce-list">

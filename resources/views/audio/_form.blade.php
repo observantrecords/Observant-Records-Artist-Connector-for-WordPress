@@ -3,52 +3,52 @@
 @section('content')
 
 <div class="form-group">
-	{{ Form::label( 'audio_file_type', 'File Type:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_file_type', 'File Type:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::select( 'audio_file_type', array( 'audio/mpeg' => 'mp3', 'audio/ogg' => 'ogg' ), $audio->audio_file_type, array( 'class' => 'form-control', 'id' => 'audio_file_type' ) ) }}
+		{!! Form::select( 'audio_file_type', array( 'audio/mpeg' => 'mp3', 'audio/ogg' => 'ogg' ), $audio->audio_file_type, array( 'class' => 'form-control', 'id' => 'audio_file_type' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'audio_recording_id', 'Recording:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_recording_id', 'Recording:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::select( 'audio_recording_id', $recordings, $audio->audio_recording_id, array( 'class' => 'form-control', 'id' => 'audio_recording_id' ) ) }}
+		{!! Form::select( 'audio_recording_id', $recordings, $audio->audio_recording_id, array( 'class' => 'form-control', 'id' => 'audio_recording_id' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'audio_display_label', 'Display label:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_display_label', 'Display label:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::text( 'audio_display_label', $audio->audio_display_label, array( 'class' => 'form-control', 'id' => 'audio_display_label' ) ) }}
+		{!! Form::text( 'audio_display_label', $audio->audio_display_label, array( 'class' => 'form-control', 'id' => 'audio_display_label' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'audio_file_server', 'File server:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_file_server', 'File server:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::select( 'audio_file_server', array( 'cdn.observantrecords.com' => 'cdn.observantrecords.com', 'observantrecords.s3.amazonaws.com' => 'observantrecords.s3.amazonaws.com', 'www.observantrecords.com' => 'www.observantrecords.com' ), $audio->audio_file_server, array( 'class' => 'form-control', 'id' => 'audio_file_server' ) ) }}
+		{!! Form::select( 'audio_file_server', array( 'cdn.observantrecords.com' => 'cdn.observantrecords.com', 'observantrecords.s3.amazonaws.com' => 'observantrecords.s3.amazonaws.com', 'www.observantrecords.com' => 'www.observantrecords.com' ), $audio->audio_file_server, array( 'class' => 'form-control', 'id' => 'audio_file_server' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'audio_file_path', 'File path:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_file_path', 'File path:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::text( 'audio_file_path', $audio->audio_file_path, array( 'class' => 'form-control', 'id' => 'audio_file_path' ) ) }}
+		{!! Form::text( 'audio_file_path', $audio->audio_file_path, array( 'class' => 'form-control', 'id' => 'audio_file_path' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
-	{{ Form::label( 'audio_file_name', 'File name:', array( 'class' => 'col-sm-2' ) ) }}
+	{!! Form::label( 'audio_file_name', 'File name:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
-		{{ Form::text( 'audio_file_name', $audio->audio_file_name, array( 'class' => 'form-control', 'id' => 'audio_file_name' ) ) }}
+		{!! Form::text( 'audio_file_name', $audio->audio_file_name, array( 'class' => 'form-control', 'id' => 'audio_file_name' ) ) !!}
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::submit('Save', array( 'class' => 'button' ) ) }}
-		{{ Form::hidden( 'audio_id', $audio->audio_id, array( 'id' => 'audio_id' ) ) }}
-		{{ Form::hidden( 'original_audio_id', $original_audio_id, array( 'id' => 'original_audio_id' ) ) }}
+		{!! Form::submit('Save', array( 'class' => 'button' ) ) !!}
+		{!! Form::hidden( 'audio_id', $audio->audio_id, array( 'id' => 'audio_id' ) ) !!}
+		{!! Form::hidden( 'original_audio_id', $original_audio_id, array( 'id' => 'original_audio_id' ) ) !!}
 	</div>
 </div>
 

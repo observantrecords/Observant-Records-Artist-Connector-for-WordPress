@@ -6,7 +6,11 @@
  * Time: 5:38 PM
  */
 
-class Track extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Track extends Model {
 
 	protected $table = 'ep4_tracks';
 	protected $primaryKey = 'track_id';

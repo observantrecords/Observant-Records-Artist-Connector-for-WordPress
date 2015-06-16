@@ -6,7 +6,11 @@
  * Time: 5:26 PM
  */
 
-class Album extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Album extends Model {
 
 	protected $table = 'ep4_albums';
 	protected $primaryKey = 'album_id';

@@ -24,7 +24,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $song, array( 'route' => 'song.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $song, array( 'route' => 'song.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

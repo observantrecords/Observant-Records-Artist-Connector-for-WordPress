@@ -1,7 +1,7 @@
 <?php
 define('ISRC_COUNTRY_CODE', 'QM');
 define('ISRC_REGISTRANT_CODE', 'G35');
-define('OBSERVANTRECORDS_CDN_BASE_URI', env(OBSERVANTRECORDS_CDN_BASE_URI, '//cdn.observantrecords.com'));
+define('OBSERVANTRECORDS_CDN_BASE_URI', env('OBSERVANTRECORDS_CDN_BASE_URI', '//cdn.observantrecords.com'));
 
 return [
 	'url_base' => array(

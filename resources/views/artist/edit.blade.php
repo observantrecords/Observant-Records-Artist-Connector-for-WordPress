@@ -14,7 +14,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $artist, array( 'route' => array('artist.update', $artist->artist_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{!! Form::model( $artist, array( 'route' => array('artist.update', $artist->artist_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

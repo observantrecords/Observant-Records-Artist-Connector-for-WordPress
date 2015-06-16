@@ -26,9 +26,9 @@
 @stop
 
 @section('content')
-{{ Form::model( $release, array( 'route' => 'release.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $release, array( 'route' => 'release.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop
 
 

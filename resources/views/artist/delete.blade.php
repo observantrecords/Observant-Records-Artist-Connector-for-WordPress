@@ -23,18 +23,18 @@
 	Are you sure you want to do this?
 </p>
 
-{{ Form::model( $artist, array( 'route' => array('artist.destroy', $artist->artist_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'delete' ) ) }}
+{!! Form::model( $artist, array( 'route' => array('artist.destroy', $artist->artist_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'delete' ) ) !!}
 
 <div class="form-group">
 	<div class="col-sm-12">
 		<div class="radio">
 			<label>
-				{{ Form::radio('confirm', '1') }} Yes, I want to delete {{ $artist->artist_display_name }}.
+				{!! Form::radio('confirm', '1') }} Yes, I want to delete {{ $artist->artist_display_name !!}.
 			</label>
 		</div>
 		<div class="radio">
 			<label>
-				{{ Form::radio('confirm', '0') }} No, I don't want to delete {{ $artist->artist_display_name }}.
+				{!! Form::radio('confirm', '0') }} No, I don't want to delete {{ $artist->artist_display_name !!}.
 			</label>
 		</div>
 	</div>
@@ -42,10 +42,10 @@
 
 <div class="form-group">
 	<div class="col-sm-12">
-		{{ Form::submit('Confirm', array( 'class' => 'button' )) }}
+		{!! Form::submit('Confirm', array( 'class' => 'button' )) !!}
 	</div>
 </div>
 
-{{ Form::close() }}
+{!! Form::close() !!}
 
 @stop

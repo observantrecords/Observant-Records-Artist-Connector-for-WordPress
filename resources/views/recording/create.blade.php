@@ -22,7 +22,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $recording, array( 'route' => 'recording.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $recording, array( 'route' => 'recording.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

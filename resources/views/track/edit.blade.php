@@ -25,9 +25,9 @@
 @stop
 
 @section('content')
-{{ Form::model( $track, array( 'route' => array('track.update', $track->track_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{!! Form::model( $track, array( 'route' => array('track.update', $track->track_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop
 
 @section('sidebar')

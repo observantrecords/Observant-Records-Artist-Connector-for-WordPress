@@ -27,7 +27,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $recording, array( 'route' => array('recording.update', $recording->recording_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{!! Form::model( $recording, array( 'route' => array('recording.update', $recording->recording_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

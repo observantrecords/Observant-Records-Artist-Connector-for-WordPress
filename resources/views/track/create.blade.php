@@ -29,9 +29,9 @@
 @stop
 
 @section('content')
-{{ Form::model( $track, array( 'route' => 'track.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $track, array( 'route' => 'track.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop
 
 @section('sidebar')

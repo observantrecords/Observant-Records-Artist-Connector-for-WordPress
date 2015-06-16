@@ -6,7 +6,11 @@
  * Time: 8:55 AM
  */
 
-class RecordingISRC extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class RecordingISRC extends Model {
 
 	protected $table = 'ep4_recordings_isrc';
 	protected $primaryKey = 'isrc_id';

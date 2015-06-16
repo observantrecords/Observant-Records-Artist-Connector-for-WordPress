@@ -23,7 +23,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $album, array( 'route' => 'album.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $album, array( 'route' => 'album.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

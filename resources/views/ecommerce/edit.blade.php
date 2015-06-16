@@ -30,9 +30,9 @@
 @stop
 
 @section('content')
-{{ Form::model( $ecommerce, array( 'route' => array('ecommerce.update', $ecommerce->ecommerce_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) }}
+{!! Form::model( $ecommerce, array( 'route' => array('ecommerce.update', $ecommerce->ecommerce_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop
 
 @section('sidebar')

@@ -10,7 +10,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $ecommerce, array( 'route' => 'ecommerce.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $ecommerce, array( 'route' => 'ecommerce.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

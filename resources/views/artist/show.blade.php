@@ -57,15 +57,15 @@
 
 <h3>Albums</h3>
 
-{{ Form::open( array( 'route' => array( 'album.save-order' ), 'id' => 'save-order-form' ) ) }}
+{!! Form::open( array( 'route' => array( 'album.save-order' ), 'id' => 'save-order-form' ) ) !!}
 <ul class="list-inline">
 	<li><a href="{{ route( 'album.create', array( 'artist' => $artist->artist_id ) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add album</a></li>
 	<li>
-		{{ Form::button( 'Save album order', array('id' => 'save-order', 'class' => 'button') ) }}
-		{{ Form::hidden('album_id', null) }}
+		{!! Form::button( 'Save album order', array('id' => 'save-order', 'class' => 'button') ) !!}
+		{!! Form::hidden('album_id', null) !!}
 	</li>
 </ul>
-{{ Form::close() }}
+{!! Form::close() !!}
 
 @if (count($artist->albums) > 0)
 <ol class="disc-list">
@@ -77,8 +77,8 @@
 				<li><a href="{{ route( 'album.delete', array( 'id' => $album->album_id ) ) }}"><span class="glyphicon glyphicon-remove"></span></a></li>
 				<li>
 					<span class="album-order-display">{{ $album->album_order }}</span>. <a href="{{ route( 'album.show', array( 'id' => $album->album_id ) ) }}">{{ $album->album_title }}</a>
-					{{ Form::hidden('album_id', $album->album_id) }}
-					{{ Form::hidden('album_order', $album->album_order) }}
+					{!! Form::hidden('album_id', $album->album_id) !!}
+					{!! Form::hidden('album_order', $album->album_order) !!}
 				</li>
 			</ul>
 		</div>

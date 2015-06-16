@@ -6,7 +6,11 @@
  * Time: 2:59 PM
  */
 
-class Ecommerce extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Ecommerce extends Model {
 
 	protected $table = 'ep4_ecommerce';
 	protected $primaryKey = 'ecommerce_id';

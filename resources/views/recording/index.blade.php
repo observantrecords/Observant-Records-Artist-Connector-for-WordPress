@@ -36,21 +36,21 @@
 
 @if (count($recordings) > 0)
 
-{{ Form::open(array('id' => 'recording-id', 'class' => 'form-horizontal')) }}
+{!! Form::open(array('id' => 'recording-id', 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
 	<div class="col-sm-12">
-		{{ Form::select( 'recording_id', $recordings, null, array('class' => 'form-control', 'id' => 'recording_id') ) }}
+		{!! Form::select( 'recording_id', $recordings, null, array('class' => 'form-control', 'id' => 'recording_id') ) !!}
 	</div>
 </div>
 
 <div class="form-group">
 	<div class="col-sm-2">
-		{{ Form::button('View', array( 'class' => 'button', 'id' => 'select-recording' ) ); }}
+		{!! Form::button('View', array( 'class' => 'button', 'id' => 'select-recording' ) ); !!}
 	</div>
 </div>
 
-{{ Form::close() }}
+{!! Form::close() !!}
 
 <script type="text/javascript">
 	(function ($) {

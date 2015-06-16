@@ -4,37 +4,37 @@
 
 <div class="form-group">
 	<div class="form-group">
-		{{ Form::label('recording_artist_id', 'Artist:', array( 'class' => 'col-sm-2' ) ) }}
+		{!! Form::label('recording_artist_id', 'Artist:', array( 'class' => 'col-sm-2' ) ) !!}
 		<div class="col-sm-10">
-			{{ Form::select( 'recording_artist_id', $artists, $recording->recording_artist_id, array( 'class' => 'form-control' ) ) }}
+			{!! Form::select( 'recording_artist_id', $artists, $recording->recording_artist_id, array( 'class' => 'form-control' ) ) !!}
 		</div>
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('recording_song_id', 'Song:', array( 'class' => 'col-sm-2' ) ) }}
+		{!! Form::label('recording_song_id', 'Song:', array( 'class' => 'col-sm-2' ) ) !!}
 		<div class="col-sm-10">
-			{{ Form::select( 'recording_song_id', $songs, $recording->recording_song_id, array( 'class' => 'form-control' ) ) }}
+			{!! Form::select( 'recording_song_id', $songs, $recording->recording_song_id, array( 'class' => 'form-control' ) ) !!}
 		</div>
 	</div>
 
 	<div class="form-group">
-		{{ Form::label('recording_song_id', 'ISRC No.:', array( 'class' => 'col-sm-2' ) ) }}
+		{!! Form::label('recording_song_id', 'ISRC No.:', array( 'class' => 'col-sm-2' ) ) !!}
 		<div class="col-sm-10">
 			@if (!empty($recording->recording_isrc_num))
 			{{ $recording->recording_isrc_num }}
-			{{ Form::hidden( 'recording_isrc_num', $recording->recording_isrc_num, array( 'id' => 'recording_isrc_num' ) ) }}
+			{!! Form::hidden( 'recording_isrc_num', $recording->recording_isrc_num, array( 'id' => 'recording_isrc_num' ) ) !!}
 			@else
-			{{ Form::text( '_display_recording_isrc_num', null, array('disabled' => 'disabled', 'id' => '_display_recording_isrc_num') ) }}
-			{{ Form::hidden( 'recording_isrc_num', null, array( 'id' => 'recording_isrc_num' ) ) }}
-			{{ Form::hidden( 'recording_isrc_code', null, array( 'id' => 'recording_isrc_code' ) ) }}
-			{{ Form::button( 'Generate', array('id' => 'generate_custom_isrc', 'class' => 'button') ) }}
-			{{ Form::button( 'Clear', array('id' => 'clear_custom_isrc', 'class' => 'button') ) }}
+			{!! Form::text( '_display_recording_isrc_num', null, array('disabled' => 'disabled', 'id' => '_display_recording_isrc_num') ) !!}
+			{!! Form::hidden( 'recording_isrc_num', null, array( 'id' => 'recording_isrc_num' ) ) !!}
+			{!! Form::hidden( 'recording_isrc_code', null, array( 'id' => 'recording_isrc_code' ) ) !!}
+			{!! Form::button( 'Generate', array('id' => 'generate_custom_isrc', 'class' => 'button') ) !!}
+			{!! Form::button( 'Clear', array('id' => 'clear_custom_isrc', 'class' => 'button') ) !!}
 			@endif
 		</div>
 	</div>
 
 	<div class="col-sm-offset-2 col-sm-10">
-		{{ Form::submit('Save', array('class' => 'button')) }}
+		{!! Form::submit('Save', array('class' => 'button')) !!}
 	</div>
 </div>
 

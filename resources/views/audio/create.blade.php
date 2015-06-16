@@ -25,7 +25,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $audio, array( 'route' => 'audio.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) }}
+{!! Form::model( $audio, array( 'route' => 'audio.store', 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

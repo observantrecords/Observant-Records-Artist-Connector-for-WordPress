@@ -13,7 +13,7 @@
 @stop
 
 @section('content')
-{{ Form::model( $artist, array( 'route' => 'artist.store', 'class' => 'form-horizontal', 'role' => 'form' ) ) }}
+{!! Form::model( $artist, array( 'route' => 'artist.store', 'class' => 'form-horizontal', 'role' => 'form' ) ) !!}
 @parent
-{{ Form::close() }}
+{!! Form::close() !!}
 @stop

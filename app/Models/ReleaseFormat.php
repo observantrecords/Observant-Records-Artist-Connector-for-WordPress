@@ -6,7 +6,11 @@
  * Time: 5:35 PM
  */
 
-class ReleaseFormat extends Eloquent {
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ReleaseFormat extends Model {
 
 	protected $table = 'ep4_albums_releases_formats';
 	protected $primaryKey = 'format_id';
