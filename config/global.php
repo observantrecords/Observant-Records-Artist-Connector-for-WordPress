@@ -1,4 +1,7 @@
 <?php
+define('ISRC_COUNTRY_CODE', 'QM');
+define('ISRC_REGISTRANT_CODE', 'G35');
+define('OBSERVANTRECORDS_CDN_BASE_URI', env(OBSERVANTRECORDS_CDN_BASE_URI, '//cdn.observantrecords.com'));
 
 return [
 	'url_base' => array(
@@ -9,6 +12,4 @@ return [
 		'to_penziasandwilson' => env('TO_PENZIASANDWILSON', '//penziasandwilson.com'),
 		'to_shinkyokuadvocacy' => env('TO_SHINKYOKUADVOCACY', '//shinkyokuadvocacy.com'),
 	),
-	'isrc_country_code' => env('ISRC_COUNTRY_CODE', 'QM'),
-	'isrc_registrant_code' => env('ISRC_REGISTRANT_CODE', 'G35'),
 ];
