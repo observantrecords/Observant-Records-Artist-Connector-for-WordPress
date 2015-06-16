@@ -36,7 +36,7 @@ class RecordingISRC extends Model {
 	}
 
 	public function isrc() {
-		return $this->hasOne('Recording', 'isrc_recording_id', 'recording_id');
+		return $this->hasOne('App\Models\Recording', 'isrc_recording_id', 'recording_id');
 	}
 
 	public function generate_code() {

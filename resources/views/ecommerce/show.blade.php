@@ -12,8 +12,8 @@
 @section('content')
 
 <p>
-	<a href="{{ route('ecommerce.edit', array('id' => $ecommerce->ecommerce_id)) }}" class="button"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
-	<a href="{{ route('ecommerce.delete', array('id' => $ecommerce->ecommerce_id)) }}" class="button"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+	<a href="{{ route('ecommerce.edit', array('id' => $ecommerce->ecommerce_id)) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Edit</a>
+	<a href="{{ route('ecommerce.delete', array('id' => $ecommerce->ecommerce_id)) }}" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> Delete</a>
 </p>
 
 <ul class="two-column-bubble-list">

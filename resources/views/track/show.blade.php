@@ -26,8 +26,8 @@
 @section('content')
 
 <p>
-	<a href="{{ route( 'track.edit', array( 'id' => $track->track_id ) ) }}" class="button">Edit</a>
-	<a href="{{ route( 'track.delete', array( 'id' => $track->track_id ) ) }}" class="button">Delete</a>
+	<a href="{{ route( 'track.edit', array( 'id' => $track->track_id ) ) }}" class="btn btn-default">Edit</a>
+	<a href="{{ route( 'track.delete', array( 'id' => $track->track_id ) ) }}" class="btn btn-default">Delete</a>
 </p>
 
 <ul class="two-column-bubble-list">

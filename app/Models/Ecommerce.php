@@ -28,10 +28,10 @@ class Ecommerce extends Model {
 	);
 
 	public function track() {
-		return $this->belongsTo( 'Track', 'ecommerce_track_id', 'track_id' );
+		return $this->belongsTo( 'App\Models\Track', 'ecommerce_track_id', 'track_id' );
 	}
 
 	public function release() {
-		return $this->belongsTo( 'Release', 'ecommerce_release_id', 'release_id' );
+		return $this->belongsTo( 'App\Models\Release', 'ecommerce_release_id', 'release_id' );
 	}
 }

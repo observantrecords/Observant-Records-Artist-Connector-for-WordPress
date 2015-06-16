@@ -29,8 +29,8 @@
 @section('content')
 
 <ul class="list-inline">
-	<li><a href="{{ route( 'release.edit', array( 'id' => $release->release_id ) ) }}" class="button">Edit</a></li>
-	<li><a href="{{ route( 'release.delete', array( 'id' => $release->release_id ) ) }}" class="button">Delete</a></li>
+	<li><a href="{{ route( 'release.edit', array( 'id' => $release->release_id ) ) }}" class="btn btn-default">Edit</a></li>
+	<li><a href="{{ route( 'release.delete', array( 'id' => $release->release_id ) ) }}" class="btn btn-default">Delete</a></li>
 </ul>
 
 <ul class="two-column-bubble-list">
@@ -99,11 +99,11 @@
 
 {!! Form::open( array( 'route' => array( 'track.save-order' ), 'id' => 'save-order-form' ) ) !!}
 <ul class="list-inline">
-	<li><a href="{{ route( 'track.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a track</a></li>
+	<li><a href="{{ route( 'track.create', array('release' => $release->release_id) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a track</a></li>
 	@if (count($release->release_track_list) > 0)
-	<li><a href="{{ route( 'release.export-id3' , array('id' => $release->release_id)  ) }}" class="button">Export ID3 data</a></li>
+	<li><a href="{{ route( 'release.export-id3' , array('id' => $release->release_id)  ) }}" class="btn btn-default">Export ID3 data</a></li>
 	<li>
-		{!! Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'button') ) !!}
+		{!! Form::button( 'Save track order', array('id' => 'save-order', 'class' => 'btn btn-default') ) !!}
 		{!! Form::hidden( 'track_id' ) !!}
 	</li>
 	@endif
@@ -216,9 +216,9 @@
 
 {!! Form::open( array( 'route' => array( 'ecommerce.save-order' ), 'id' => 'save-ecommerce-form' ) ) !!}
 <ul class="list-inline">
-	<li><a href="{{ route( 'ecommerce.create', array('release' => $release->release_id) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an ecommerce link</a></li>
+	<li><a href="{{ route( 'ecommerce.create', array('release' => $release->release_id) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add an ecommerce link</a></li>
 	@if (count($release->ecommerce) > 0)
-	<li>{!! Form::button( 'Save ecommerce link order', array('id' => 'save-ecommerce-order', 'class' => 'button') ) !!}</li>
+	<li>{!! Form::button( 'Save ecommerce link order', array('id' => 'save-ecommerce-order', 'class' => 'btn btn-default') ) !!}</li>
 	@endif
 </ul>
 {!! Form::close() !!}

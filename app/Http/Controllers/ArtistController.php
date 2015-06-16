@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Artist;
 use App\Models\Album;
+use App\Models\Song;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 class ArtistController extends Controller {
 
@@ -15,10 +20,6 @@ class ArtistController extends Controller {
 		$this->layout_variables = array(
 			'config_url_base' => config('global.url_base'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**
@@ -36,7 +37,7 @@ class ArtistController extends Controller {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return view('artist.index', $data);
+		return View::make('artist.index', $data);
 	}
 
 
@@ -55,7 +56,7 @@ class ArtistController extends Controller {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return view('artist.create', $data);
+		return View::make('artist.create', $data);
 	}
 
 
@@ -116,7 +117,7 @@ class ArtistController extends Controller {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return view('artist.edit', $data);
+		return View::make('artist.edit', $data);
 	}
 
 
@@ -132,15 +133,15 @@ class ArtistController extends Controller {
 		$fields = $id->getFillable();
 
 		foreach ($fields as $field) {
-			$id->{$field} = Input::get($field);
+			$id->{$field} = Request::get($field);
 		}
 
 		$result = $id->save();
 
 		if ($result !== false) {
-			return Redirect::route('artist.show', array('id' => $id->artist_id))->with('message', 'Your changes were saved.');
+			return redirect()->route('artist.show', array('id' => $id->artist_id))->with('message', 'Your changes were saved.');
 		} else {
-			return Redirect::route('artist.index')->with('error', 'Your changes were not saved.');
+			return redirect()->route('artist.index')->with('error', 'Your changes were not saved.');
 		}
 	}
 
@@ -158,7 +159,7 @@ class ArtistController extends Controller {
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return view('artist.delete', $data);
+		return View::make('artist.delete', $data);
 	}
 
 

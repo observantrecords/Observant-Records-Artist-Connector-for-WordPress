@@ -15,8 +15,8 @@
 @section('content')
 
 <ul class="list-inline">
-	<li><a href="{{ route('artist.edit', array('id' => $artist->artist_id)) }}" class="button">Edit</a></li>
-	<li><a href="{{ route('artist.delete', array('id' => $artist->artist_id)) }}" class="button">Delete</a></li>
+	<li><a href="{{ route('artist.edit', array('id' => $artist->artist_id)) }}" class="btn btn-primary">Edit</a></li>
+	<li><a href="{{ route('artist.delete', array('id' => $artist->artist_id)) }}" class="btn btn-warning">Delete</a></li>
 </ul>
 
 <ul class="two-column-bubble-list">
@@ -59,9 +59,9 @@
 
 {!! Form::open( array( 'route' => array( 'album.save-order' ), 'id' => 'save-order-form' ) ) !!}
 <ul class="list-inline">
-	<li><a href="{{ route( 'album.create', array( 'artist' => $artist->artist_id ) ) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add album</a></li>
+	<li><a href="{{ route( 'album.create', array( 'artist' => $artist->artist_id ) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add album</a></li>
 	<li>
-		{!! Form::button( 'Save album order', array('id' => 'save-order', 'class' => 'button') ) !!}
+		{!! Form::button( 'Save album order', array('id' => 'save-order', 'class' => 'btn btn-default') ) !!}
 		{!! Form::hidden('album_id', null) !!}
 	</li>
 </ul>

@@ -1,14 +1,29 @@
 <?php
 
-class AudioController extends \BaseController {
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\Artist;
+use App\Models\Album;
+use App\Models\AlbumFormat;
+use App\Models\Release;
+use App\Models\ReleaseFormat;
+use App\Models\Track;
+use App\Models\Recording;
+use App\Models\Audio;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+
+class AudioController extends Controller {
 
 	private $layout_variables = array();
 
 	public function __construct() {
-		global $config_url_base;
 
 		$this->layout_variables = array(
-			'config_url_base' => $config_url_base,
+			'config_url_base' => config('global.url_base'),
 		);
 
 		$this->beforeFilter('auth');

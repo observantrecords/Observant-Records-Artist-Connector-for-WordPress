@@ -21,8 +21,8 @@
 @section('content')
 
 <p>
-	<a href="{{ route('song.edit', array('id' => $song->song_id)) }}" class="button">Edit</a>
-	<a href="{{ route('song.delete', array('id' => $song->song_id)) }}" class="button">Delete</a>
+	<a href="{{ route('song.edit', array('id' => $song->song_id)) }}" class="btn btn-default">Edit</a>
+	<a href="{{ route('song.delete', array('id' => $song->song_id)) }}" class="btn btn-default">Delete</a>
 </p>
 
 <ul class="two-column-bubble-list">

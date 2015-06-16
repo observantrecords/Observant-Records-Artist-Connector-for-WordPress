@@ -1,6 +1,17 @@
 <?php
 
-class AlbumController extends \BaseController {
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\Artist;
+use App\Models\Album;
+use App\Models\AlbumFormat;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+
+class AlbumController extends Controller {
 
 	private $layout_variables = array();
 

@@ -27,14 +27,14 @@
 			{!! Form::text( '_display_recording_isrc_num', null, array('disabled' => 'disabled', 'id' => '_display_recording_isrc_num') ) !!}
 			{!! Form::hidden( 'recording_isrc_num', null, array( 'id' => 'recording_isrc_num' ) ) !!}
 			{!! Form::hidden( 'recording_isrc_code', null, array( 'id' => 'recording_isrc_code' ) ) !!}
-			{!! Form::button( 'Generate', array('id' => 'generate_custom_isrc', 'class' => 'button') ) !!}
-			{!! Form::button( 'Clear', array('id' => 'clear_custom_isrc', 'class' => 'button') ) !!}
+			{!! Form::button( 'Generate', array('id' => 'generate_custom_isrc', 'class' => 'btn btn-default') ) !!}
+			{!! Form::button( 'Clear', array('id' => 'clear_custom_isrc', 'class' => 'btn btn-default') ) !!}
 			@endif
 		</div>
 	</div>
 
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array('class' => 'button')) !!}
+		{!! Form::submit('Save', array('class' => 'btn btn-default')) !!}
 	</div>
 </div>
 

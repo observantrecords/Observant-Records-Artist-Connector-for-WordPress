@@ -30,7 +30,7 @@ class Audio extends Model {
 	);
 
 	public function recording() {
-		return $this->belongsTo('Recording', 'audio_recording_id', 'recording_id');
+		return $this->belongsTo('App\Models\Recording', 'audio_recording_id', 'recording_id');
 	}
 
 }

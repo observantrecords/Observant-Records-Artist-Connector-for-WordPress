@@ -15,7 +15,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route('artist.create') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an artist</a>
+	<a href="{{ route('artist.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add an artist</a>
 </p>
 
 @if (!empty($artists))

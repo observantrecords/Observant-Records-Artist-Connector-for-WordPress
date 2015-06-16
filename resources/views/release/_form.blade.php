@@ -48,7 +48,7 @@
 	{!! Form::label( 'release_catalog_num', 'Catalog no.:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
 	<div class="col-sm-10">
 		{!! Form::text( 'release_catalog_num', $release->release_catalog_num, array(  ) ) !!}
-		{!! Form::button( 'Generate', array('id' => 'generate_catalog_num', 'class' => 'button') ) !!}
+		{!! Form::button( 'Generate', array('id' => 'generate_catalog_num', 'class' => 'btn btn-default') ) !!}
 	</div>
 </div>
 
@@ -84,7 +84,7 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array( 'class' => 'button' )) !!}
+		{!! Form::submit('Save', array( 'class' => 'btn btn-default' )) !!}
 	</div>
 </div>
 

@@ -17,7 +17,7 @@ class AlbumFormat extends Model {
 	protected $softDelete = true;
 
 	public function albums() {
-		return $this->hasMany('Album', 'album_format_id', 'format_id');
+		return $this->hasMany('App\Models\Album', 'album_format_id', 'format_id');
 	}
 
 }

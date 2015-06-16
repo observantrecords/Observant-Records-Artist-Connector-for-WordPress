@@ -35,15 +35,15 @@ class Song extends Model {
 
 
 	public function artist() {
-		return $this->belongsTo('Artist', 'song_primary_artist_id', 'artist_id');
+		return $this->belongsTo('App\Models\Artist', 'song_primary_artist_id', 'artist_id');
 	}
 
 	public function recordings() {
-		return $this->hasMany('Recording', 'recording_song_id', 'song_id');
+		return $this->hasMany('App\Models\Recording', 'recording_song_id', 'song_id');
 	}
 
 	public function tracks() {
-		return $this->hasMany('Track', 'track_song_id', 'song_id');
+		return $this->hasMany('App\Models\Track', 'track_song_id', 'song_id');
 	}
 
 } 

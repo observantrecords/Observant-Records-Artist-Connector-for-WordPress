@@ -53,7 +53,17 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit( 'Save', array( 'class' => 'button' ) ) !!}
+        <ul class="list-inline">
+            <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+            <li>
+            @if (!empty( $artist->artist_id))
+                <a href="{{ route( 'artist.show', array( 'id' => $artist->artist_id ) ) }}" class="btn btn-default">Cancel</a>
+            @else
+                <a href="{{ route( 'artist.index' ) }}" class="btn btn-default">Cancel</a>
+            @endif
+            </li>
+        </ul>
+
 	</div>
 </div>
 

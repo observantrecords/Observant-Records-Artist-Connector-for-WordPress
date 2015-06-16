@@ -21,8 +21,8 @@
 @section('content')
 
 <ul class="list-inline">
-	<li><a href="{{ route('album.edit', array('id' => $album->album_id)) }}" class="button">Edit</a></li>
-	<li><a href="{{ route('album.delete', array('id' => $album->album_id)) }}" class="button">Delete</a></li>
+	<li><a href="{{ route('album.edit', array('id' => $album->album_id)) }}" class="btn btn-primary">Edit</a></li>
+	<li><a href="{{ route('album.delete', array('id' => $album->album_id)) }}" class="btn btn-warning">Delete</a></li>
 </ul>
 
 <ul class="two-column-bubble-list">
@@ -80,7 +80,7 @@
 <h3>Releases</h3>
 
 <ul class="list-inline">
-	<li><a href="{{ route('release.create', array( 'album' => $album->album_id )) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a release</a></li>
+	<li><a href="{{ route('release.create', array( 'album' => $album->album_id )) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a release</a></li>
 </ul>
 
 @if (count($album->releases) > 0)

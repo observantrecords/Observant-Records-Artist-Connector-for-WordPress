@@ -35,19 +35,19 @@ class Release extends Model {
 	private $_catalog_stem;
 
 	public function album() {
-		return $this->belongsTo('Album', 'release_album_id', 'album_id');
+		return $this->belongsTo('App\Models\Album', 'release_album_id', 'album_id');
 	}
 
 	public function tracks() {
-		return $this->hasMany('Track', 'track_release_id', 'release_id')->orderBy('track_disc_num')->orderBy('track_track_num');
+		return $this->hasMany('App\Models\Track', 'track_release_id', 'release_id')->orderBy('track_disc_num')->orderBy('track_track_num');
 	}
 
 	public function format() {
-		return $this->hasOne('ReleaseFormat', 'format_id', 'release_format_id');
+		return $this->hasOne('App\Models\ReleaseFormat', 'format_id', 'release_format_id');
 	}
 
 	public function ecommerce() {
-		return $this->hasMany('Ecommerce', 'ecommerce_release_id', 'release_id');
+		return $this->hasMany('App\Models\Ecommerce', 'ecommerce_release_id', 'release_id');
 	}
 
 	public function generate_catalog_num() {

@@ -18,7 +18,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route('track.create') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
+	<a href="{{ route('track.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
 </p>
 
 @if (count($tracks) > 0)

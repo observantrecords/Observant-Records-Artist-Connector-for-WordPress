@@ -46,7 +46,7 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array( 'class' => 'button' ) ) !!}
+		{!! Form::submit('Save', array( 'class' => 'btn btn-default' ) ) !!}
 		{!! Form::hidden( 'audio_id', $audio->audio_id, array( 'id' => 'audio_id' ) ) !!}
 		{!! Form::hidden( 'original_audio_id', $original_audio_id, array( 'id' => 'original_audio_id' ) ) !!}
 	</div>

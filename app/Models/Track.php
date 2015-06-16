@@ -33,19 +33,19 @@ class Track extends Model {
 	);
 
 	public function release() {
-		return $this->belongsTo('Release', 'track_release_id', 'release_id');
+		return $this->belongsTo('App\Models\Release', 'track_release_id', 'release_id');
 	}
 
 	public function song() {
-		return $this->hasOne('Song', 'song_id', 'track_song_id');
+		return $this->hasOne('App\Models\Song', 'song_id', 'track_song_id');
 	}
 
 	public function recording() {
-		return $this->hasOne('Recording', 'recording_id', 'track_recording_id');
+		return $this->hasOne('App\Models\Recording', 'recording_id', 'track_recording_id');
 	}
 
 	public function ecommerce() {
-		return $this->hasMany('Ecommerce', 'ecommerce_track_id', 'track_id');
+		return $this->hasMany('App\Models\Ecommerce', 'ecommerce_track_id', 'track_id');
 	}
 
 	public function findReleaseTracks($release_id) {

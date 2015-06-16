@@ -18,7 +18,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route('album.create') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add an album</a>
+	<a href="{{ route('album.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add an album</a>
 </p>
 
 @if (count($albums) > 0)

@@ -42,12 +42,12 @@
 	<div class="col-sm-12">
 		<div class="radio">
 			<label>
-				{!! Form::radio('confirm', '1') }} Yes, I want to delete {{ $recording->recording_isrc_num !!}.
+				{!! Form::radio('confirm', '1')  !!} Yes, I want to delete {{ $recording->recording_isrc_num }}.
 			</label>
 		</div>
 		<div class="radio">
 			<label>
-				{!! Form::radio('confirm', '0') }} No, I don't want to delete {{ $recording->recording_isrc_num !!}.
+				{!! Form::radio('confirm', '0')  !!} No, I don't want to delete {{ $recording->recording_isrc_num }}.
 			</label>
 		</div>
 	</div>
@@ -55,7 +55,7 @@
 
 <div class="form-group">
 	<div class="col-sm-12">
-		{!! Form::submit('Confirm', array( 'class' => 'button' )) !!}
+		{!! Form::submit('Confirm', array( 'class' => 'btn btn-default' )) !!}
 	</div>
 </div>
 

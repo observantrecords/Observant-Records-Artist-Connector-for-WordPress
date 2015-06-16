@@ -28,9 +28,9 @@
 
 <p>
 	@if (!empty($artist->artist_id))
-	<a href="{{ route('recording.create', array( 'artist' => $artist->artist_id )) }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
+	<a href="{{ route('recording.create', array( 'artist' => $artist->artist_id )) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
 	@else
-	<a href="{{ route('recording.create') }}" class="button"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
+	<a href="{{ route('recording.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
 	@endif
 </p>
 
@@ -46,7 +46,7 @@
 
 <div class="form-group">
 	<div class="col-sm-2">
-		{!! Form::button('View', array( 'class' => 'button', 'id' => 'select-recording' ) ); !!}
+		{!! Form::button('View', array( 'class' => 'btn btn-default', 'id' => 'select-recording' ) ); !!}
 	</div>
 </div>
 
