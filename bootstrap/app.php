@@ -1,5 +1,10 @@
 <?php
 
+require_once dirname(__FILE__) . '/../config/configuration.php';
+require_once dirname(__FILE__) . '/../config/global.php';
+global $config_url_base;
+
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
