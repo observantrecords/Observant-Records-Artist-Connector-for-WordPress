@@ -18,7 +18,7 @@
 @section('content')
 
 <p>
-	<a href="{{ route('release.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
+	<a href="{{ route('release.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a release</a>
 </p>
 
 @if (count($releases) > 0)

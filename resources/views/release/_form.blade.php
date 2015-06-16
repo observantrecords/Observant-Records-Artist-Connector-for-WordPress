@@ -60,13 +60,6 @@
 </div>
 
 <div class="form-group">
-	{!! Form::label( 'release_image', 'Image:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
-	<div class="col-sm-10">
-		{!! Form::text( 'release_image', $release->release_image, array( 'class' => 'form-control' ) ) !!}
-	</div>
-</div>
-
-<div class="form-group">
 	{!! Form::label( 'release_is_visible', 'Visibility:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
 	<div class="col-sm-10">
 		<div class="radio">
@@ -84,7 +77,18 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array( 'class' => 'btn btn-default' )) !!}
+        <ul class="list-inline">
+            <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+            <li>
+                @if (!empty( $release->release_id))
+                    <a href="{{ route( 'release.show', array( 'id' => $release->release_id ) ) }}" class="btn btn-default">Cancel</a>
+                @elseif (!empty($release->release_album_id))
+                    <a href="{{ route( 'album.show', array( 'id' => $release->release_album_id ) ) }}" class="btn btn-default">Cancel</a>
+                @else
+                    <a href="{{ route( 'release.index' ) }}" class="btn btn-default">Cancel</a>
+                @endif
+            </li>
+        </ul>
 	</div>
 </div>
 

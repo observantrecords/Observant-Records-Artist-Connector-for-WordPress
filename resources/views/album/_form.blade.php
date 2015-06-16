@@ -44,7 +44,7 @@
 @endif
 
 <div class="form-group">
-	{!! Form::label( 'album_ctype_locale', 'Primary release:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+	{!! Form::label( 'album_ctype_locale', 'Title locale:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
 	<div class="col-sm-10">
 		{!! Form::select( 'album_ctype_locale', $locales, $album->album_ctype_locale, array( 'class' => 'form-control' ) ) !!}
 	</div>
@@ -58,16 +58,9 @@
 </div>
 
 <div class="form-group">
-	{!! Form::label( 'album_image', 'Image:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+	{!! Form::label( 'album_music_description', 'Description:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
 	<div class="col-sm-10">
-		{!! Form::text( 'album_image', $album->album_image, array( 'class' => 'form-control' ) ) !!}
-	</div>
-</div>
-
-<div class="form-group">
-	{!! Form::label( 'album_description', 'Description:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
-	<div class="col-sm-10">
-		{!! Form::textarea( 'album_description', $album->album_description, array( 'class' => 'form-control' ) ) !!}
+		{!! Form::textarea( 'album_music_description', $album->album_music_description, array( 'class' => 'form-control' ) ) !!}
 	</div>
 </div>
 
@@ -89,7 +82,18 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}
+        <ul class="list-inline">
+            <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+            <li>
+                @if (!empty( $album->album_id))
+                    <a href="{{ route( 'album.show', array( 'id' => $album->album_id ) ) }}" class="btn btn-default">Cancel</a>
+                @elseif (!empty($album->album_artist_id))
+                    <a href="{{ route( 'artist.show', array( 'id' => $album->album_artist_id ) ) }}" class="btn btn-default">Cancel</a>
+                @else
+                    <a href="{{ route( 'album.index' ) }}" class="btn btn-default">Cancel</a>
+                @endif
+            </li>
+        </ul>
 	</div>
 </div>
 
@@ -98,6 +102,7 @@
 		$('#album_primary_release_id').chosen();
 		$('#album_format_id').chosen();
 		$('#album_artist_id').chosen();
+        $('#album_ctype_locale').chosen();
 
 		// Date pickers.
 		$('#album_release_date').datepicker({
