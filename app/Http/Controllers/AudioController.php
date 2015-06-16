@@ -239,8 +239,8 @@ class AudioController extends \BaseController {
 	private function list_folders($artist_alias = null) {
 		try {
 			$params = array(
-				'key' => ACCESS_KEY_ID,
-				'secret' => SECRET_ACCESS_KEY,
+				'key' => config('amazon.access_key_id'),
+				'secret' => config('amazon.secret_access_key'),
 			);
 
 			$s3 = Aws\S3\S3Client::factory($params);

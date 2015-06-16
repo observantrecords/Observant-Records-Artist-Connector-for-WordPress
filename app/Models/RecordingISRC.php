@@ -25,8 +25,8 @@ class RecordingISRC extends Eloquent {
 	private $_isrc_stem;
 
 	public function __construct() {
-		$this->_isrc_registrant_code = ISRC_REGISTRANT_CODE;
-		$this->_isrc_country_code = ISRC_COUNTRY_CODE;
+		$this->_isrc_registrant_code = config('global.isrc_country_code');
+		$this->_isrc_country_code = config('global.isrc_registrant_code');
 
 		$this->_isrc_stem = ISRC_COUNTRY_CODE . '-' . $this->_isrc_registrant_code . '-' . date('y') . '-';
 	}

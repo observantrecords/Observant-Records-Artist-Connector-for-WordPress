@@ -9,4 +9,6 @@ return [
 		'to_penziasandwilson' => env('TO_PENZIASANDWILSON', '//penziasandwilson.com'),
 		'to_shinkyokuadvocacy' => env('TO_SHINKYOKUADVOCACY', '//shinkyokuadvocacy.com'),
 	),
+	'isrc_country_code' => env('ISRC_COUNTRY_CODE', 'QM'),
+	'isrc_registrant_code' => env('ISRC_REGISTRANT_CODE', 'G35'),
 ];
