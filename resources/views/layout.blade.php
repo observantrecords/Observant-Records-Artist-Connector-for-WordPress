@@ -92,7 +92,7 @@
 	</div>
 
 	<footer class="centered">
-		<p>&copy; {{ date("Y") }} <a href="{{ $config_url_base['to_observant']  }}/">Observant Records</a></p>
+		<p>&copy; {{ date("Y") }} <a href="{{ config('global.url_base.to_observant') }}/">Observant Records</a></p>
 	</footer>
 </div>
 

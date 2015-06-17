@@ -68,6 +68,14 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Authentication
-Route::get( '/auth/login', 'Auth\AuthController@getLogin' );
+Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );
+Route::post( '/login', array( 'as' => 'auth.signin', 'uses' => 'AuthController@sign_in' ) );
 Route::get( '/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthController@sign_out' ) );
-Route::post( '/signin', array( 'as' => 'auth.signin', 'uses' => 'AuthController@sign_in' ) );
+
+// Password reset link request routes...
+Route::get('password/email', array( 'as' => 'password.email', 'uses' => 'Auth\PasswordController@getEmail') );
+Route::post('password/email', array( 'as' => 'password.send', 'uses' => 'Auth\PasswordController@postEmail') );
+
+// Password reset routes...
+Route::get('password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'Auth\PasswordController@getReset') );
+Route::post('password/reset', array( 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@postReset') );
