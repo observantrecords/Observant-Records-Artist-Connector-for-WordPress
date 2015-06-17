@@ -60,6 +60,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get( '/recording/{recording}/delete', array( 'as' => 'recording.delete', 'uses' => 'RecordingController@delete' ) );
 	Route::post( '/recording/generate-isrc', array( 'as' => 'recording.isrc', 'uses' => 'RecordingController@generate_isrc' ) );
 	Route::resource('recording', 'RecordingController');
+
+// Profile
+	Route::model('user', 'App\Models\User');
+	Route::resource('user', 'UserController');
+	Route::get( '/user/{user}/delete', array( 'as' => 'user.delete', 'uses' => 'UserController@delete' ) );
 });
 
 // Authentication

@@ -51,6 +51,7 @@
 			<ul class="nav navbar-nav">
 				<li><a href="{{ route('home') }}">Home</a></li>
 			@if ( Auth::check() )
+                <li><a href="{{ route('user.show', array( 'id' => \Illuminate\Support\Facades\Auth::user()->user_id ) ) }}">Profile</a></li>
 				<li><a href="{{ route('auth.logout') }}">Logout</a></li>
 			@else
 				<li><a href="{{ route('auth.login') }}">Login</a></li>

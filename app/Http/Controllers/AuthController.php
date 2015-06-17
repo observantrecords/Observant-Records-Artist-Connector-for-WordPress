@@ -8,10 +8,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 
 class AuthController extends Controller {
@@ -28,32 +28,31 @@ class AuthController extends Controller {
 	public function login() {
 
 		if (Auth::check() === true) {
-			return redirect()->intended('/');
+			return Redirect::intended('/');
 		}
 
 		$method_variables = array();
 
 		$data = array_merge($method_variables, $this->layout_variables);
 
-		return view('auth.login', $data);
+		return View::make('auth.login', $data);
 	}
 
-	public function sign_in(Request $request) {
-		$user_name = $request->input('user_name');
-		$user_password = $request->input('user_password');
-		$credentials = ['user_name' => $user_name, 'password' => $user_password];
+	public function sign_in() {
+		$user_name = Input::get('user_name');
+		$user_password = Input::get('user_password');
 
-		if (Auth::attempt($credentials)) {
-			return redirect()->intended('/');
+		if (Auth::attempt( array( 'user_name' => $user_name, 'password' => $user_password ) )) {
+			return Redirect::intended('/');
 		} else {
-			return redirect()->to('/login')->with('error', "Sorry, we couldn't verify your credentials. Please try again.");
+			return Redirect::to('/login')->with('error', "Sorry, we couldn't verify your credentials. Please try again.");
 		}
 	}
 
 	public function sign_out() {
 		Auth::logout();
 
-		return redirect()->to('/login');
+		return Redirect::to('/login');
 	}
 
 } 
