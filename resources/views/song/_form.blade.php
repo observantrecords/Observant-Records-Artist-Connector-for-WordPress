@@ -38,7 +38,7 @@
 </div>
 
 <div class="form-group">
-	{!! Form::label( 'song_style', 'Influences:', array( 'class' => 'col-sm-2' ) ) !!}
+	{!! Form::label( 'song_style', 'Style:', array( 'class' => 'col-sm-2' ) ) !!}
 	<div class="col-sm-10">
 		{!! Form::text( 'song_style', $song->song_style, array( 'class' => 'form-control' ) ) !!}
 	</div>
@@ -80,7 +80,18 @@
 </div>
 
 <div class="col-sm-offset-2 col-sm-10">
-	{!! Form::submit('Save', array( 'class' => 'btn btn-default' )) !!}
+    <ul class="list-inline">
+        <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+        <li>
+            @if (!empty( $song->song_id))
+                <a href="{{ route( 'song.show', array( 'id' => $song->song_id ) ) }}" class="btn btn-default">Cancel</a>
+            @elseif (!empty($song->song_primary_artist_id))
+                <a href="{{ route( 'artist.show', array( 'id' => $song->song_primary_artist_id ) ) }}" class="btn btn-default">Cancel</a>
+            @else
+                <a href="{{ route( 'song.index' ) }}" class="btn btn-default">Cancel</a>
+            @endif
+        </li>
+    </ul>
 </div>
 
 <script type="text/javascript">

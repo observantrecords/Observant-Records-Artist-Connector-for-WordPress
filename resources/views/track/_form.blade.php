@@ -86,13 +86,6 @@
 	</div>
 
 	<div class="form-group">
-		{!! Form::label( 'track_uplaya_score', 'uPlaya score:', array( 'class' => 'col-sm-2' ) ) !!}
-		<div class="col-sm-10">
-			{!! Form::text( 'track_uplaya_score', $track->track_uplaya_score, array( 'class' => 'form-control' ) ) !!}
-		</div>
-	</div>
-
-	<div class="form-group">
 		{!! Form::label( 'track_recording_id', 'Recording:', array( 'class' => 'col-sm-2' ) ) !!}
 		<div class="col-sm-10">
 			{!! Form::select( 'track_recording_id', $recordings, $track->track_recording_id, array( 'class' => 'form-control' ) ) !!}
@@ -121,11 +114,6 @@
 		$('#track_song_id').chosen();
 		$('#track_recording_id').chosen();
 		$('#track_release_id').chosen();
-
-		// Date pickers.
-//		$('#release_release_date').datepicker({
-//			dateFormat: 'yy-mm-dd'
-//		});
 
 		$('#track_song_id').change(function () {
 			var alias = $('#track_song_id>option:selected').text().trim().toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]+/g, '').replace(/(^-|-$)/, '');

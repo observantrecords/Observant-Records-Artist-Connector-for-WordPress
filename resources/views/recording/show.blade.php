@@ -28,8 +28,8 @@
 @section('content')
 
 <p>
-	<a href="{{ route( 'recording.edit', array( 'id' => $recording->recording_id ) ) }}" class="btn btn-default">Edit</a>
-	<a href="{{ route( 'recording.delete', array( 'id' => $recording->recording_id ) ) }}" class="btn btn-default">Delete</a>
+	<a href="{{ route( 'recording.edit', array( 'id' => $recording->recording_id ) ) }}" class="btn btn-primary">Edit</a>
+	<a href="{{ route( 'recording.delete', array( 'id' => $recording->recording_id ) ) }}" class="btn btn-warning">Delete</a>
 </p>
 
 <ul class="two-column-bubble-list">
@@ -53,7 +53,7 @@
 <h3>Audio files</h3>
 
 <p>
-	<a href="{{ route( 'audio.create', array('recording' => $recording->recording_id) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add an audio file</a>
+	<a href="{{ route( 'audio.create', array('recording' => $recording->recording_id) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add an audio file</a>
 </p>
 
 @if (count($recording->audio) > 0)

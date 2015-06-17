@@ -1,19 +1,21 @@
 <?php
 
-class SongController extends \BaseController {
+namespace App\Http\Controllers;
+
+use App\Models\Artist;
+use App\Models\Song;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+
+class SongController extends Controller {
 
 	private $layout_variables = array();
 
 	public function __construct() {
-		global $config_url_base;
-
 		$this->layout_variables = array(
-			'config_url_base' => $config_url_base,
+			'config_url_base' => config('global.url_base'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**
@@ -202,7 +204,7 @@ class SongController extends \BaseController {
 
 	private function build_artist_options() {
 		$artists = Artist::orderBy('artist_display_name')->lists('artist_display_name', 'artist_id');
-		$artists = array(0 => '&nbsp;') + $artists;
+		$artists = array(0 => '&nbsp;') + $artists->toArray();
 
 		return $artists;
 	}

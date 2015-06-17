@@ -28,9 +28,9 @@
 
 <p>
 	@if (!empty($artist->artist_id))
-	<a href="{{ route('song.create', array( 'artist' => $artist->artist_id ) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a song</a>
+	<a href="{{ route('song.create', array( 'artist' => $artist->artist_id ) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a song</a>
 	@else
-	<a href="{{ route('song.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a song</a>
+	<a href="{{ route('song.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a song</a>
 	@endif
 </p>
 

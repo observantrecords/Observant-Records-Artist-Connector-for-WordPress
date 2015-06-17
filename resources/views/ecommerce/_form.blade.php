@@ -32,19 +32,31 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array( 'class' => 'btn btn-default' )) !!}
+        <ul class="list-inline">
+            <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+            <li>
+                @if (!empty( $ecommerce->ecommerce_id))
+                    <a href="{{ route( 'ecommerce.show', array( 'id' => $ecommerce->ecommerce_id ) ) }}" class="btn btn-default">Cancel</a>
+                @elseif (!empty($ecommerce->ecommerce_release_id))
+                    <a href="{{ route( 'release.show', array( 'id' => $ecommerce->ecommerce_release_id ) ) }}" class="btn btn-default">Cancel</a>
+                @else
+                    <a href="{{ route( 'ecommerce.index' ) }}" class="btn btn-default">Cancel</a>
+                @endif
+            </li>
+        </ul>
 	</div>
 </div>
 
 <script type="text/javascript">
 	(function ($) {
-		var labels = {{ $labels }}
+        var labels = {!! $labels !!}
+        $(function () {
 
-		$('#ecommerce_release_id').chosen();
-		$('#ecommerce_label').autocomplete({
-			source: labels
-		});
-
+            $('#ecommerce_release_id').chosen();
+            $('#ecommerce_label').autocomplete({
+                source: labels
+            });
+        });
 	})(jQuery);
 </script>
 

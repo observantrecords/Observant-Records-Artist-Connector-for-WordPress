@@ -28,9 +28,9 @@
 
 <p>
 	@if (!empty($artist->artist_id))
-	<a href="{{ route('recording.create', array( 'artist' => $artist->artist_id )) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
+	<a href="{{ route('recording.create', array( 'artist' => $artist->artist_id )) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
 	@else
-	<a href="{{ route('recording.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
+	<a href="{{ route('recording.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add a recording</a>
 	@endif
 </p>
 

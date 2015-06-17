@@ -54,7 +54,7 @@
 
 <div class="form-group">
 	<div class="col-sm-12">
-		{!! Form::submit('Confirm', array( 'class' => 'btn btn-default' )) !!}
+		{!! Form::submit('Confirm', array( 'class' => 'btn btn-danger' )) !!}
 	</div>
 </div>
 

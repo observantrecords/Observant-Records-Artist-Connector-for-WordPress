@@ -1,19 +1,22 @@
 <?php
 
-class EcommerceController extends \BaseController {
+namespace App\Http\Controllers;
+
+use App\Models\Release;
+use App\Models\Track;
+use App\Models\Ecommerce;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+
+class EcommerceController extends Controller {
 
 	private $layout_variables = array();
 
 	public function __construct() {
-		global $config_url_base;
-
 		$this->layout_variables = array(
-			'config_url_base' => $config_url_base,
+			'config_url_base' => config('global.url_base'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**
@@ -79,7 +82,7 @@ class EcommerceController extends \BaseController {
 		foreach ($releases as $r => $release_item) {
 			$releases[$r] = $release_item . ' (' . $release_list->find($r)->album->album_title . ')';
 		}
-		$releases = array(0 => '') + $releases;
+		$releases = array(0 => '') + $releases->toArray();
 
 		$labels = Ecommerce::select('ecommerce_label')->groupBy('ecommerce_label')->orderBy('ecommerce_label')->get();
 
@@ -151,7 +154,7 @@ class EcommerceController extends \BaseController {
 		foreach ($releases as $r => $release_item) {
 			$releases[$r] = $release_item . ' (' . $release_list->find($r)->album->album_title . ')';
 		}
-		$releases = array(0 => '') + $releases;
+		$releases = array(0 => '') + $releases->toArray();
 
 		$labels = Ecommerce::select('ecommerce_label')->groupBy('ecommerce_label')->orderBy('ecommerce_label')->get();
 

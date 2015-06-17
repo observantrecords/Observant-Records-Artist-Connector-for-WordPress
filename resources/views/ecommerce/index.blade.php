@@ -12,11 +12,11 @@
 @section('content')
 <p>
 	@if (!empty($release->release_id))
-	<a href="{{ route('ecommerce.create', array( 'release' => $release->release_id ) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
+	<a href="{{ route('ecommerce.create', array( 'release' => $release->release_id ) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
 	@elseif (!empty($track->track_id))
-	<a href="{{ route('ecommerce.create', array( 'track' => $track->track_id ) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
+	<a href="{{ route('ecommerce.create', array( 'track' => $track->track_id ) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
 	@else
-	<a href="{{ route('ecommerce.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
+	<a href="{{ route('ecommerce.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add ecommerce link</a>
 	@endif
 </p>
 

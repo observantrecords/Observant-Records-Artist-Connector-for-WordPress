@@ -1,19 +1,23 @@
 <?php
 
-class RecordingController extends \BaseController {
+namespace App\Http\Controllers;
+
+use App\Models\Artist;
+use App\Models\Song;
+use App\Models\Recording;
+use App\Models\RecordingISRC;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
+
+class RecordingController extends Controller {
 
 	private $layout_variables = array();
 
 	public function __construct() {
-		global $config_url_base;
-
 		$this->layout_variables = array(
-			'config_url_base' => $config_url_base,
+			'config_url_base' => config('global.url_base'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**
@@ -39,7 +43,7 @@ class RecordingController extends \BaseController {
 			$song_title = (!empty($recordings->find($r)->song->song_title)) ? $recordings->find($r)->song->song_title : 'TBD';
 			$recording_list[$r] = $recording . ' ('. $song_title . ')';
 		}
-		$recording_list = array(0 => '&nbsp;') + $recording_list;
+		$recording_list = array(0 => '&nbsp;') + $recording_list->toArray();
 
 		$method_variables = array(
 			'recordings' => $recording_list,
@@ -68,10 +72,10 @@ class RecordingController extends \BaseController {
 		}
 
 		$artists = Artist::orderBy('artist_last_name')->lists('artist_display_name', 'artist_id');
-		$artists = array(0 => '&nbsp;') + $artists;
+		$artists = array(0 => '&nbsp;') + $artists->toArray();
 
 		$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
-		$songs = array(0 => '&nbsp;') + $songs;
+		$songs = array(0 => '&nbsp;') + $songs->toArray();
 
 		$method_variables = array(
 			'recording' => $recording,
@@ -143,10 +147,10 @@ class RecordingController extends \BaseController {
 	public function edit($id)
 	{
 		$artists = Artist::orderBy('artist_last_name')->lists('artist_display_name', 'artist_id');
-		$artists = array(0 => '&nbsp;') + $artists;
+		$artists = array(0 => '&nbsp;') + $artists->toArray();
 
 		$songs = Song::orderBy('song_title')->lists('song_title', 'song_id');
-		$songs = array(0 => '&nbsp;') + $songs;
+		$songs = array(0 => '&nbsp;') + $songs->toArray();
 
 		$method_variables = array(
 			'recording' => $id,
