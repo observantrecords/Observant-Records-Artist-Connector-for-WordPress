@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Artist;
-use App\Models\Album;
-use App\Models\AlbumFormat;
-use App\Models\Release;
-use App\Models\ReleaseFormat;
-use App\Models\Track;
 use App\Models\Recording;
 use App\Models\Audio;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Aws\S3\S3Client;
 
 class AudioController extends Controller {
 
@@ -25,10 +19,6 @@ class AudioController extends Controller {
 		$this->layout_variables = array(
 			'config_url_base' => config('global.url_base'),
 		);
-
-		$this->beforeFilter('auth');
-
-		$this->beforeFilter('csrf', array( 'only' => array( 'store', 'update', 'destroy' ) ) );
 	}
 
 	/**
@@ -91,7 +81,7 @@ class AudioController extends Controller {
 			$recordings[$r] .= ' (' . $song_title . ')';
 		}
 
-		$recordings = array(0 => '&nbsp;') + $recordings;
+		$recordings = array(0 => '&nbsp;') + $recordings->toArray();
 
 		foreach ($s3_directories as $i => $s3_directory) {
 			$s3_directories[$i] = '/' . $s3_directory;
@@ -171,7 +161,7 @@ class AudioController extends Controller {
 			$recordings[$r] .= ' (' . $recording_songs->find($r)->song->song_title . ')';
 		}
 
-		$recordings = array(0 => '&nbsp;') + $recordings;
+		$recordings = array(0 => '&nbsp;') + $recordings->toArray();
 
 		$s3_directories = $this->list_folders($id->recording->artist->artist_alias);
 
@@ -258,7 +248,7 @@ class AudioController extends Controller {
 				'secret' => config('amazon.secret_access_key'),
 			);
 
-			$s3 = Aws\S3\S3Client::factory($params);
+			$s3 = S3Client::factory($params);
 
 			$prefix = 'artists/';
 			if (!empty($artist_alias)) {

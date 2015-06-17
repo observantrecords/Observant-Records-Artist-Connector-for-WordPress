@@ -56,7 +56,7 @@
 <div class="form-group">
 	<div class="col-sm-12">
 		{!! Form::hidden('audio_recording_id', $audio->audio_recording_id) !!}
-		{!! Form::submit('Confirm', array( 'class' => 'btn btn-default' )) !!}
+		{!! Form::submit('Confirm', array( 'class' => 'btn btn-danger' )) !!}
 	</div>
 
 </div>

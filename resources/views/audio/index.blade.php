@@ -12,9 +12,9 @@
 @section('content')
 <p>
 	@if (!empty($recording->recording_id))
-	<a href="{{ route('audio.create', array( 'recording' => $recording->recording_id ) ) }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add audio file</a>
+	<a href="{{ route('audio.create', array( 'recording' => $recording->recording_id ) ) }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add audio file</a>
 	@else
-	<a href="{{ route('audio.create') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add audio file</a>
+	<a href="{{ route('audio.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add audio file</a>
 	@endif
 </p>
 

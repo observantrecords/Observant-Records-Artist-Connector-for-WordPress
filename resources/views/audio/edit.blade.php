@@ -29,7 +29,7 @@
 @section('content')
 {!! Form::model( $audio, array( 'route' => array('audio.update', $audio->audio_id), 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'put' ) ) !!}
 @parent
-{{ Form::close()}}
+{!! Form::close() !!}
 @stop
 
 @section('sidebar')
@@ -43,7 +43,7 @@
 </p>
 @endif
 
-<ul>
-	<li><a href="{{ route( 'audio.show', array( 'id' => $audio->audio_id ) ) }}">Back to {{ $audio->audio_file_name }}</a></li>
+<ul class="list-unstyled">
+	<li>&laquo; <a href="{{ route( 'audio.show', array( 'id' => $audio->audio_id ) ) }}">Back to {{ $audio->audio_file_name }}</a></li>
 </ul>
 @stop

@@ -28,8 +28,8 @@
 
 @section('content')
 <p>
-	<a href="{{ route( 'audio.edit', array( 'id' => $audio->audio_id ) ) }}" class="btn btn-default">Edit</a>
-	<a href="{{ route( 'audio.delete', array( 'id' => $audio->audio_id ) ) }}" class="btn btn-default">Delete</a>
+	<a href="{{ route( 'audio.edit', array( 'id' => $audio->audio_id ) ) }}" class="btn btn-primary">Edit</a>
+	<a href="{{ route( 'audio.delete', array( 'id' => $audio->audio_id ) ) }}" class="btn btn-warning">Delete</a>
 </p>
 
 <ul class="two-column-bubble-list">

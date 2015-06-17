@@ -46,7 +46,18 @@
 
 <div class="form-group">
 	<div class="col-sm-offset-2 col-sm-10">
-		{!! Form::submit('Save', array( 'class' => 'btn btn-default' ) ) !!}
+        <ul class="list-inline">
+            <li>{!! Form::submit( 'Save', array( 'class' => 'btn btn-primary' ) ) !!}</li>
+            <li>
+                @if (!empty( $audio->audio_id))
+                    <a href="{{ route( 'audio.show', array( 'id' => $audio->audio_id ) ) }}" class="btn btn-default">Cancel</a>
+                @elseif (!empty($audio->audio_recording_id))
+                    <a href="{{ route( 'recording.show', array( 'id' => $audio->audio_recording_id ) ) }}" class="btn btn-default">Cancel</a>
+                @else
+                    <a href="{{ route( 'audio.index' ) }}" class="btn btn-default">Cancel</a>
+                @endif
+            </li>
+        </ul>
 		{!! Form::hidden( 'audio_id', $audio->audio_id, array( 'id' => 'audio_id' ) ) !!}
 		{!! Form::hidden( 'original_audio_id', $original_audio_id, array( 'id' => 'original_audio_id' ) ) !!}
 	</div>
@@ -59,11 +70,11 @@
 	@endif
 
 	@if (!empty($recordings_json))
-			var recordings = {{ $recordings_json }};
+			var recordings = {!! $recordings_json !!};
 	@endif
 
 	@if (!empty($s3_directories))
-		var s3_directories = {{ $s3_directories }};
+		var s3_directories = {!! $s3_directories !!};
 	@endif
 
 		var Audio_Edit = {
