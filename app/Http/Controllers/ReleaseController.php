@@ -115,10 +115,11 @@ class ReleaseController extends Controller {
 	{
 		$track_model = new Track();
 		$id->release_track_list = $track_model->findReleaseTracks($id->release_id);
-		$id->ecommerce->sortBy('ecommerce_list_order');
+		$ecommerce = $id->ecommerce->sortBy('ecommerce_list_order');
 
 		$method_variables = array(
 			'release' => $id,
+			'ecommerce' => $ecommerce,
 		);
 
 		$data = array_merge($method_variables, $this->layout_variables);

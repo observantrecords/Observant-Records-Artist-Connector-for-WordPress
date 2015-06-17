@@ -68,6 +68,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Authentication
-Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );
+Route::get( '/auth/login', 'Auth\AuthController@getLogin' );
 Route::get( '/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthController@sign_out' ) );
 Route::post( '/signin', array( 'as' => 'auth.signin', 'uses' => 'AuthController@sign_in' ) );

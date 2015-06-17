@@ -223,9 +223,9 @@
 </ul>
 {!! Form::close() !!}
 
-@if (count($release->ecommerce) > 0)
+@if (count($ecommerce) > 0)
 <ul class="ecommerce-list">
-	@foreach ($release->ecommerce as $ecommerce)
+	@foreach ($ecommerce->values() as $ecommerce)
 	<li>
 		<div>
 			<ul class="list-inline">

@@ -19,6 +19,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $table = 'ep4_users';
 	protected $primaryKey = 'user_id';
+	protected $fillable = array(
+		'user_name',
+		'user_email',
+	);
 
 	/**
 	 * The attributes excluded from the model's JSON form.

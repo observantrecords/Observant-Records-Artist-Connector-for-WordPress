@@ -16,6 +16,31 @@
         </div>
     </div>
 
+    <h4>Password</h4>
+
+    @if (!empty($user->user_password))
+    <div class="form-group">
+        {!! Form::label( 'old_password', 'Current:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+        <div class="col-sm-10">
+            {!! Form::password( 'old_password', null, array( 'class' => 'form-control' ) ) !!}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {!! Form::label( 'new_password', 'New:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+        <div class="col-sm-10">
+            {!! Form::password( 'new_password', null, array( 'class' => 'form-control' ) ) !!}
+        </div>
+    </div>
+    @else
+    <div class="form-group">
+        {!! Form::label( 'user_password', 'New:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+        <div class="col-sm-10">
+            {!! Form::password( 'user_password', null, array( 'class' => 'form-control' ) ) !!}
+        </div>
+    </div>
+    @endif
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <ul class="list-inline">
