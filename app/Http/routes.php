@@ -69,14 +69,15 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Authentication
-Route::get( '/auth/login', array( 'as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin') );
-Route::post( '/auth/login', array( 'as' => 'auth.signin', 'uses' => 'Auth\AuthController@postLogin' ) );
-Route::get( '/auth/logout', array( 'as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout' ) );
+Route::get( '/auth/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@getLogin') );
+Route::post( '/auth/login', array( 'as' => 'auth.signin', 'uses' => 'AuthController@postLogin' ) );
+Route::get( '/auth/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthController@getLogout' ) );
 
+/*
 // Registration routes...
 Route::get('/auth/register', array( 'as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister') );
 Route::post('/auth/register', array( 'as' => 'auth.signup', 'uses' => 'Auth\AuthController@postRegister') );
-
+*/
 // Password reset link request routes...
 Route::get('/password/email', array( 'as' => 'password.email', 'uses' => 'Auth\PasswordController@getEmail') );
 Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'Auth\PasswordController@postEmail') );

@@ -9,9 +9,9 @@
 {!! Form::open( array( 'route' => 'auth.signin', 'class' => 'form-horizontal', 'role' => 'form' ) ) !!}
 
 <div class="form-group">
-	{!! Form::label('name', 'User name:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
+	{!! Form::label('user_name', 'Name:', array( 'class' => 'col-sm-2 control-label' ) ) !!}
     <div class="col-sm-10">
-        {!! Form::text('name', null, array( 'class' => 'form-control' ) ) !!}
+        {!! Form::text('user_name', null, array( 'class' => 'form-control' ) ) !!}
     </div>
 </div>
 

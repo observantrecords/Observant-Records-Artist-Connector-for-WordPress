@@ -30,6 +30,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
+            {!! Form::hidden('token', $token) !!}
             {!! Form::submit('Reset password', array( 'class' => 'btn btn-primary' ) ) !!}
         </div>
     </div>

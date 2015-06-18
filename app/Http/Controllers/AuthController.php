@@ -8,51 +8,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\View;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 
-class AuthController extends Controller {
+class AuthController extends Controller
+{
+	use AuthenticatesAndRegistersUsers;
 
-	private $layout_variables = array();
+	protected $redirectTo = '/';
 
-	public function __construct() {
-
-		$this->layout_variables = array(
-			'config_url_base' => config('global.url_base'),
-		);
-	}
-
-	public function login() {
+	public function getLogin() {
 
 		if (Auth::check() === true) {
-			return Redirect::intended('/');
+			return redirect()->intended($this->redirectPath());
 		}
 
-		$method_variables = array();
-
-		$data = array_merge($method_variables, $this->layout_variables);
-
-		return View::make('auth.login', $data);
+		return view('auth.login');
 	}
 
-	public function sign_in() {
-		$user_name = Input::get('user_name');
-		$user_password = Input::get('user_password');
+	public function postLogin(Request $request) {
+		$this->validate($request, [
+			'user_name' => 'required', 'password' => 'required',
+		]);
 
-		if (Auth::attempt( array( 'user_name' => $user_name, 'password' => $user_password ) )) {
-			return Redirect::intended('/');
-		} else {
-			return Redirect::to('/login')->with('error', "Sorry, we couldn't verify your credentials. Please try again.");
+		$credentials = $this->getCredentials($request);
+
+		if (Auth::attempt($credentials, $request->has('remember'))) {
+			return redirect()->intended($this->redirectPath());
 		}
+
+		return redirect($this->loginPath())
+			->withInput($request->only('user_name', 'remember'))
+			->withErrors([
+				'user_name' => $this->getFailedLoginMessage(),
+			]);
 	}
 
-	public function sign_out() {
-		Auth::logout();
+	/**
+	 * Get the needed authorization credentials from the request.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return array
+	 */
+	protected function getCredentials(Request $request)
+	{
+		return $request->only('user_name', 'password');
+	}
 
-		return Redirect::to('/login');
+	protected function getFailedLoginMessage()
+	{
+		return "Sorry, we couldn't verify your credentials. Please try again.";
 	}
 
 } 
