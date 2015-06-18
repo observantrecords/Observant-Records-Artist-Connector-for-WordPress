@@ -79,9 +79,9 @@ Route::get('/auth/register', array( 'as' => 'auth.register', 'uses' => 'Auth\Aut
 Route::post('/auth/register', array( 'as' => 'auth.signup', 'uses' => 'Auth\AuthController@postRegister') );
 */
 // Password reset link request routes...
-Route::get('/password/email', array( 'as' => 'password.email', 'uses' => 'Auth\PasswordController@getEmail') );
-Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'Auth\PasswordController@postEmail') );
+Route::get('/password/email', array( 'as' => 'password.email', 'uses' => 'PasswordController@getEmail') );
+Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'PasswordController@postEmail') );
 
 // Password reset routes...
-Route::get('/password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'Auth\PasswordController@getReset') );
-Route::post('/password/reset', array( 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@postReset') );
+Route::get('/password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'PasswordController@getReset') );
+Route::post('/password/reset', array( 'as' => 'password.reset', 'uses' => 'PasswordController@postReset') );
