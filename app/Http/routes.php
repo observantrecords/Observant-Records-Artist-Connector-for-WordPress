@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('recording', 'RecordingController');
 
 // Profile
-	Route::model('user', 'App\Models\User');
+	Route::model('user', 'App\User');
 	Route::resource('user', 'UserController');
 	Route::get( '/user/{user}/delete', array( 'as' => 'user.delete', 'uses' => 'UserController@delete' ) );
 });

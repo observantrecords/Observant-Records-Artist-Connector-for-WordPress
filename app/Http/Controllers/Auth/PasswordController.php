@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 
 class PasswordController extends Controller
 {
@@ -22,7 +20,9 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
-    /**
+	protected $redirectTo = '/home';
+
+	/**
      * Create a new password controller instance.
      *
      * @return void
@@ -31,5 +31,4 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
-
 }
