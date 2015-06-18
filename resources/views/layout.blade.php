@@ -17,7 +17,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" />
 	<link rel="stylesheet" href="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/web/css/chosen.min.css" type="text/css" />
 	<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/web/js/jquery.swfobject.js"></script>
 	<script type="text/javascript" src="{{ OBSERVANTRECORDS_CDN_BASE_URI }}/web/js/jquery.swfobject.ext.js"></script>

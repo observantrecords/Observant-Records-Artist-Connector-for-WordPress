@@ -12,7 +12,8 @@
 */
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('/', array( 'as' => 'home', 'uses' => 'ArtistController@index' ) );
+	Route::get('/', array( 'as' => 'index', 'uses' => 'ArtistController@index' ) );
+	Route::get('/home', array( 'as' => 'home', 'uses' => 'ArtistController@index' ) );
 
 // Artist
 	Route::model('artist', 'App\Models\Artist');
@@ -68,14 +69,18 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Authentication
-Route::get( '/login', array( 'as' => 'auth.login', 'uses' => 'AuthController@login') );
-Route::post( '/login', array( 'as' => 'auth.signin', 'uses' => 'AuthController@sign_in' ) );
-Route::get( '/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthController@sign_out' ) );
+Route::get( '/auth/login', array( 'as' => 'auth.login', 'uses' => 'Auth\AuthController@getLogin') );
+Route::post( '/auth/login', array( 'as' => 'auth.signin', 'uses' => 'Auth\AuthController@postLogin' ) );
+Route::get( '/auth/logout', array( 'as' => 'auth.logout', 'uses' => 'Auth\AuthController@getLogout' ) );
+
+// Registration routes...
+Route::get('/auth/register', array( 'as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister') );
+Route::post('/auth/register', array( 'as' => 'auth.signup', 'uses' => 'Auth\AuthController@postRegister') );
 
 // Password reset link request routes...
-Route::get('password/email', array( 'as' => 'password.email', 'uses' => 'Auth\PasswordController@getEmail') );
-Route::post('password/email', array( 'as' => 'password.send', 'uses' => 'Auth\PasswordController@postEmail') );
+Route::get('/password/email', array( 'as' => 'password.email', 'uses' => 'Auth\PasswordController@getEmail') );
+Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'Auth\PasswordController@postEmail') );
 
 // Password reset routes...
-Route::get('password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'Auth\PasswordController@getReset') );
-Route::post('password/reset', array( 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@postReset') );
+Route::get('/password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'Auth\PasswordController@getReset') );
+Route::post('/password/reset', array( 'as' => 'password.reset', 'uses' => 'Auth\PasswordController@postReset') );

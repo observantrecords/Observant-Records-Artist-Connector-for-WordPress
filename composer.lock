@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "82a2e9171f202fe82612515b329cd84a",
+    "hash": "03a6ce451f7e37e2be6282e41d0fb810",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -899,35 +899,30 @@
         },
         {
             "name": "laravelcollective/html",
-            "version": "v5.0.5",
+            "version": "v5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LaravelCollective/html.git",
-                "reference": "f1eddc7a7834854a3cb147a7601547394d345213"
+                "reference": "0918dac79ff8d294a92048f2d8b3c0c3078139b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/f1eddc7a7834854a3cb147a7601547394d345213",
-                "reference": "f1eddc7a7834854a3cb147a7601547394d345213",
+                "url": "https://api.github.com/repos/LaravelCollective/html/zipball/0918dac79ff8d294a92048f2d8b3c0c3078139b0",
+                "reference": "0918dac79ff8d294a92048f2d8b3c0c3078139b0",
                 "shasum": ""
             },
             "require": {
-                "illuminate/http": "~5.1",
-                "illuminate/routing": "~5.1",
-                "illuminate/session": "~5.1",
-                "illuminate/support": "~5.1",
-                "php": ">=5.4.0"
+                "illuminate/http": "5.1.*",
+                "illuminate/routing": "5.1.*",
+                "illuminate/session": "5.1.*",
+                "illuminate/support": "5.1.*",
+                "php": ">=5.5.9"
             },
             "require-dev": {
                 "mockery/mockery": "~0.9",
                 "phpunit/phpunit": "~4.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.1-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Collective\\Html\\": "src/"
@@ -950,7 +945,7 @@
                     "email": "adam@laravelcollective.com"
                 }
             ],
-            "time": "2015-05-21 16:45:14"
+            "time": "2015-06-18 02:16:50"
         },
         {
             "name": "league/flysystem",
