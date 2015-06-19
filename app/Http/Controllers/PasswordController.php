@@ -90,31 +90,4 @@ class PasswordController extends Controller
 					->withErrors(['email' => trans($response)]);
 		}
 	}
-
-	/**
-	 * Determine if the passwords match for the request.
-	 *
-	 * @param  array  $credentials
-	 * @return bool
-	 */
-	public function validateNewPassword(array $credentials)
-	{
-		list($password, $confirm) = [
-			$credentials['user_password'],
-			$credentials['user_password_confirmation'],
-		];
-
-		echo '<pre>';
-		print_r( $credentials );
-		echo '</pre>';
-		die();
-
-		if (isset($this->passwordValidator)) {
-			return call_user_func(
-				$this->passwordValidator, $credentials) && $password === $confirm;
-		}
-
-		return $this->validatePasswordWithDefaults($credentials);
-	}
-
 }

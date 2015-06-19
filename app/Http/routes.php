@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('recording', 'RecordingController');
 
 // Profile
-	Route::model('user', 'App\User');
+	Route::model('user', 'App\Models\User');
 	Route::resource('user', 'UserController');
 	Route::get( '/user/{user}/delete', array( 'as' => 'user.delete', 'uses' => 'UserController@delete' ) );
 });
@@ -77,7 +77,7 @@ Route::get( '/auth/logout', array( 'as' => 'auth.logout', 'uses' => 'AuthControl
 // Registration routes...
 Route::get('/auth/register', array( 'as' => 'auth.register', 'uses' => 'Auth\AuthController@getRegister') );
 Route::post('/auth/register', array( 'as' => 'auth.signup', 'uses' => 'Auth\AuthController@postRegister') );
-*/
+
 // Password reset link request routes...
 Route::get('/password/email', array( 'as' => 'password.email', 'uses' => 'PasswordController@getEmail') );
 Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'PasswordController@postEmail') );
@@ -85,3 +85,4 @@ Route::post('/password/email', array( 'as' => 'password.send', 'uses' => 'Passwo
 // Password reset routes...
 Route::get('/password/reset/{token}', array( 'as' => 'password.token', 'uses' => 'PasswordController@getReset') );
 Route::post('/password/reset', array( 'as' => 'password.reset', 'uses' => 'PasswordController@postReset') );
+*/
