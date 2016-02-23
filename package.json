@@ -1,0 +1,8 @@
+{
+  "name": "observant-records-wp",
+  "version": "3.0.0",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-sass": "~0.9"
+  }
+}

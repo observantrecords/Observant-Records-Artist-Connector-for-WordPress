@@ -3,13 +3,17 @@
  * Plugin Name: Observant Records Artist Connector
  * Plugin URI: https://bitbucket.org/observantrecords/observant-records-artist-connector-for-wordpress
  * Description: This custom plugin connects to the Observant Records Artist database.
- * Version: 1.0.2
+ * Version: 2.0
  * Author: Greg Bueno
  * Author URI: http://vigilantmedia.com
  * License: MIT
  */
 
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector;
+
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 if (!function_exists( __NAMESPACE__ . '\\autoload' )) {
 	function autoload( $class_name )
@@ -33,5 +37,6 @@ register_activation_hook(__FILE__, array('ObservantRecords\WordPress\Plugins\Art
 register_deactivation_hook(__FILE__, array('ObservantRecords\WordPress\Plugins\ArtistConnector\Setup', 'deactivate'));
 
 Setup::init();
+Driver::init();
 Settings::init();
 PostMetaData::init();

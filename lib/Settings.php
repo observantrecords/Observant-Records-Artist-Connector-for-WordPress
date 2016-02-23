@@ -22,8 +22,7 @@ class Settings {
 	}
 
 	public function init_css() {
-		wp_enqueue_style( 'observant-records-artist-connector-layout-css', plugin_dir_url( plugin_dir_path( __FILE__ ) ) . 'css/layout.css' );
-		wp_enqueue_style( 'observant-records-artist-connector-typography-css', plugin_dir_url( plugin_dir_path( __FILE__ ) ) . 'css/typography.css' );
+		wp_enqueue_style( 'observant-records-artist-connector-css', plugin_dir_url( plugin_dir_path( __FILE__ ) ) . 'css/style.css' );
 	}
 
 	public static function adminInit() {
