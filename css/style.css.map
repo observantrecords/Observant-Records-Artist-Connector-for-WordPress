@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,gBAAM,CACJ,KAAK,CAAE,IAAI,CACX,KAAK,CAAE,KAAK,CACZ,YAAY,CAAE,IAAI,CCHpB,gBAAM,CACJ,WAAW,CAAE,IAAI",
+"sources": ["../assets/sass/layout.scss","../assets/sass/typography.scss"],
+"names": [],
+"file": "style.css"
+}

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AACE,gBAAM;EACJ,KAAK,EAAE,IAAI;EACX,KAAK,EAAE,KAAK;EACZ,YAAY,EAAE,IAAI;;ACHpB,gBAAM;EACJ,WAAW,EAAE,IAAI",
+"sources": ["../assets/sass/layout.scss","../assets/sass/typography.scss"],
+"names": [],
+"file": "style.dev.css"
+}
