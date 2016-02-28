@@ -6,10 +6,10 @@
  * Time: 5:26 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class Album extends Model {
@@ -34,19 +34,19 @@ class Album extends Model {
 	);
 
 	public function artist() {
-		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Artist', 'album_artist_id', 'artist_id');
+		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Artists\Artist', 'album_artist_id', 'artist_id');
 	}
 
 	public function releases() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Release', 'release_album_id', 'album_id');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Release', 'release_album_id', 'album_id');
 	}
 
 	public function primary_release() {
-		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Release', 'release_id', 'album_primary_release_id');
+		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Release', 'release_id', 'album_primary_release_id');
 	}
 
 	public function format() {
-		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\AlbumFormat', 'format_id', 'album_format_id');
+		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\AlbumFormat', 'format_id', 'album_format_id');
 	}
 
 	public function scopeEponymous4($query) {

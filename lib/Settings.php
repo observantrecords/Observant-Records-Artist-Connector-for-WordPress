@@ -9,6 +9,8 @@
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector;
 
 
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Views\BaseView;
+
 class Settings {
 
 	public function __construct() {
@@ -21,7 +23,7 @@ class Settings {
 		add_action( 'admin_menu', array( __CLASS__, 'adminMenu' ) );
 	}
 
-	public function init_css() {
+	public static function init_css() {
 		wp_enqueue_style( 'observant-records-artist-connector-css', plugin_dir_url( plugin_dir_path( __FILE__ ) ) . 'css/style.css' );
 	}
 
@@ -46,27 +48,27 @@ class Settings {
 		add_options_page('Observant Records Artist Connector Settings', 'Artist Connector', 'manage_options', WP_PLUGIN_DOMAIN, array( __CLASS__, 'renderConnectorSettingsPage'));
 	}
 
-	public function renderDatabaseDescription() {
+	public static function renderDatabaseDescription() {
 		echo "Connection settings for the Observant Records artist database.";
 	}
 
-	public function renderInputTextField( $args ) {
+	public static function renderInputTextField( $args ) {
 		$field = $args['field'];
 		$value = get_option( $field );
 		echo sprintf('<input type="text" name="%s" id="%s" value="%s" />', $field, $field, $value);
 	}
 
-	public function renderInputPasswordField( $args ) {
+	public static function renderInputPasswordField( $args ) {
 		$field = $args['field'];
 		$value = get_option( $field );
 		echo sprintf('<input type="password" name="%s" id="%s" value="%s" />', $field, $field, $value);
 	}
 
-	public function renderConnectorSettingsPage() {
+	public static function renderConnectorSettingsPage() {
 		if (!current_user_can('manage_options')) {
 			wp_die('You do not have sufficient permissions to access this page.');
 		}
 
-		include( plugin_dir_path( __FILE__ ) . '../templates/settings.php' );
+		BaseView::render( 'settings/index.php' );
 	}
 }

@@ -6,12 +6,12 @@
  * Time: 5:31 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums;
 
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class Release extends Model {
@@ -39,19 +39,19 @@ class Release extends Model {
 	private $_catalog_stem;
 
 	public function album() {
-		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Album', 'release_album_id', 'album_id');
+		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Album', 'release_album_id', 'album_id');
 	}
 
 	public function tracks() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Track', 'track_release_id', 'release_id')->orderBy('track_disc_num')->orderBy('track_track_num');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Track', 'track_release_id', 'release_id')->orderBy('track_disc_num')->orderBy('track_track_num');
 	}
 
 	public function format() {
-		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\ReleaseFormat', 'format_id', 'release_format_id');
+		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\ReleaseFormat', 'format_id', 'release_format_id');
 	}
 
 	public function ecommerce() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Ecommerce', 'ecommerce_release_id', 'release_id');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Ecommerce\Ecommerce', 'ecommerce_release_id', 'release_id');
 	}
 
 	public function generate_catalog_num() {
