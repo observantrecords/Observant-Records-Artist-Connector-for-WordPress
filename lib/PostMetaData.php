@@ -9,6 +9,8 @@
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector;
 
 
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Views\BaseView;
+
 class PostMetaData {
 
 	public function __construct() {
@@ -28,17 +30,23 @@ class PostMetaData {
 	}
 
 	public static function renderAlbumMetaBox( $post ) {
-		$ob_album_alias = get_post_meta( $post->ID, '_ob_album_alias', true );
-		$ob_release_alias = get_post_meta( $post->ID, '_ob_release_alias', true );
 
-		include( plugin_dir_path( __FILE__ ) . '../templates/album_meta_box.php' );
+		$data = [
+			'ob_album_alias' => get_post_meta( $post->ID, '_ob_album_alias', true ),
+			'ob_release_alias' => get_post_meta( $post->ID, '_ob_release_alias', true ),
+		];
+
+		BaseView::render( 'metadata/album.php', $data );
 	}
 
 	public static function renderTrackMetaBox( $post ) {
-		$ob_release_alias = get_post_meta( $post->ID, '_ob_release_alias', true );
-		$ob_track_alias = get_post_meta( $post->ID, '_ob_track_alias', true );
 
-		include( plugin_dir_path( __FILE__ ) . '../templates/track_meta_box.php' );
+		$data = [
+			'ob_release_alias' => get_post_meta( $post->ID, '_ob_release_alias', true ),
+			'ob_track_alias' => get_post_meta( $post->ID, '_ob_track_alias', true ),
+		];
+
+		BaseView::render( 'metadata/track.php' , $data );
 	}
 
 	public static function renderTrackLyricsBox( $post ) {
