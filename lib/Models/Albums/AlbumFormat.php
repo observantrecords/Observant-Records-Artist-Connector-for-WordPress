@@ -6,10 +6,10 @@
  * Time: 5:29 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class AlbumFormat extends Model {
@@ -19,7 +19,7 @@ class AlbumFormat extends Model {
 	protected $softDelete = true;
 
 	public function albums() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Album', 'album_format_id', 'format_id');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Album', 'album_format_id', 'format_id');
 	}
 
 }

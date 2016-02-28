@@ -6,10 +6,10 @@
  * Time: 2:59 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Ecommerce;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 
@@ -31,10 +31,10 @@ class Ecommerce extends Model {
 	);
 
 	public function track() {
-		return $this->belongsTo( 'ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Track', 'ecommerce_track_id', 'track_id' );
+		return $this->belongsTo( 'ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Track', 'ecommerce_track_id', 'track_id' );
 	}
 
 	public function release() {
-		return $this->belongsTo( 'ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Release', 'ecommerce_release_id', 'release_id' );
+		return $this->belongsTo( 'ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Release', 'ecommerce_release_id', 'release_id' );
 	}
 }
