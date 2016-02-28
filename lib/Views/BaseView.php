@@ -9,14 +9,35 @@
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Views;
 
 
+/**
+ * Class BaseView
+ * @package ObservantRecords\WordPress\Plugins\ArtistConnector\Views
+ * @author Greg Bueno
+ * @copyright Observant Records
+ */
 class BaseView
 {
 
+	/**
+	 * BaseView constructor.
+	 */
 	public function __construct()
 	{
 	}
 
-	public static function render( $template_path, $data = null, $template_dir = null ) {
+	/**
+	 * render
+	 *
+	 * render() displays a view template with an associate array of data. Keys of the $data
+	 * array become variable names in the template. Specify an alternate template directory
+	 * with $template_dir. The default is the Views directory itself. $template_path should
+	 * include subdirectories if templates are organzied in such a manner.
+	 *
+	 * @param $template_path
+	 * @param null $data
+	 * @param null $template_dir
+	 */
+	public static function render($template_path, $data = null, $template_dir = null ) {
 
 		if ( !empty( $data ) ) {
 			extract( $data );

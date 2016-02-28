@@ -13,8 +13,21 @@ use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Events\Dispatcher;
 
+/**
+ * Class Driver
+ * @package ObservantRecords\WordPress\Plugins\ArtistConnector\Models
+ * @author Greg Bueno
+ * @copyright Observant Records
+ */
 class Driver
 {
+	/**
+	 * init
+	 *
+	 * init() creates a database connection with the Eloquent library using credentials
+	 * configured in the plugin settings. Otherwise, the WordPress database is used.
+	 * This driver must be called before each model extending the Eloquent model.
+	 */
 	public static function init() {
 		// Establish a connection to configured database.
 		// Use the WP database if none is configured.
