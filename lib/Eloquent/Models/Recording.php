@@ -9,7 +9,9 @@
 namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
 
+Driver::init();
 class Recording extends Model {
 
 	protected $table = 'ep4_recordings';

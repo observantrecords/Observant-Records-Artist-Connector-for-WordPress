@@ -19,24 +19,9 @@ class Driver
 		// Establish a connection to configured database.
 		// Use the WP database if none is configured.
 		$ob_db_host = get_option('observantrecords_db_host', DB_HOST);
-		if (empty($ob_db_host)) {
-			$ob_db_host = DB_HOST;
-		}
-
 		$ob_db_name = get_option('observantrecords_db_name', DB_NAME);
-		if (empty($ob_db_name)) {
-			$ob_db_name = DB_NAME;
-		}
-
 		$ob_db_user = get_option('observantrecords_db_user', DB_USER);
-		if (empty($ob_db_user)) {
-			$ob_db_user = DB_USER;
-		}
-
 		$ob_db_password = get_option('observantrecords_db_password', DB_PASSWORD);
-		if (empty($ob_db_password)) {
-			$ob_db_password = DB_PASSWORD;
-		}
 
 		$capsule = new Capsule();
 
@@ -52,8 +37,6 @@ class Driver
 		]);
 
 		$capsule->setEventDispatcher( new Dispatcher( new Container() ) );
-
-		$capsule->setAsGlobal();
 
 		$capsule->bootEloquent();
 	}
