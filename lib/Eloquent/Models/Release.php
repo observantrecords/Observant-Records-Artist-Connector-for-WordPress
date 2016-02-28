@@ -11,7 +11,9 @@ namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Database\Eloquent\Model;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
 
+Driver::init();
 class Release extends Model {
 
 	protected $table = 'ep4_albums_releases';
