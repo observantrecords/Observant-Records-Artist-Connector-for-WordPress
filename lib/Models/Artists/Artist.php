@@ -6,10 +6,10 @@
  * Time: 4:00 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Artists;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class Artist extends Model {
@@ -35,15 +35,15 @@ class Artist extends Model {
 	}
 
 	public function albums() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Album', 'album_artist_id', 'artist_id')->orderBy('album_order');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums\Album', 'album_artist_id', 'artist_id')->orderBy('album_order');
 	}
 
 	public function songs() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Song', 'song_primary_artist_id', 'artist_id')->orderBy('song_title');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Songs\Song', 'song_primary_artist_id', 'artist_id')->orderBy('song_title');
 	}
 
 	public function recordings() {
-		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Recording', 'recording_artist_id', 'artist_id');
+		return $this->hasMany('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Recordings\Recording', 'recording_artist_id', 'artist_id');
 	}
 
 	public function scopeEponymous4($query) {

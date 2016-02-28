@@ -6,10 +6,10 @@
  * Time: 8:55 AM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Recordings;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class RecordingISRC extends Model {
@@ -31,6 +31,7 @@ class RecordingISRC extends Model {
 	private $_isrc_stem;
 
 	public function __construct() {
+		parent::__construct();
 		$this->_isrc_registrant_code = ISRC_REGISTRANT_CODE;
 		$this->_isrc_country_code = ISRC_COUNTRY_CODE;
 
@@ -38,7 +39,7 @@ class RecordingISRC extends Model {
 	}
 
 	public function isrc() {
-		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Recording', 'isrc_recording_id', 'recording_id');
+		return $this->hasOne('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Recordings\Recording', 'isrc_recording_id', 'recording_id');
 	}
 
 	public function generate_code() {

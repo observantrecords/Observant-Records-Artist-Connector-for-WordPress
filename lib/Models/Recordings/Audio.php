@@ -6,10 +6,10 @@
  * Time: 4:43 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Recordings;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class Audio extends Model {
@@ -32,7 +32,7 @@ class Audio extends Model {
 	);
 
 	public function recording() {
-		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models\Recording', 'audio_recording_id', 'recording_id');
+		return $this->belongsTo('ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Recordings\Recording', 'audio_recording_id', 'recording_id');
 	}
 
 }

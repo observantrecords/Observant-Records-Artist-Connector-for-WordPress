@@ -6,10 +6,10 @@
  * Time: 5:35 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Models;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Albums;
 
 use Illuminate\Database\Eloquent\Model;
-use ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent\Driver;
+use ObservantRecords\WordPress\Plugins\ArtistConnector\Models\Driver;
 
 Driver::init();
 class ReleaseFormat extends Model {

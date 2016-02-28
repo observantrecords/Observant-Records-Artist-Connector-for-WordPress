@@ -6,7 +6,7 @@
  * Time: 9:53 PM
  */
 
-namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Eloquent;
+namespace ObservantRecords\WordPress\Plugins\ArtistConnector\Models;
 
 
 use Illuminate\Container\Container;
